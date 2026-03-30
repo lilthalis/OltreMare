@@ -60,57 +60,63 @@
     .nav-links a:hover { color: var(--gold); }
 
     /* HERO - Seu estilo original mantido */
-    .hero {
-      height: 100vh;
-      min-height: 720px;
-      display: flex;
-      align-items: center;
-      background: linear-gradient(rgba(10,26,47,0.4), rgba(10,26,47,0.5));
-      position: relative;
-    }
+   .hero {
+  height: 100vh;
+  min-height: 720px;
+  display: flex;
+  align-items: center;
+  background: linear-gradient(rgba(10,26,47,0.45), rgba(10,26,47,0.55));
+  position: relative;
+  overflow: hidden;
+}
 
-    .hero-content {
-      max-width: 580px;
-      padding: 0 8%;
-      z-index: 2;
-      color: white;
-    }
+.hero-content {
+  max-width: 620px;
+  padding: 0 8%;
+  z-index: 2;
+  color: white;
+}
 
-    .hero-title {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(4.2rem, 8vw, 7.5rem);
-      line-height: 1.05;
-      letter-spacing: -3px;
-    }
+.hero-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(4.2rem, 8.5vw, 7.8rem);
+  line-height: 1.05;
+  letter-spacing: -4px;
+  margin-bottom: 1.2rem;
+}
 
-    .hero-subtitle {
-      font-size: 1.4rem;
-      margin: 1.8rem 0 3rem;
-      font-weight: 300;
-    }
+.hero-subtitle {
+  font-size: 1.45rem;
+  font-weight: 300;
+  margin-bottom: 3rem;
+  line-height: 1.4;
+}
 
-    .cta-button {
-      padding: 20px 56px;
-      border: 1px solid var(--gold);
-      color: var(--gold);
-      text-decoration: none;
-      font-weight: 500;
-      letter-spacing: 3px;
-      transition: all 0.5s;
-    }
+.cta-button {
+  display: inline-block;
+  padding: 22px 58px;
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  text-decoration: none;
+  font-weight: 500;
+  letter-spacing: 3px;
+  font-size: 1rem;
+  transition: all 0.5s ease;
+  white-space: nowrap;           /* ← Evita quebra de linha */
+}
 
-    .cta-button:hover {
-      background: var(--gold);
-      color: var(--navy);
-    }
+.cta-button:hover {
+  background: var(--gold);
+  color: var(--navy);
+}
 
-    .hero-image {
-      position: absolute;
-      right: 8%;
-      bottom: 10%;
-      width: 48%;
-      filter: drop-shadow(30px 50px 80px rgba(0,0,0,0.35));
-    }
+.hero-image {
+  position: absolute;
+  right: 7%;
+  bottom: 8%;
+  width: 46%;
+  filter: drop-shadow(40px 60px 90px rgba(0,0,0,0.4));
+}
 
     /* COLLEZIONE GRID - Lado a lado como LV */
     .collezione {
@@ -186,15 +192,22 @@
     </div>
   </header>
 
-  <!-- HERO - Mantido fiel ao seu original -->
-  <section class="hero">
-    <div class="hero-content">
-      <h1 class="hero-title">L’Ancora</h1>
-      <p class="hero-subtitle">Pelle italiana. Ancore che catturano lo sguardo.<br>Fatte a mano per chi porta la storia sulla spalla.</p>
-      <a href="#collezione" class="cta-button">Esplora la Collezione</a>
-    </div>
-    <img src="OltreMareimg/Duffel.jpg" alt="La Forte Duffel" class="hero-image">
-  </section>
+<!-- HERO CORRIGIDO - Texto limpo + Botão perfeito -->
+<section class="hero" id="hero">
+  <div class="hero-content">
+    <h1 class="hero-title">L’Ancora</h1>
+    <p class="hero-subtitle">
+      Pelle italiana. Ancore che catturano lo sguardo.<br>
+      Fatte a mano per chi porta la storia sulla spalla.
+    </p>
+    
+    <!-- Botão corrigido - sem sobreposição -->
+    <a href="#collezione" class="cta-button">Esplora la Collezione</a>
+  </div>
+  
+  <!-- Imagem da bolsa (sua nova duffel ou a que preferir) -->
+  <img src="OltreMareimg/Duffel Forte.jpg" alt="La Forte Duffel" class="hero-image">
+</section>
 
   <!-- STORIA - Mantido simples -->
   <section id="storia" style="padding:140px 6%; max-width:1400px; margin:0 auto;">
