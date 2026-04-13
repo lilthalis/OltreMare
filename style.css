@@ -1,34 +1,116 @@
+html {
+  scroll-behavior: smooth;
+}
 
-    @import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:wght@400;500;600&family=Inter:wght@300;400;500&display=swap');
-    
-    body {
-      font-family: 'Inter', sans-serif;
-    }
-    .title-font {
-      font-family: 'Bodoni Moda', serif;
-    }
+body {
+  font-family: "Inter", sans-serif;
+  line-height: 1.5;
+}
 
-    /* Imagens gigantes estilo Versace */
-    .big-image {
-      height: 85vh;
-      background-size: cover;
-      background-position: center;
-      position: relative;
-      display: flex;
-      align-items: center;
-    }
+img {
+  display: block;
+}
 
-    .big-image::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to bottom, rgba(10,26,47,0.3), rgba(10,26,47,0.6));
-    }
+.title-font {
+  font-family: "Bodoni Moda", serif;
+}
 
-    .big-content {
-      position: relative;
-      z-index: 2;
-      max-width: 620px;
-      padding: 0 8%;
-      color: white;
-    }
+.section-kicker {
+  display: inline-block;
+  margin-bottom: 1rem;
+  color: #c9a96e;
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+}
+
+.section-kicker-dark {
+  color: rgba(201, 169, 110, 0.95);
+}
+
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: 1rem;
+  z-index: 60;
+  transform: translateY(-200%);
+  padding: 0.75rem 1rem;
+  border-radius: 9999px;
+  background: #0a1a2f;
+  color: #ffffff;
+  transition: transform 0.2s ease;
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+.big-image {
+  min-height: 100svh;
+  padding-top: 7rem;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.big-image::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(10, 26, 47, 0.3), rgba(10, 26, 47, 0.72));
+}
+
+.big-content {
+  position: relative;
+  z-index: 1;
+  max-width: 42rem;
+  padding: 0 8%;
+  color: #ffffff;
+}
+
+.card-surface {
+  padding: 1.5rem;
+  border-radius: 2rem;
+  background: linear-gradient(180deg, rgba(248, 244, 240, 0.9), rgba(255, 255, 255, 0.98));
+  border: 1px solid rgba(10, 26, 47, 0.08);
+  box-shadow: 0 25px 70px rgba(10, 26, 47, 0.08);
+}
+
+section[id] {
+  scroll-margin-top: 6.5rem;
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 3px solid rgba(201, 169, 110, 0.95);
+  outline-offset: 4px;
+}
+
+@media (max-width: 767px) {
+  .big-image {
+    min-height: 92svh;
+    padding-top: 6rem;
+  }
+
+  .big-content {
+    padding: 0 1.5rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
