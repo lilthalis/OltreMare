@@ -541,10 +541,10 @@
       <div>
         <h4 class="text-[#0A1A2F] font-medium tracking-widest text-sm mb-6">AIUTO</h4>
         <ul class="space-y-3 text-sm text-gray-700">
-          <li><a href="#" class="hover:text-[#C9A96E] transition-colors">Consulenti Clienti</a></li>
-          <li><a href="#" class="hover:text-[#C9A96E] transition-colors">Domande Frequenti</a></li>
-          <li><a href="#" class="hover:text-[#C9A96E] transition-colors">Cura del Prodotto</a></li>
-          <li><a href="#" class="hover:text-[#C9A96E] transition-colors">Negozi e Contatti</a></li>
+          <li><a href="#contatti" class="hover:text-[#C9A96E] transition-colors">Consulenti Clienti</a></li>
+          <li><a href="#journal" class="hover:text-[#C9A96E] transition-colors">Domande Frequenti</a></li>
+          <li><a href="#artigianato" class="hover:text-[#C9A96E] transition-colors">Cura del Prodotto</a></li>
+          <li><a href="#contatti" class="hover:text-[#C9A96E] transition-colors">Negozi e Contatti</a></li>
         </ul>
       </div>
 
@@ -552,25 +552,22 @@
       <div>
         <h4 class="text-[#0A1A2F] font-medium tracking-widest text-sm mb-6">SERVIZI</h4>
         <ul class="space-y-3 text-sm text-gray-700">
-          <li><a href="#" class="hover:text-[#C9A96E] transition-colors">Riparazioni e Manutenzione</a></li>
-          <li><a href="#" class="hover:text-[#C9A96E] transition-colors">Personalizzazione</a></li>
-          <li><a href="#" class="hover:text-[#C9A96E] transition-colors">L'Arte del Regalo</a></li>
-          <li><a href="#" class="hover:text-[#C9A96E] transition-colors">App Maison Marini</a></li>
-          <li><a href="#" class="hover:text-[#C9A96E] transition-colors">App OltreMare</a></li>
+          <li><a href="#collezione" class="hover:text-[#C9A96E] transition-colors">Riparazioni e Manutenzione</a></li>
+          <li><a href="#collezione" class="hover:text-[#C9A96E] transition-colors">Personalizzazione</a></li>
+          <li><a href="#contatti" class="hover:text-[#C9A96E] transition-colors">L'Arte del Regalo</a></li>
+          <li><a href="#top" class="hover:text-[#C9A96E] transition-colors">App OltreMare</a></li>
         </ul>
       </div>
 
-      <!-- Coluna 3: Sulla Maison Marini -->
       <!-- Coluna 3: Sul brand -->
       <div>
-        <h4 class="text-[#0A1A2F] font-medium tracking-widest text-sm mb-6">SULLA MAISON MARINI</h4>
         <h4 class="text-[#0A1A2F] font-medium tracking-widest text-sm mb-6">SUL BRAND</h4>
         <ul class="space-y-3 text-sm text-gray-700">
-          <li><a href="#" class="hover:text-[#C9A96E] transition-colors">La Nostra Storia</a></li>
-          <li><a href="#" class="hover:text-[#C9A96E] transition-colors">Artigianato Italiano</a></li>
-          <li><a href="#" class="hover:text-[#C9A96E] transition-colors">Heritage Fields</a></li>
-          <li><a href="#" class="hover:text-[#C9A96E] transition-colors">Flores do Renascimento</a></li>
-          <li><a href="#" class="hover:text-[#C9A96E] transition-colors">Carriere</a></li>
+          <li><a href="#top" class="hover:text-[#C9A96E] transition-colors">La Nostra Storia</a></li>
+          <li><a href="#artigianato" class="hover:text-[#C9A96E] transition-colors">Artigianato Italiano</a></li>
+          <li><a href="#atelier" class="hover:text-[#C9A96E] transition-colors">Heritage Fields</a></li>
+          <li><a href="#journal" class="hover:text-[#C9A96E] transition-colors">Flores do Renascimento</a></li>
+          <li><a href="#contatti" class="hover:text-[#C9A96E] transition-colors">Carriere</a></li>
         </ul>
       </div>
 
@@ -578,17 +575,9 @@
       <div>
         <h4 class="text-[#0A1A2F] font-medium tracking-widest text-sm mb-6">NEWSLETTER</h4>
         <p class="text-sm text-gray-600 mb-8 leading-relaxed">
-          Iscriviti per ricevere in anteprima le nuove collezioni, storie esclusive e inviti speciali della Maison Marini.
           Iscriviti per ricevere in anteprima le nuove collezioni, storie esclusive e inviti speciali di OltreMare.
         </p>
-        <div class="flex gap-3">
-          <input 
-            type="email" 
-            placeholder="Il tuo indirizzo email" 
-            class="flex-1 bg-white border border-gray-300 px-5 py-3.5 text-sm focus:outline-none focus:border-[#C9A96E] transition-colors">
-          <button 
-            class="bg-[#0A1A2F] hover:bg-[#C9A96E] text-white px-10 text-sm tracking-widest transition-colors">
-        <form class="flex gap-3" action="#" method="post" aria-label="Iscrizione newsletter">
+        <form id="newsletter-form" class="flex gap-3" action="#" method="post" aria-label="Iscrizione newsletter">
           <label for="newsletter-email" class="sr-only">Indirizzo email</label>
           <input
             id="newsletter-email"
@@ -605,21 +594,20 @@
           >
             ISCRIVITI
           </button>
-        </div>
         </form>
+        <p id="newsletter-status" class="mt-4 text-sm text-[#0A1A2F]/70" aria-live="polite"></p>
       </div>
     </div>
 
     <!-- Linha inferior -->
     <div class="mt-24 pt-10 border-t border-gray-200 flex flex-col md:flex-row justify-between items-center text-xs text-gray-500">
       <div class="flex flex-wrap gap-x-8 gap-y-2 mb-6 md:mb-0">
-        <a href="#" class="hover:text-[#0A1A2F] transition-colors">Mappa del Sito</a>
-        <a href="#" class="hover:text-[#0A1A2F] transition-colors">Condizioni Generali</a>
-        <a href="#" class="hover:text-[#0A1A2F] transition-colors">Privacy e Cookies</a>
+        <a href="#top" class="hover:text-[#0A1A2F] transition-colors">Mappa del Sito</a>
+        <a href="#contatti" class="hover:text-[#0A1A2F] transition-colors">Condizioni Generali</a>
+        <a href="#contatti" class="hover:text-[#0A1A2F] transition-colors">Privacy e Cookies</a>
       </div>
       
       <div class="text-center md:text-right">
-        Maison Marini © 2026<br>
         OltreMare © <span id="current-year">2026</span><br>
         <span class="text-[10px]">Paraná, Brasil • Ispirato nelle radici italiane del Nord</span>
       </div>
