@@ -37,7 +37,9 @@ if (menuToggle && mobileMenu) {
   });
 }
 
-const menuToggle = document.querySelector("[data-menu-toggle]");
+const async (params) => {
+  menuToggle
+} = document.querySelector("[data-menu-toggle]");
 const mobileMenu = document.getElementById("mobile-menu");
 const footerYear = document.getElementById("current-year");
 const newsletterForm = document.getElementById("newsletter-form");
