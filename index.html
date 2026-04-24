@@ -4,459 +4,616 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>OltreMare | Pelletteria artigianale italiana</title>
-  <meta name="description" content="OltreMare crea borse e capi artigianali ispirati al mare, realizzati in Italia con materiali selezionati.">
-  <meta name="theme-color" content="#08111E">
-  <link rel="canonical" href="https://oltremare.it/">
+  <meta
+    name="description"
+    content="OltreMare crea borse e capi artigianali ispirati al mare, realizzati in Italia con materiali selezionati e linee essenziali."
+  >
+  <meta name="theme-color" content="#0A1A2F">
   <meta property="og:type" content="website">
+  <meta property="og:locale" content="it_IT">
   <meta property="og:title" content="OltreMare | Pelletteria artigianale italiana">
-  <meta property="og:description" content="Collezioni ispirate al mare, lavorazioni sartoriali e pezzi pensati per durare.">
+  <meta
+    property="og:description"
+    content="Collezioni ispirate al mare, lavorazioni sartoriali e una selezione di pezzi pensati per durare."
+  >
+  <meta property="og:image" content="OltreMareimg/Duffel.jpg">
+  <link rel="icon" href="OltreMareimg/Ancorare.jpg" type="image/jpeg">
   <link rel="preload" as="image" href="OltreMareimg/Duffel.jpg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@0,400;0,500;0,700;1,400;1,600&family=Inter:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap"
+    rel="stylesheet"
+  >
   <link rel="stylesheet" href="style.css">
+  <noscript>
+    <style>
+      #mobile-menu {
+        display: block !important;
+      }
+
+      [data-menu-toggle] {
+        display: none !important;
+      }
+    </style>
+  </noscript>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
+<body class="bg-[#F8F4F0] text-[#0A1A2F] antialiased">
+  <a href="#contenuto" class="skip-link">Salta al contenuto</a>
 
-  <!-- LOADER -->
-  <div id="loader" role="status" aria-label="Caricamento">
-    <div class="loader-content">
-      <p class="loader-eye">Pelletteria Artigianale</p>
-      <h1 class="loader-logo">OLTREMare</h1>
-      <div class="loader-bar-wrap"><div class="loader-bar"></div></div>
-    </div>
-  </div>
+  <header class="fixed top-0 left-0 right-0 bg-[#F8F4F0]/95 backdrop-blur-md z-50 border-b border-[#C9A96E]/20">
+    <div class="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between gap-6">
+      <a href="#top" class="title-font text-3xl tracking-widest" aria-label="Vai all'inizio pagina">OLTREMare</a>
 
-  <!-- CURSOR (desktop) -->
-  <div class="cursor" aria-hidden="true"></div>
-  <div class="cursor-dot" aria-hidden="true"></div>
-
-  <!-- SKIP -->
-  <a href="#page-home" class="skip-link">Vai al contenuto</a>
-
-  <!-- ══ HEADER ══ -->
-  <header id="header">
-    <div class="header-inner">
-
-      <a href="#home" class="header-logo" data-page="home" aria-label="OltreMare — Home">OLTREMare</a>
-
-      <nav class="header-nav" aria-label="Navigazione principale">
-        <a href="#linee"       class="nav-link" data-page="linee">Linee</a>
-        <a href="#artigianato" class="nav-link" data-page="artigianato">Artigianato</a>
-        <a href="#collezione"  class="nav-link" data-page="collezione">Collezione</a>
-        <a href="#atelier"     class="nav-link" data-page="atelier">Atelier</a>
-        <a href="#contatti"    class="nav-link nav-cta" data-page="contatti">Contatti</a>
-      </nav>
-
-      <div class="page-indicator" aria-live="polite">
-        <span id="pi-cur">01</span><span class="pi-sep">/</span><span>08</span>
-      </div>
-
-      <button class="menu-toggle" id="menu-toggle"
-        aria-expanded="false" aria-controls="mobile-menu" aria-label="Menu">
-        <span class="burger"><span></span><span></span></span>
+      <button
+        type="button"
+        class="md:hidden inline-flex items-center justify-center rounded-full border border-[#0A1A2F]/20 px-4 py-2 text-sm font-medium"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+        data-menu-toggle
+      >
+        Menu
       </button>
+
+      <nav class="hidden md:flex gap-8 text-sm font-medium" aria-label="Navigazione primaria">
+        <a href="#linee" class="hover:text-[#C9A96E] transition-colors">Linee</a>
+        <a href="#artigianato" class="hover:text-[#C9A96E] transition-colors">Artigianato</a>
+        <a href="#collezione" class="hover:text-[#C9A96E] transition-colors">Collezione</a>
+        <a href="#journal" class="hover:text-[#C9A96E] transition-colors">Journal</a>
+        <a href="#contatti" class="hover:text-[#C9A96E] transition-colors">Contatti</a>
+      </nav>
     </div>
+
+    <nav
+      id="mobile-menu"
+      class="md:hidden border-t border-[#C9A96E]/20 px-6 py-4 bg-[#F8F4F0]"
+      aria-label="Navigazione mobile"
+      hidden
+    >
+      <div class="flex flex-col gap-4 text-sm font-medium">
+        <a href="#linee">Linee</a>
+        <a href="#artigianato">Artigianato</a>
+        <a href="#collezione">Collezione</a>
+        <a href="#journal">Journal</a>
+        <a href="#contatti">Contatti</a>
+      </div>
+    </nav>
   </header>
 
-  <!-- MOBILE MENU -->
-  <div id="mobile-menu" class="mobile-menu" aria-hidden="true">
-    <nav aria-label="Menu mobile">
-      <a href="#home"        class="mob-link" data-page="home">Home</a>
-      <a href="#manifesto"   class="mob-link" data-page="manifesto">Manifesto</a>
-      <a href="#linee"       class="mob-link" data-page="linee">Linee</a>
-      <a href="#artigianato" class="mob-link" data-page="artigianato">Artigianato</a>
-      <a href="#collezione"  class="mob-link" data-page="collezione">Collezione</a>
-      <a href="#atelier"     class="mob-link" data-page="atelier">Atelier</a>
-      <a href="#journal"     class="mob-link" data-page="journal">Journal</a>
-      <a href="#contatti"    class="mob-link" data-page="contatti">Contatti</a>
-    </nav>
-    <p class="mob-foot">Nord Italia · Su appuntamento</p>
-  </div>
+  <main id="contenuto">
+    <section
+      id="top"
+      class="big-image"
+      style="background-image: url('OltreMareimg/Duffel.jpg');"
+      aria-labelledby="hero-title"
+    >
+      <div class="big-content">
+        <p class="text-sm uppercase tracking-[0.35em] text-white/80 mb-4">Pelletteria artigianale italiana</p>
+        <h1 id="hero-title" class="title-font text-6xl md:text-8xl leading-none tracking-tight mb-6">L&apos;Ancora</h1>
+        <p class="text-xl md:text-2xl font-light max-w-2xl">
+          Pelle italiana, linee essenziali e dettagli che portano il mare nella vita quotidiana.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 mt-10">
+          <a
+            href="#linee"
+            class="inline-block px-10 py-4 border border-white text-white hover:bg-white hover:text-[#0A1A2F] transition-colors text-lg"
+          >
+            Esplora le linee
+          </a>
+          <a
+            href="#contatti"
+            class="inline-block px-10 py-4 border border-white/40 text-white hover:border-white transition-colors text-lg"
+          >
+            Richiedi informazioni
+          </a>
+        </div>
+      </div>
+    </section>
 
-  <!-- PAGE DOTS -->
-  <nav class="page-dots" aria-label="Pagine">
-    <button class="p-dot active" data-page="home"        aria-label="Home"></button>
-    <button class="p-dot"        data-page="manifesto"   aria-label="Manifesto"></button>
-    <button class="p-dot"        data-page="linee"       aria-label="Linee"></button>
-    <button class="p-dot"        data-page="artigianato" aria-label="Artigianato"></button>
-    <button class="p-dot"        data-page="collezione"  aria-label="Collezione"></button>
-    <button class="p-dot"        data-page="atelier"     aria-label="Atelier"></button>
-    <button class="p-dot"        data-page="journal"     aria-label="Journal"></button>
-    <button class="p-dot"        data-page="contatti"    aria-label="Contatti"></button>
-  </nav>
-
-  <!-- ══════════════════════════════════════════
-       SPA WRAPPER — pagine commutabili
-  ══════════════════════════════════════════ -->
-  <div id="spa-wrapper">
-
-    <!-- ══ PAGINA 01: HOME ══ -->
-    <div class="spa-page active dark-page" id="page-home">
-      <section class="hero">
-        <div id="hero-bg" class="hero-bg" style="background-image:url('OltreMareimg/Duffel.jpg')" aria-hidden="true"></div>
-        <div class="hero-ov" aria-hidden="true"></div>
-        <div class="hero-cnt">
-          <p class="eyebrow reveal-up" style="--d:.15s">Pelletteria Artigianale Italiana</p>
-          <h1 class="hero-title reveal-up" style="--d:.35s">L'<em>Ancora</em></h1>
-          <p class="hero-sub reveal-up" style="--d:.55s">
-            Pelle italiana, linee essenziali e dettagli<br>che portano il mare nella vita quotidiana.
+    <section id="linee" class="py-24 bg-[#F8F4F0]">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="max-w-3xl mx-auto text-center mb-16">
+          <p class="section-kicker">Le Nostre Linee</p>
+          <h2 class="title-font text-5xl mb-6">Tre direzioni, una stessa firma</h2>
+          <p class="text-lg text-[#0A1A2F]/70">
+            Ogni linea nasce da un equilibrio tra funzionalita, materiali selezionati e un'estetica sobria.
           </p>
-          <div class="hero-actions reveal-up" style="--d:.75s">
-            <a href="#linee"    class="btn btn-wh"   data-page="linee">Esplora le linee</a>
-            <a href="#contatti" class="btn btn-wh-g"  data-page="contatti">Richiedi informazioni</a>
-          </div>
         </div>
-        <div class="hero-scroll-ind" aria-hidden="true">
-          <span>Scopri</span><div class="s-line"></div>
-        </div>
-      </section>
-      <!-- Ticker strip -->
-      <div class="ticker-wrap" aria-hidden="true">
-        <div class="ticker">
-          <span>Pelletteria Artigianale</span><span class="sep">·</span>
-          <span>Made in Italy</span><span class="sep">·</span>
-          <span>Dal Mare all'Atelier</span><span class="sep">·</span>
-          <span>Pelle Italiana</span><span class="sep">·</span>
-          <span>Linee Essenziali</span><span class="sep">·</span>
-          <span>Sartoriale</span><span class="sep">·</span>
-          <span>Pelletteria Artigianale</span><span class="sep">·</span>
-          <span>Made in Italy</span><span class="sep">·</span>
-          <span>Dal Mare all'Atelier</span><span class="sep">·</span>
-          <span>Pelle Italiana</span><span class="sep">·</span>
-          <span>Linee Essenziali</span><span class="sep">·</span>
-          <span>Sartoriale</span><span class="sep">·</span>
+
+        <div class="grid md:grid-cols-3 gap-10">
+          <a
+            href="#mare"
+            class="group block bg-white rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-shadow"
+          >
+            <img
+              src="OltreMareimg/Mare.jpg"
+              alt="Linea Mare, borsa in pelle dalla silhouette morbida"
+              class="w-full h-80 object-cover"
+              width="784"
+              height="1168"
+            >
+            <div class="p-8">
+              <h3 class="text-3xl mb-2">Linea Mare</h3>
+              <p class="text-gray-600">Weekend bag, volumi morbidi e presenza discreta.</p>
+            </div>
+          </a>
+
+          <a
+            href="#porto"
+            class="group block bg-white rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-shadow"
+          >
+            <img
+              src="OltreMareimg/PiccolaAncora.jpg"
+              alt="Linea Porto, borsa compatta in pelle chiara"
+              class="w-full h-80 object-cover"
+              width="1024"
+              height="1024"
+            >
+            <div class="p-8">
+              <h3 class="text-3xl mb-2">Linea Porto</h3>
+              <p class="text-gray-600">Formati compatti per la citta, pensati per tutti i giorni.</p>
+            </div>
+          </a>
+
+          <a
+            href="#stella"
+            class="group block bg-white rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-shadow"
+          >
+            <img
+              src="OltreMareimg/L’Ancora.jpg"
+              alt="Linea Stella, borsa strutturata con carattere essenziale"
+              class="w-full h-80 object-cover"
+              width="1024"
+              height="1024"
+            >
+            <div class="p-8">
+              <h3 class="text-3xl mb-2">Linea Stella</h3>
+              <p class="text-gray-600">Forme piu nette, dettagli calibrati e una presenza piu sartoriale.</p>
+            </div>
+          </a>
         </div>
       </div>
-    </div>
+    </section>
 
-    <!-- ══ PAGINA 02: MANIFESTO ══ -->
-    <div class="spa-page dark-page" id="page-manifesto">
-      <div class="pg">
-        <div class="split-layout">
-          <div class="split-txt">
-            <p class="eyebrow eyebrow-g reveal-up" style="--d:0s">01 — Manifesto</p>
-            <h2 class="reveal-up" style="--d:.1s">Il mare non si copia.<br><em>Si porta con sé.</em></h2>
-            <div class="g-rule reveal-scale" style="--d:.2s"></div>
-            <p class="body-text reveal-up" style="--d:.3s">
-              OltreMare nasce dall'idea che un pezzo ben costruito non ha bisogno di urlare.
-              Pellami selezionati, proporzioni studiate e finiture che si lasciano scoprire
-              lentamente — come il mare che si apre all'orizzonte.
+    <section id="artigianato" class="py-24 bg-white">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="grid lg:grid-cols-[1.1fr_0.9fr] gap-12 items-start mb-16">
+          <div>
+            <p class="section-kicker">Artigianato</p>
+            <h2 class="title-font text-5xl mb-6">Materiali scelti, lavorazioni essenziali</h2>
+            <p class="text-lg text-[#0A1A2F]/70 leading-relaxed max-w-3xl">
+              OltreMare sviluppa pezzi pensati per accompagnare gli spostamenti quotidiani e i viaggi brevi.
+              Le linee si distinguono per funzione, ma condividono la stessa attenzione per pellami, proporzioni e finiture.
             </p>
-            <a href="#linee" class="link-arr reveal-up" data-page="linee" style="--d:.4s">
-              Scopri le linee <span>→</span>
-            </a>
           </div>
-          <div class="split-img reveal-fade" style="--d:.25s">
-            <img src="OltreMareimg/Oltremarecoleçao.jpg" alt="Selezione OltreMare in atelier" loading="lazy">
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- ══ PAGINA 03: LINEE ══ -->
-    <div class="spa-page" id="page-linee">
-      <div class="pg">
-        <div class="pg-hdr reveal-up">
-          <p class="eyebrow eyebrow-g">02 — Le Nostre Linee</p>
-          <h2>Tre direzioni, una stessa firma</h2>
-          <div class="g-rule g-rule--c"></div>
-          <p class="pg-sub">Ogni linea nasce da un equilibrio tra funzionalità, materiali selezionati e un'estetica sobria.</p>
-        </div>
-        <div class="linee-grid">
-
-          <article class="l-card reveal-up" style="--d:0s">
-            <a href="#artigianato" data-page="artigianato" data-tab="mare">
-              <div class="l-img"><img src="OltreMareimg/Mare.jpg" alt="Linea Mare" loading="lazy"></div>
-              <div class="l-body">
-                <span class="l-num" aria-hidden="true">I</span>
-                <h3>Linea Mare</h3>
-                <p>Weekend bag, volumi morbidi e presenza discreta.</p>
-              </div>
-            </a>
-          </article>
-
-          <article class="l-card reveal-up" style="--d:.12s">
-            <a href="#artigianato" data-page="artigianato" data-tab="porto">
-              <div class="l-img"><img src="OltreMareimg/PiccolaAncora.jpg" alt="Linea Porto" loading="lazy"></div>
-              <div class="l-body">
-                <span class="l-num" aria-hidden="true">II</span>
-                <h3>Linea Porto</h3>
-                <p>Formati compatti per la città, pensati per tutti i giorni.</p>
-              </div>
-            </a>
-          </article>
-
-          <article class="l-card reveal-up" style="--d:.24s">
-            <a href="#artigianato" data-page="artigianato" data-tab="stella">
-              <div class="l-img"><img src="OltreMareimg/L'Ancora.jpg" alt="Linea Stella" loading="lazy"></div>
-              <div class="l-body">
-                <span class="l-num" aria-hidden="true">III</span>
-                <h3>Linea Stella</h3>
-                <p>Forme più nette, dettagli calibrati e presenza sartoriale.</p>
-              </div>
-            </a>
-          </article>
-
-        </div>
-      </div>
-    </div>
-
-    <!-- ══ PAGINA 04: ARTIGIANATO ══ -->
-    <div class="spa-page" id="page-artigianato">
-      <div class="pg">
-        <div class="pg-hdr reveal-up">
-          <p class="eyebrow eyebrow-g">03 — Artigianato</p>
-          <h2>Materiali scelti, lavorazioni essenziali</h2>
-        </div>
-
-        <!-- TABS -->
-        <div class="ctabs">
-          <div class="ctab-nav" role="tablist">
-            <button class="ctab active" role="tab" aria-selected="true"  data-tab="mare"  aria-controls="tab-mare">Linea Mare</button>
-            <button class="ctab"        role="tab" aria-selected="false" data-tab="porto" aria-controls="tab-porto">Linea Porto</button>
-            <button class="ctab"        role="tab" aria-selected="false" data-tab="stella" aria-controls="tab-stella">Linea Stella</button>
-          </div>
-
-          <div class="ctab-panels">
-
-            <div class="ctab-panel active" id="tab-mare" role="tabpanel">
-              <div class="craft-layout">
-                <div class="craft-img">
-                  <img src="OltreMareimg/Duffel.jpg" alt="Linea Mare — borsa 48H" loading="lazy">
-                </div>
-                <div class="craft-txt">
-                  <p class="eyebrow eyebrow-g">Linea Mare</p>
-                  <h3>Pensata per il viaggio breve</h3>
-                  <div class="g-rule"></div>
-                  <p class="body-text">Forme morbide, capienza generosa e una presenza silenziosa. Pensata per spostamenti di due o tre giorni, con interni ordinati e un'impronta visiva sobria.</p>
-                  <a href="#collezione" class="link-arr" data-page="collezione">Vedi nella collezione <span>→</span></a>
-                </div>
-              </div>
-            </div>
-
-            <div class="ctab-panel" id="tab-porto" role="tabpanel">
-              <div class="craft-layout">
-                <div class="craft-img">
-                  <img src="OltreMareimg/Ancorare.jpg" alt="Linea Porto — ancora" loading="lazy">
-                </div>
-                <div class="craft-txt">
-                  <p class="eyebrow eyebrow-g">Linea Porto</p>
-                  <h3>La collezione più quotidiana</h3>
-                  <div class="g-rule"></div>
-                  <p class="body-text">Dimensioni compatte, peso contenuto e costruzione precisa. Porto interpreta la borsa da città con una palette chiara e un profilo molto pulito.</p>
-                  <a href="#collezione" class="link-arr" data-page="collezione">Vedi nella collezione <span>→</span></a>
-                </div>
-              </div>
-            </div>
-
-            <div class="ctab-panel" id="tab-stella" role="tabpanel">
-              <div class="craft-layout">
-                <div class="craft-img">
-                  <img src="OltreMareimg/Duffel Forte.jpg" alt="Linea Stella — profilo strutturato" loading="lazy">
-                </div>
-                <div class="craft-txt">
-                  <p class="eyebrow eyebrow-g">Linea Stella</p>
-                  <h3>Un segno più strutturato</h3>
-                  <div class="g-rule"></div>
-                  <p class="body-text">Stella porta una costruzione più netta, con dettagli evidenti solo da vicino e una presenza più decisa senza perdere equilibrio.</p>
-                  <a href="#collezione" class="link-arr" data-page="collezione">Vedi nella collezione <span>→</span></a>
-                </div>
-              </div>
-            </div>
-
+          <div class="rounded-3xl overflow-hidden shadow-xl">
+            <img
+              src="OltreMareimg/Oltremarecoleçao.jpg"
+              alt="Selezione OltreMare fotografata in atelier"
+              class="w-full h-full object-cover"
+              width="1024"
+              height="1024"
+            >
           </div>
         </div>
-      </div>
-    </div>
 
-    <!-- ══ PAGINA 05: COLLEZIONE ══ -->
-    <div class="spa-page" id="page-collezione">
-      <div class="pg">
-        <div class="pg-hdr reveal-up">
-          <p class="eyebrow eyebrow-g">04 — Collezione</p>
-          <h2>Una selezione per il ritmo del giorno</h2>
-          <div class="g-rule g-rule--c"></div>
-        </div>
-        <div class="coll-grid">
-          <article class="coll-card reveal-up" style="--d:0s">
-            <div class="coll-img">
-              <img src="OltreMareimg/PiccolaAncora.jpg" alt="Borse Donna" loading="lazy">
-              <div class="coll-ov"><span>Borse Donna</span></div>
+        <div class="space-y-10">
+          <article id="mare" class="grid lg:grid-cols-[0.95fr_1.05fr] gap-8 items-center card-surface">
+            <img
+              src="OltreMareimg/Duffel.jpg"
+              alt="Mare 48H, borsa weekend in pelle"
+              class="w-full h-[420px] object-cover rounded-[1.75rem]"
+              width="1024"
+              height="1024"
+              loading="lazy"
+              decoding="async"
+            >
+            <div>
+              <p class="section-kicker">Linea Mare</p>
+              <h3 class="title-font text-4xl mb-4">Pensata per il viaggio breve</h3>
+              <p class="text-lg text-[#0A1A2F]/70 leading-relaxed">
+                Forme morbide, capienza generosa e una presenza silenziosa. La Linea Mare e pensata per spostamenti
+                di due o tre giorni, con interni ordinati e un'impronta visiva sobria.
+              </p>
             </div>
-            <p>Mini bag, shoulder bag e tote in pelle.</p>
           </article>
-          <article class="coll-card reveal-up" style="--d:.1s">
-            <div class="coll-img">
-              <img src="OltreMareimg/Duffel Forte.jpg" alt="Duffel Bag" loading="lazy">
-              <div class="coll-ov"><span>Duffel Bag</span></div>
+
+          <article id="porto" class="grid lg:grid-cols-[1.05fr_0.95fr] gap-8 items-center card-surface">
+            <div>
+              <p class="section-kicker">Linea Porto</p>
+              <h3 class="title-font text-4xl mb-4">La collezione piu quotidiana</h3>
+              <p class="text-lg text-[#0A1A2F]/70 leading-relaxed">
+                Dimensioni compatte, peso contenuto e costruzione precisa. Porto interpreta l'idea della borsa da
+                citta con una palette chiara e un profilo molto pulito.
+              </p>
             </div>
-            <p>Capienza essenziale per il weekend.</p>
+            <img
+              src="OltreMareimg/Ancorare.jpg"
+              alt="Borsa della Linea Porto con dettaglio ancora"
+              class="w-full h-[420px] object-cover rounded-[1.75rem]"
+              width="784"
+              height="1168"
+              loading="lazy"
+              decoding="async"
+            >
           </article>
-          <article class="coll-card reveal-up" style="--d:.2s">
-            <div class="coll-img">
-              <img src="OltreMareimg/Spalla Forte.jpg" alt="Abbigliamento Donna" loading="lazy">
-              <div class="coll-ov"><span>Abbigliamento Donna</span></div>
+
+          <article id="stella" class="grid lg:grid-cols-[0.95fr_1.05fr] gap-8 items-center card-surface">
+            <img
+              src="OltreMareimg/Duffel Forte.jpg"
+              alt="Pezzo della Linea Stella dal profilo deciso"
+              class="w-full h-[420px] object-cover rounded-[1.75rem]"
+              width="1024"
+              height="1024"
+              loading="lazy"
+              decoding="async"
+            >
+            <div>
+              <p class="section-kicker">Linea Stella</p>
+              <h3 class="title-font text-4xl mb-4">Un segno piu strutturato</h3>
+              <p class="text-lg text-[#0A1A2F]/70 leading-relaxed">
+                Stella porta nelle collezioni OltreMare una costruzione piu netta, con dettagli evidenti solo da vicino
+                e una presenza piu decisa senza perdere equilibrio.
+              </p>
             </div>
-            <p>Layer morbidi e volumi puliti.</p>
-          </article>
-          <article class="coll-card reveal-up" style="--d:.3s">
-            <div class="coll-img">
-              <img src="OltreMareimg/Sartoriale Mare.jpg" alt="Abbigliamento Uomo" loading="lazy">
-              <div class="coll-ov"><span>Abbigliamento Uomo</span></div>
-            </div>
-            <p>Maglieria, blazer e capi sobri.</p>
           </article>
         </div>
       </div>
-    </div>
+    </section>
 
-    <!-- ══ PAGINA 06: ATELIER ══ -->
-    <div class="spa-page dark-page" id="page-atelier">
-      <div class="pg">
-        <div class="pg-hdr reveal-up">
-          <span class="badge">SELEZIONE ATELIER</span>
-          <h2>05 — Pezzi costruiti per durare</h2>
-          <div class="g-rule g-rule--c"></div>
-          <p class="pg-sub">Forme pulite, presenza discreta e finiture che si scoprono da vicino.</p>
+    <section id="collezione" class="py-24 bg-[#F8F4F0]">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="max-w-3xl mx-auto text-center mb-16">
+          <p class="section-kicker">Collezione</p>
+          <h2 class="title-font text-5xl mb-6">Una selezione pensata per accompagnare il ritmo del giorno</h2>
         </div>
-        <div class="atel-grid">
-          <article class="atel-card reveal-up" style="--d:0s">
-            <div class="atel-img"><img src="OltreMareimg/PiccolaAncora.jpg" alt="Piccola Ancora" loading="lazy"></div>
-            <h3>Piccola Ancora</h3>
-            <p class="atel-sub">Mini bag in pelle chiara</p>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-10">
+          <article class="group">
+            <img
+              src="OltreMareimg/PiccolaAncora.jpg"
+              alt="Borsa donna Piccola Ancora"
+              class="w-full h-96 object-cover rounded-3xl mb-6 group-hover:scale-[1.02] transition-transform"
+              width="1024"
+              height="1024"
+              loading="lazy"
+              decoding="async"
+            >
+            <h3 class="text-2xl">Borse Donna</h3>
+            <p class="text-gray-600">Mini bag, shoulder bag e tote in pelle.</p>
           </article>
-          <article class="atel-card reveal-up" style="--d:.08s">
-            <div class="atel-img"><img src="OltreMareimg/Duffel Forte.jpg" alt="Duffel Forte" loading="lazy"></div>
-            <h3>Duffel Forte</h3>
-            <p class="atel-sub">Weekend bag strutturata</p>
+
+          <article class="group">
+            <img
+              src="OltreMareimg/Duffel Forte.jpg"
+              alt="Duffel Forte in pelle"
+              class="w-full h-96 object-cover rounded-3xl mb-6 group-hover:scale-[1.02] transition-transform"
+              width="1024"
+              height="1024"
+              loading="lazy"
+              decoding="async"
+            >
+            <h3 class="text-2xl">Duffel Bag</h3>
+            <p class="text-gray-600">Capienza essenziale per il weekend e il viaggio breve.</p>
           </article>
-          <article class="atel-card reveal-up" style="--d:.16s">
-            <div class="atel-img"><img src="OltreMareimg/Spalla Forte.jpg" alt="Spalla Forte" loading="lazy"></div>
-            <h3>Spalla Forte</h3>
-            <p class="atel-sub">Borsa a spalla essenziale</p>
+
+          <article class="group">
+            <img
+              src="OltreMareimg/Spalla Forte.jpg"
+              alt="Capo donna della collezione OltreMare"
+              class="w-full h-96 object-cover rounded-3xl mb-6 group-hover:scale-[1.02] transition-transform"
+              width="1024"
+              height="1024"
+              loading="lazy"
+              decoding="async"
+            >
+            <h3 class="text-2xl">Abbigliamento Donna</h3>
+            <p class="text-gray-600">Layer morbidi, volumi puliti e dettagli calibrati.</p>
           </article>
-          <article class="atel-card reveal-up" style="--d:.24s">
-            <div class="atel-img"><img src="OltreMareimg/Sartoriale Mare.jpg" alt="Sartoriale Mare" loading="lazy"></div>
-            <h3>Sartoriale Mare</h3>
-            <p class="atel-sub">Costruzione formale</p>
-          </article>
-          <article class="atel-card reveal-up" style="--d:.32s">
-            <div class="atel-img"><img src="OltreMareimg/L'Ancora.jpg" alt="L'Ancora" loading="lazy"></div>
-            <h3>L'Ancora</h3>
-            <p class="atel-sub">Il segno più iconico</p>
-          </article>
-          <article class="atel-card reveal-up" style="--d:.40s">
-            <div class="atel-img"><img src="OltreMareimg/Mare.jpg" alt="Mare 48H" loading="lazy"></div>
-            <h3>Mare 48H</h3>
-            <p class="atel-sub">Weekend bag morbida</p>
+
+          <article class="group">
+            <img
+              src="OltreMareimg/Sartoriale Mare.jpg"
+              alt="Capo uomo della collezione OltreMare"
+              class="w-full h-96 object-cover rounded-3xl mb-6 group-hover:scale-[1.02] transition-transform"
+              width="784"
+              height="1168"
+              loading="lazy"
+              decoding="async"
+            >
+            <h3 class="text-2xl">Abbigliamento Uomo</h3>
+            <p class="text-gray-600">Maglieria, blazer e capi dal taglio sobrio.</p>
           </article>
         </div>
-        <div class="atel-cta reveal-up" style="--d:.5s">
-          <a href="#contatti" class="btn btn-gold-o" data-page="contatti">Richiedi informazioni o pre-ordini</a>
+      </div>
+    </section>
+
+    <section id="atelier" class="bg-white overflow-hidden">
+      <div class="relative min-h-[75vh] flex items-center justify-center">
+        <div
+          class="absolute inset-0 bg-cover bg-center"
+          style="background-image: url('OltreMareimg/Oltremarecoleçao.jpg');"
+          aria-hidden="true"
+        ></div>
+        <div class="absolute inset-0 bg-gradient-to-b from-[#0A1A2F]/25 via-[#0A1A2F]/55 to-[#0A1A2F]/85"></div>
+
+        <div class="relative z-10 text-center px-6 max-w-5xl mx-auto text-white">
+          <span class="inline-block px-6 py-2 border border-white/60 text-white/90 text-sm tracking-[3px] mb-6">
+            SELEZIONE ATELIER
+          </span>
+          <h2 class="title-font text-6xl md:text-8xl leading-none mb-8">Pezzi costruiti per durare nel tempo</h2>
+          <p class="text-xl md:text-2xl text-white/90 max-w-3xl mx-auto leading-relaxed">
+            Una selezione di modelli e capi che raccontano il lato piu materico di OltreMare: forme pulite, presenza
+            discreta e un lavoro di finitura che si lascia scoprire da vicino.
+          </p>
+          <a
+            href="#atelier-grid"
+            class="mt-12 inline-block px-12 py-5 border-2 border-white text-white hover:bg-white hover:text-[#0A1A2F] transition-colors text-lg tracking-widest"
+          >
+            Scopri la selezione
+          </a>
         </div>
+      </div>
+
+      <div id="atelier-grid" class="max-w-7xl mx-auto px-6 py-24">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-14">
+          <article class="group">
+            <div class="overflow-hidden rounded-3xl aspect-[4/5] shadow-2xl">
+              <img
+                src="OltreMareimg/PiccolaAncora.jpg"
+                alt="Piccola Ancora"
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                width="1024"
+                height="1024"
+                loading="lazy"
+                decoding="async"
+              >
+            </div>
+            <div class="mt-8 px-2">
+              <h3 class="text-4xl font-medium text-[#0A1A2F]">Piccola Ancora</h3>
+              <p class="text-[#C9A96E] text-xl mt-2">Mini bag in pelle chiara</p>
+              <p class="mt-6 text-[#0A1A2F]/70 leading-relaxed text-lg">
+                Una silhouette compatta, studiata per l'uso quotidiano, con una presenza elegante e molto leggera.
+              </p>
+            </div>
+          </article>
+
+          <article class="group">
+            <div class="overflow-hidden rounded-3xl aspect-[4/5] shadow-2xl">
+              <img
+                src="OltreMareimg/Duffel Forte.jpg"
+                alt="Duffel Forte"
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                width="1024"
+                height="1024"
+                loading="lazy"
+                decoding="async"
+              >
+            </div>
+            <div class="mt-8 px-2">
+              <h3 class="text-4xl font-medium text-[#0A1A2F]">Duffel Forte</h3>
+              <p class="text-[#C9A96E] text-xl mt-2">Weekend bag strutturata</p>
+              <p class="mt-6 text-[#0A1A2F]/70 leading-relaxed text-lg">
+                Una borsa capiente, costruita per accompagnare spostamenti brevi con ordine, resistenza e una linea pulita.
+              </p>
+            </div>
+          </article>
+
+          <article class="group">
+            <div class="overflow-hidden rounded-3xl aspect-[4/5] shadow-2xl">
+              <img
+                src="OltreMareimg/Spalla Forte.jpg"
+                alt="Spalla Forte"
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                width="1024"
+                height="1024"
+                loading="lazy"
+                decoding="async"
+              >
+            </div>
+            <div class="mt-8 px-2">
+              <h3 class="text-4xl font-medium text-[#0A1A2F]">Spalla Forte</h3>
+              <p class="text-[#C9A96E] text-xl mt-2">Borsa a spalla dal profilo essenziale</p>
+              <p class="mt-6 text-[#0A1A2F]/70 leading-relaxed text-lg">
+                Pensata per la citta, combina proporzioni morbide e dettagli misurati per un uso continuativo.
+              </p>
+            </div>
+          </article>
+
+          <article class="group">
+            <div class="overflow-hidden rounded-3xl aspect-[4/5] shadow-2xl">
+              <img
+                src="OltreMareimg/Sartoriale Mare.jpg"
+                alt="Sartoriale Mare"
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                width="784"
+                height="1168"
+                loading="lazy"
+                decoding="async"
+              >
+            </div>
+            <div class="mt-8 px-2">
+              <h3 class="text-4xl font-medium text-[#0A1A2F]">Sartoriale Mare</h3>
+              <p class="text-[#C9A96E] text-xl mt-2">Capi dalla costruzione piu formale</p>
+              <p class="mt-6 text-[#0A1A2F]/70 leading-relaxed text-lg">
+                Blazer e layering essenziali che completano la collezione con un accento piu sartoriale.
+              </p>
+            </div>
+          </article>
+
+          <article class="group">
+            <div class="overflow-hidden rounded-3xl aspect-[4/5] shadow-2xl">
+              <img
+                src="OltreMareimg/L’Ancora.jpg"
+                alt="L'Ancora"
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                width="1024"
+                height="1024"
+                loading="lazy"
+                decoding="async"
+              >
+            </div>
+            <div class="mt-8 px-2">
+              <h3 class="text-4xl font-medium text-[#0A1A2F]">L&apos;Ancora</h3>
+              <p class="text-[#C9A96E] text-xl mt-2">Il segno piu iconico della collezione</p>
+              <p class="mt-6 text-[#0A1A2F]/70 leading-relaxed text-lg">
+                Un modello che concentra l'identita del brand in una forma chiara, leggibile e molto riconoscibile.
+              </p>
+            </div>
+          </article>
+
+          <article class="group">
+            <div class="overflow-hidden rounded-3xl aspect-[4/5] shadow-2xl">
+              <img
+                src="OltreMareimg/Mare.jpg"
+                alt="Mare 48H"
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                width="784"
+                height="1168"
+                loading="lazy"
+                decoding="async"
+              >
+            </div>
+            <div class="mt-8 px-2">
+              <h3 class="text-4xl font-medium text-[#0A1A2F]">Mare 48H</h3>
+              <p class="text-[#C9A96E] text-xl mt-2">Una linea morbida per il fine settimana</p>
+              <p class="mt-6 text-[#0A1A2F]/70 leading-relaxed text-lg">
+                Pensata per il viaggio breve, con una costruzione morbida e pratica che resta elegante anche in movimento.
+              </p>
+            </div>
+          </article>
+        </div>
+      </div>
+
+      <div class="text-center py-20 border-t border-[#0A1A2F]/10">
+        <a
+          href="#contatti"
+          class="inline-block px-16 py-6 border-2 border-[#0A1A2F] text-[#0A1A2F] hover:bg-[#0A1A2F] hover:text-white transition-colors text-lg tracking-widest"
+        >
+          Richiedi informazioni o pre-ordini
+        </a>
+      </div>
+    </section>
+
+    <section id="journal" class="bg-[#0A1A2F] text-white py-28 text-center">
+      <div class="max-w-3xl mx-auto px-6">
+        <p class="section-kicker section-kicker-dark">Journal</p>
+        <h2 class="title-font text-5xl md:text-6xl mb-8">Il mare ispira.<br>L&apos;Italia realizza.</h2>
+        <p class="text-lg text-white/75 leading-relaxed mb-10">
+          Materiali, dettagli, processi e storie di collezione. Il journal puo diventare lo spazio editoriale in cui
+          raccontare la costruzione dei pezzi e il mondo visivo del brand.
+        </p>
+        <a
+          href="#contatti"
+          class="inline-block px-12 py-5 border border-[#C9A96E] text-[#C9A96E] hover:bg-[#C9A96E] hover:text-white transition-colors"
+        >
+          Richiedi il lookbook
+        </a>
+      </div>
+    </section>
+
+    <section id="contatti" class="py-28 bg-[#F8F4F0] text-center">
+      <div class="max-w-2xl mx-auto px-6">
+        <p class="section-kicker">Contatti</p>
+        <h2 class="title-font text-5xl mb-6">Prenota una conversazione privata</h2>
+        <p class="text-xl text-gray-700 mb-4">
+          Per appuntamenti in atelier, richieste di collezione, pre-ordini o informazioni dedicate.
+        </p>
+        <p class="text-base text-[#0A1A2F]/70 mb-10">Nord Italia · Su appuntamento · Risposta diretta via WhatsApp</p>
+        <a
+          href="https://wa.me/5546988283614"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-block px-12 py-5 border border-[#C9A96E] text-[#C9A96E] hover:bg-[#C9A96E] hover:text-white transition-colors"
+        >
+          Scrivici su WhatsApp
+        </a>
+      </div>
+    </section>
+  </main>
+
+<footer class="bg-[#F8F4F0] pt-20 pb-12 border-t border-gray-200">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-x-12 gap-y-16">
+      
+      <!-- Coluna 1: Aiuto -->
+      <div>
+        <h4 class="text-[#0A1A2F] font-medium tracking-widest text-sm mb-6">AIUTO</h4>
+        <ul class="space-y-3 text-sm text-gray-700">
+          <li><a href="#contatti" class="hover:text-[#C9A96E] transition-colors">Consulenti Clienti</a></li>
+          <li><a href="#journal" class="hover:text-[#C9A96E] transition-colors">Domande Frequenti</a></li>
+          <li><a href="#artigianato" class="hover:text-[#C9A96E] transition-colors">Cura del Prodotto</a></li>
+          <li><a href="#contatti" class="hover:text-[#C9A96E] transition-colors">Negozi e Contatti</a></li>
+        </ul>
+      </div>
+
+      <!-- Coluna 2: Servizi -->
+      <div>
+        <h4 class="text-[#0A1A2F] font-medium tracking-widest text-sm mb-6">SERVIZI</h4>
+        <ul class="space-y-3 text-sm text-gray-700">
+          <li><a href="#collezione" class="hover:text-[#C9A96E] transition-colors">Riparazioni e Manutenzione</a></li>
+          <li><a href="#collezione" class="hover:text-[#C9A96E] transition-colors">Personalizzazione</a></li>
+          <li><a href="#contatti" class="hover:text-[#C9A96E] transition-colors">L'Arte del Regalo</a></li>
+          <li><a href="#top" class="hover:text-[#C9A96E] transition-colors">App OltreMare</a></li>
+        </ul>
+      </div>
+
+      <!-- Coluna 3: Sul brand -->
+      <div>
+        <h4 class="text-[#0A1A2F] font-medium tracking-widest text-sm mb-6">SUL BRAND</h4>
+        <ul class="space-y-3 text-sm text-gray-700">
+          <li><a href="#top" class="hover:text-[#C9A96E] transition-colors">La Nostra Storia</a></li>
+          <li><a href="#artigianato" class="hover:text-[#C9A96E] transition-colors">Artigianato Italiano</a></li>
+          <li><a href="#atelier" class="hover:text-[#C9A96E] transition-colors">Heritage Fields</a></li>
+          <li><a href="#journal" class="hover:text-[#C9A96E] transition-colors">Flores do Renascimento</a></li>
+          <li><a href="#contatti" class="hover:text-[#C9A96E] transition-colors">Carriere</a></li>
+        </ul>
+      </div>
+
+      <!-- Coluna 4: Newsletter -->
+      <div>
+        <h4 class="text-[#0A1A2F] font-medium tracking-widest text-sm mb-6">NEWSLETTER</h4>
+        <p class="text-sm text-gray-600 mb-8 leading-relaxed">
+          Iscriviti per ricevere in anteprima le nuove collezioni, storie esclusive e inviti speciali di OltreMare.
+        </p>
+        <form id="newsletter-form" class="flex gap-3" action="#" method="post" aria-label="Iscrizione newsletter">
+          <label for="newsletter-email" class="sr-only">Indirizzo email</label>
+          <input
+            id="newsletter-email"
+            name="email"
+            type="email"
+            autocomplete="email"
+            required
+            placeholder="Il tuo indirizzo email"
+            class="flex-1 bg-white border border-gray-300 px-5 py-3.5 text-sm focus:outline-none focus:border-[#C9A96E] transition-colors"
+          >
+          <button
+            type="submit"
+            class="bg-[#0A1A2F] hover:bg-[#C9A96E] text-white px-10 text-sm tracking-widest transition-colors"
+          >
+            ISCRIVITI
+          </button>
+        </form>
+        <p id="newsletter-status" class="mt-4 text-sm text-[#0A1A2F]/70" aria-live="polite"></p>
       </div>
     </div>
 
-    <!-- ══ PAGINA 07: JOURNAL ══ -->
-    <div class="spa-page dark-page" id="page-journal">
-      <div class="pg">
-        <div class="split-layout">
-          <div class="split-txt">
-            <p class="eyebrow eyebrow-g reveal-up" style="--d:0s">06 — Journal</p>
-            <h2 class="reveal-up" style="--d:.1s">Il mare ispira.<br><em>L'Italia realizza.</em></h2>
-            <div class="g-rule reveal-scale" style="--d:.2s"></div>
-            <p class="body-text reveal-up" style="--d:.3s">Materiali, dettagli, processi e storie di collezione. Uno spazio editoriale per raccontare la costruzione dei pezzi e il mondo visivo del brand.</p>
-            <a href="#contatti" class="btn btn-gold-o reveal-up" data-page="contatti" style="--d:.4s">Richiedi il lookbook</a>
-          </div>
-          <div class="j-imgs reveal-fade" style="--d:.2s">
-            <div class="ji ji-1"><img src="OltreMareimg/Mare.jpg"          alt="OltreMare — mare" loading="lazy"></div>
-            <div class="ji ji-2"><img src="OltreMareimg/Ancorare.jpg"      alt="OltreMare — ancora" loading="lazy"></div>
-            <div class="ji ji-3"><img src="OltreMareimg/PiccolaAncora.jpg" alt="OltreMare — piccola ancora" loading="lazy"></div>
-          </div>
-        </div>
+    <!-- Linha inferior -->
+    <div class="mt-24 pt-10 border-t border-gray-200 flex flex-col md:flex-row justify-between items-center text-xs text-gray-500">
+      <div class="flex flex-wrap gap-x-8 gap-y-2 mb-6 md:mb-0">
+        <a href="#top" class="hover:text-[#0A1A2F] transition-colors">Mappa del Sito</a>
+        <a href="#contatti" class="hover:text-[#0A1A2F] transition-colors">Condizioni Generali</a>
+        <a href="#contatti" class="hover:text-[#0A1A2F] transition-colors">Privacy e Cookies</a>
+      </div>
+      
+      <div class="text-center md:text-right">
+        OltreMare © <span id="current-year">2026</span><br>
+        <span class="text-[10px]">Paraná, Brasil • Ispirato nelle radici italiane del Nord</span>
       </div>
     </div>
-
-    <!-- ══ PAGINA 08: CONTATTI + FOOTER ══ -->
-    <div class="spa-page" id="page-contatti">
-      <div class="pg">
-        <div class="split-layout">
-          <div class="split-txt">
-            <p class="eyebrow eyebrow-g reveal-up" style="--d:0s">07 — Contatti</p>
-            <h2 class="reveal-up" style="--d:.1s">Prenota una<br>conversazione privata</h2>
-            <div class="g-rule reveal-scale" style="--d:.2s"></div>
-            <p class="body-text reveal-up" style="--d:.3s">Per appuntamenti in atelier, richieste di collezione, pre-ordini o informazioni dedicate.</p>
-            <p class="c-detail reveal-up" style="--d:.35s">Nord Italia · Su appuntamento · Risposta via WhatsApp</p>
-            <a href="https://wa.me/5546988283614" target="_blank" rel="noopener noreferrer"
-              class="btn btn-gold reveal-up" style="--d:.45s">Scrivici su WhatsApp</a>
-          </div>
-          <div class="split-img reveal-fade" style="--d:.3s">
-            <img src="OltreMareimg/Duffel.jpg" alt="OltreMare atelier" loading="lazy">
-          </div>
-        </div>
-
-        <!-- FOOTER -->
-        <footer class="site-footer">
-          <div class="ft-top">
-            <div class="ft-logo">OLTREMare</div>
-            <p class="ft-tag">Pelletteria artigianale italiana · Ispirata al mare.</p>
-          </div>
-          <div class="ft-grid">
-            <div class="ft-col">
-              <h4>Aiuto</h4>
-              <ul>
-                <li><a href="#contatti"    data-page="contatti">Consulenti Clienti</a></li>
-                <li><a href="#contatti"    data-page="contatti">Domande Frequenti</a></li>
-                <li><a href="#artigianato" data-page="artigianato">Cura del Prodotto</a></li>
-              </ul>
-            </div>
-            <div class="ft-col">
-              <h4>Servizi</h4>
-              <ul>
-                <li><a href="#collezione" data-page="collezione">Riparazioni</a></li>
-                <li><a href="#collezione" data-page="collezione">Personalizzazione</a></li>
-                <li><a href="#contatti"   data-page="contatti">L'Arte del Regalo</a></li>
-              </ul>
-            </div>
-            <div class="ft-col">
-              <h4>Sul Brand</h4>
-              <ul>
-                <li><a href="#manifesto"   data-page="manifesto">La Nostra Storia</a></li>
-                <li><a href="#artigianato" data-page="artigianato">Artigianato Italiano</a></li>
-                <li><a href="#atelier"     data-page="atelier">Selezione Atelier</a></li>
-                <li><a href="#journal"     data-page="journal">Journal</a></li>
-              </ul>
-            </div>
-            <div class="ft-col ft-nl">
-              <h4>Newsletter</h4>
-              <p>Iscriviti per ricevere in anteprima le nuove collezioni.</p>
-              <form id="newsletter-form" aria-label="Iscrizione newsletter">
-                <label for="nl-email" class="sr-only">Email</label>
-                <div class="nl-row">
-                  <input id="nl-email" name="email" type="email" required
-                    autocomplete="email" placeholder="La tua email">
-                  <button type="submit" aria-label="Iscriviti">→</button>
-                </div>
-                <p id="nl-status" aria-live="polite"></p>
-              </form>
-            </div>
-          </div>
-          <div class="ft-bottom">
-            <div class="ft-legal">
-              <a href="#manifesto" data-page="manifesto">Mappa del Sito</a>
-              <a href="#contatti"  data-page="contatti">Condizioni Generali</a>
-              <a href="#contatti"  data-page="contatti">Privacy e Cookies</a>
-            </div>
-            <p class="ft-copy">OltreMare © <span id="current-year"></span> · Pelletteria Artigianale Italiana</p>
-          </div>
-        </footer>
-      </div>
-    </div>
-
-  </div><!-- /#spa-wrapper -->
-
+  </div>
+</footer>
   <script src="script.js"></script>
 </body>
 </html>
-
