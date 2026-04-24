@@ -149,13 +149,9 @@ button:focus-visible {
 }
 
 .footer-cinematic {
-  position: relative;
-  color: white;
-  overflow: hidden;
-  font-family: "Inter", sans-serif;
-
-  height: 85vh;
-  max-height: 850px;
+  min-height: 85vh;
+  max-height: none;
+  padding-bottom: 60px;
 }
 
 /* FUNDO */
