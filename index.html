@@ -533,87 +533,75 @@
     </section>
   </main>
 
-<footer class="bg-[#F8F4F0] pt-20 pb-12 border-t border-gray-200">
-  <div class="max-w-7xl mx-auto px-6">
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-x-12 gap-y-16">
-      
-      <!-- Coluna 1: Aiuto -->
-      <div>
-        <h4 class="text-[#0A1A2F] font-medium tracking-widest text-sm mb-6">AIUTO</h4>
-        <ul class="space-y-3 text-sm text-gray-700">
-          <li><a href="#contatti" class="hover:text-[#C9A96E] transition-colors">Consulenti Clienti</a></li>
-          <li><a href="#journal" class="hover:text-[#C9A96E] transition-colors">Domande Frequenti</a></li>
-          <li><a href="#artigianato" class="hover:text-[#C9A96E] transition-colors">Cura del Prodotto</a></li>
-          <li><a href="#contatti" class="hover:text-[#C9A96E] transition-colors">Negozi e Contatti</a></li>
-        </ul>
-      </div>
+<section class="footer-cinematic">
 
-      <!-- Coluna 2: Servizi -->
-      <div>
-        <h4 class="text-[#0A1A2F] font-medium tracking-widest text-sm mb-6">SERVIZI</h4>
-        <ul class="space-y-3 text-sm text-gray-700">
-          <li><a href="#collezione" class="hover:text-[#C9A96E] transition-colors">Riparazioni e Manutenzione</a></li>
-          <li><a href="#collezione" class="hover:text-[#C9A96E] transition-colors">Personalizzazione</a></li>
-          <li><a href="#contatti" class="hover:text-[#C9A96E] transition-colors">L'Arte del Regalo</a></li>
-          <li><a href="#top" class="hover:text-[#C9A96E] transition-colors">App OltreMare</a></li>
-        </ul>
-      </div>
+  <!-- FUNDO ARTÍSTICO -->
+  <div class="footer-bg"></div>
+  <div class="footer-overlay"></div>
 
-      <!-- Coluna 3: Sul brand -->
-      <div>
-        <h4 class="text-[#0A1A2F] font-medium tracking-widest text-sm mb-6">SUL BRAND</h4>
-        <ul class="space-y-3 text-sm text-gray-700">
-          <li><a href="#top" class="hover:text-[#C9A96E] transition-colors">La Nostra Storia</a></li>
-          <li><a href="#artigianato" class="hover:text-[#C9A96E] transition-colors">Artigianato Italiano</a></li>
-          <li><a href="#atelier" class="hover:text-[#C9A96E] transition-colors">Heritage Fields</a></li>
-          <li><a href="#journal" class="hover:text-[#C9A96E] transition-colors">Flores do Renascimento</a></li>
-          <li><a href="#contatti" class="hover:text-[#C9A96E] transition-colors">Carriere</a></li>
-        </ul>
-      </div>
+  <!-- NEWSLETTER HERO -->
+  <div class="footer-hero">
+    <h2 class="title-font">Ricevi inviti esclusivi</h2>
+    <p>Scopri le nuove collezioni e l’universo OltreMare.</p>
 
-      <!-- Coluna 4: Newsletter -->
-      <div>
-        <h4 class="text-[#0A1A2F] font-medium tracking-widest text-sm mb-6">NEWSLETTER</h4>
-        <p class="text-sm text-gray-600 mb-8 leading-relaxed">
-          Iscriviti per ricevere in anteprima le nuove collezioni, storie esclusive e inviti speciali di OltreMare.
-        </p>
-        <form id="newsletter-form" class="flex gap-3" action="#" method="post" aria-label="Iscrizione newsletter">
-          <label for="newsletter-email" class="sr-only">Indirizzo email</label>
-          <input
-            id="newsletter-email"
-            name="email"
-            type="email"
-            autocomplete="email"
-            required
-            placeholder="Il tuo indirizzo email"
-            class="flex-1 bg-white border border-gray-300 px-5 py-3.5 text-sm focus:outline-none focus:border-[#C9A96E] transition-colors"
-          >
-          <button
-            type="submit"
-            class="bg-[#0A1A2F] hover:bg-[#C9A96E] text-white px-10 text-sm tracking-widest transition-colors"
-          >
-            ISCRIVITI
-          </button>
-        </form>
-        <p id="newsletter-status" class="mt-4 text-sm text-[#0A1A2F]/70" aria-live="polite"></p>
-      </div>
-    </div>
-
-    <!-- Linha inferior -->
-    <div class="mt-24 pt-10 border-t border-gray-200 flex flex-col md:flex-row justify-between items-center text-xs text-gray-500">
-      <div class="flex flex-wrap gap-x-8 gap-y-2 mb-6 md:mb-0">
-        <a href="#top" class="hover:text-[#0A1A2F] transition-colors">Mappa del Sito</a>
-        <a href="#contatti" class="hover:text-[#0A1A2F] transition-colors">Condizioni Generali</a>
-        <a href="#contatti" class="hover:text-[#0A1A2F] transition-colors">Privacy e Cookies</a>
-      </div>
-      
-      <div class="text-center md:text-right">
-        OltreMare © <span id="current-year">2026</span><br>
-        <span class="text-[10px]">Paraná, Brasil • Ispirato nelle radici italiane del Nord</span>
-      </div>
-    </div>
+    <form class="newsletter-form">
+      <input type="email" placeholder="Il tuo indirizzo email" required>
+      <button type="submit">Iscriviti</button>
+    </form>
   </div>
-</footer>
+
+  <!-- FOOTER BASE -->
+  <footer class="footer-main">
+    <div class="footer-container">
+
+      <div class="footer-grid">
+
+        <!-- OLTREMARE -->
+        <div>
+          <h4>OLTREMARE</h4>
+          <a href="#">Collezioni</a>
+          <a href="#">La Maison</a>
+          <a href="#">Atelier</a>
+          <a href="#">Journal</a>
+        </div>
+
+        <!-- MAISON MARINI -->
+        <div>
+          <h4>MAISON MARINI</h4>
+          <a href="#">Filosofia</a>
+          <a href="#">Materiali</a>
+          <a href="#">Heritage</a>
+        </div>
+
+        <!-- SERVIZI -->
+        <div>
+          <h4>SERVIZI</h4>
+          <a href="#">Personalizzazione</a>
+          <a href="#">Riparazioni</a>
+          <a href="#">Consegna</a>
+        </div>
+
+        <!-- BRAND SIGNATURE -->
+        <div class="footer-brand">
+          <p>
+            Tra cielo e mare,<br>
+            nasce l’essenziale.
+          </p>
+
+          <span>OLTREMARE<br>MAISON MARINI</span>
+        </div>
+
+      </div>
+
+      <!-- LINHA FINAL -->
+      <div class="footer-bottom">
+        <p>© 2026 OltreMare · Maison Marini</p>
+      </div>
+
+    </div>
+  </footer>
+
+</section>
   <script src="script.js"></script>
 </body>
 </html>
