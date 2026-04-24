@@ -2,9 +2,27 @@ html {
   scroll-behavior: smooth;
 }
 
+:root {
+  --bg-primary: #F6F1E9;
+  --bg-secondary: #E8E0D4;
+
+  --text-primary: #111111;
+  --text-inverse: #ffffff;
+
+  --accent: #C6A962;
+
+  --dark: #0D1B2A;
+  --dark-soft: #1B263B;
+
+  --border-soft: rgba(13, 27, 42, 0.08);
+  --shadow-soft: rgba(13, 27, 42, 0.08);
+}
+
 body {
   font-family: "Inter", sans-serif;
   line-height: 1.5;
+  background: var(--bg-primary);
+  color: var(--text-primary);
 }
 
 img {
@@ -18,7 +36,7 @@ img {
 .section-kicker {
   display: inline-block;
   margin-bottom: 1rem;
-  color: #c9a96e;
+  color: var(--accent);
   font-size: 0.875rem;
   font-weight: 600;
   letter-spacing: 0.28em;
@@ -26,9 +44,10 @@ img {
 }
 
 .section-kicker-dark {
-  color: rgba(201, 169, 110, 0.95);
+  color: var(--accent);
 }
 
+/* ACESSIBILIDADE */
 .skip-link {
   position: absolute;
   left: 1rem;
@@ -37,8 +56,8 @@ img {
   transform: translateY(-200%);
   padding: 0.75rem 1rem;
   border-radius: 9999px;
-  background: #0a1a2f;
-  color: #ffffff;
+  background: var(--dark);
+  color: var(--text-inverse);
   transition: transform 0.2s ease;
 }
 
@@ -46,6 +65,7 @@ img {
   transform: translateY(0);
 }
 
+/* HERO / BIG IMAGE */
 .big-image {
   min-height: 100svh;
   padding-top: 7rem;
@@ -60,7 +80,11 @@ img {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(to bottom, rgba(10, 26, 47, 0.3), rgba(10, 26, 47, 0.72));
+  background: linear-gradient(
+    to bottom,
+    rgba(13, 27, 42, 0.25),
+    rgba(13, 27, 42, 0.75)
+  );
 }
 
 .big-content {
@@ -68,27 +92,35 @@ img {
   z-index: 1;
   max-width: 42rem;
   padding: 0 8%;
-  color: #ffffff;
+  color: var(--text-inverse);
 }
 
+/* CARD SUPERFÍCIE */
 .card-surface {
   padding: 1.5rem;
   border-radius: 2rem;
-  background: linear-gradient(180deg, rgba(248, 244, 240, 0.9), rgba(255, 255, 255, 0.98));
-  border: 1px solid rgba(10, 26, 47, 0.08);
-  box-shadow: 0 25px 70px rgba(10, 26, 47, 0.08);
+  background: linear-gradient(
+    180deg,
+    rgba(246, 241, 233, 0.92),
+    rgba(255, 255, 255, 0.98)
+  );
+  border: 1px solid var(--border-soft);
+  box-shadow: 0 25px 70px var(--shadow-soft);
 }
 
+/* SCROLL OFFSET */
 section[id] {
   scroll-margin-top: 6.5rem;
 }
 
+/* FOCUS */
 a:focus-visible,
 button:focus-visible {
-  outline: 3px solid rgba(201, 169, 110, 0.95);
+  outline: 3px solid var(--accent);
   outline-offset: 4px;
 }
 
+/* RESPONSIVO */
 @media (max-width: 767px) {
   .big-image {
     min-height: 92svh;
@@ -100,6 +132,7 @@ button:focus-visible {
   }
 }
 
+/* REDUÇÃO DE MOVIMENTO */
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
