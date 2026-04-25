@@ -148,85 +148,214 @@ button:focus-visible {
   }
 }
 
-.footer-cinematic {
-  position: relative; /* ADICIONADO */
-  min-height: 85vh;
-  padding-bottom: 80px;
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Cormorant+Garamond:ital,wght@0,300;0,500;1,400&display=swap');
 
-  display: flex; /* ADICIONADO */
-  flex-direction: column; /* ADICIONADO */
-  justify-content: space-between; /* ADICIONADO */
-
-  overflow: hidden; /* mantém efeito */
+:root {
+  --gold: #C6A962;
+  --gold-dim: rgba(198, 169, 98, 0.7);
+  --text-light: #f4f4f1;
 }
 
-/* FUNDO */
+.footer-cinematic {
+  position: relative;
+  min-height: 100vh;
+  background-color: #050709;
+  color: var(--text-light);
+  font-family: 'Cormorant Garamond', serif;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Fundo com efeito de profundidade */
 .footer-bg {
   position: absolute;
-  inset: 0; /* MELHOR QUE width/height */
+  inset: 0;
   background: url("OltreMareimg/AngelsSky.png") center/cover no-repeat;
-  filter: brightness(0.45) contrast(1.1);
-  transform: scale(1.05);
-  z-index: 0; /* GARANTE CAMADA */
+  filter: brightness(0.4) contrast(1.1);
+  transform: scale(1.02);
+  z-index: 0;
 }
 
-/* OVERLAY */
 .footer-overlay {
   position: absolute;
   inset: 0;
-  z-index: 1; /* GARANTE CAMADA */
-  background: linear-gradient(
-    to bottom,
-    rgba(13,27,42,0.2),
-    rgba(13,27,42,0.95)
-  );
+  background: linear-gradient(to bottom, rgba(5,7,9,0.2) 0%, rgba(5,7,9,0.9) 100%);
+  z-index: 1;
 }
 
-/* HERO */
+/* Newsletter - Centralizada e Elegante */
 .footer-hero {
   position: relative;
-  z-index: 2;
+  z-index: 5;
   text-align: center;
-  padding: 100px 20px 50px;
+  padding: 100px 20px 80px;
 }
 
-/* MAIN */
+.footer-symbol {
+  font-size: 28px;
+  color: var(--gold);
+  margin-bottom: 20px;
+}
+
+.footer-hero h2 {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(22px, 4vw, 28px);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--text-light);
+  margin-bottom: 40px;
+  line-height: 1.4;
+}
+
+.newsletter-form {
+  max-width: 450px;
+  margin: 0 auto;
+  display: flex;
+  border-bottom: 1px solid var(--gold-dim);
+  padding-bottom: 8px;
+}
+
+.newsletter-form input {
+  background: transparent;
+  border: none;
+  color: var(--text-light);
+  flex: 1;
+  padding: 10px;
+  font-size: 16px;
+  outline: none;
+}
+
+.newsletter-form button {
+  background: transparent;
+  border: none;
+  color: var(--gold);
+  text-transform: uppercase;
+  font-family: 'Cinzel', serif;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+/* Grid de Conteúdo */
 .footer-main {
   position: relative;
-  z-index: 2;
-  padding: 40px 8% 140px; /* AUMENTADO EMBAIXO */
+  z-index: 5;
+  padding: 0 8% 40px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
 }
 
-/* GRID */
 .footer-grid {
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  gap: 40px;
+  grid-template-columns: repeat(5, 1fr) 1.5fr;
+  gap: 30px;
+  margin-bottom: 100px;
 }
 
-/* BASE */
-.footer-bottom {
-  margin-top: 50px;
-  display: flex;
-  justify-content: space-between;
-  font-size: 11px;
-  opacity: 0.6;
-  padding-bottom: 20px; /* NOVO */
+.footer-grid h4 {
+  font-family: 'Cinzel', serif;
+  color: var(--gold);
+  font-size: 13px;
+  letter-spacing: 2px;
+  margin-bottom: 25px;
 }
 
-/* LOGO GIGANTE (CORRIGIDO DE VERDADE) */
+.footer-grid a {
+  display: block;
+  color: var(--text-light);
+  text-decoration: none;
+  font-size: 15px;
+  margin-bottom: 12px;
+  opacity: 0.8;
+  transition: 0.3s;
+}
+
+.footer-grid a:hover {
+  color: var(--gold);
+  opacity: 1;
+}
+
+/* Redes Sociais */
+.social { margin-top: 30px; }
+.social span { font-size: 11px; letter-spacing: 1px; color: var(--gold); display: block; margin-bottom: 15px; }
+.social .icons a { display: inline-block; margin-right: 15px; font-size: 16px; opacity: 0.7; }
+
+/* Coluna Brand (A citação à direita) */
+.footer-brand {
+  text-align: right;
+  border-left: 1px solid rgba(198, 169, 98, 0.1);
+  padding-left: 30px;
+}
+
+.footer-brand p {
+  font-style: italic;
+  font-size: 17px;
+  line-height: 1.6;
+  margin-bottom: 20px;
+  color: var(--text-light);
+}
+
+.brand-name {
+  font-family: 'Cinzel', serif;
+  color: var(--gold);
+  font-size: 14px;
+  letter-spacing: 2px;
+}
+
+/* O Logo Gigante no Fundo */
 .footer-big-logo {
   position: absolute;
-  bottom: -30px; /* DESCEU MAIS */
+  bottom: 80px;
   left: 50%;
   transform: translateX(-50%);
-  
-  font-size: clamp(60px, 10vw, 120px);
-  font-family: "Bodoni Moda", serif;
-  letter-spacing: clamp(10px, 2vw, 20px);
-  
-  color: rgba(198,169,98,0.10); /* MAIS SUAVE */
+  font-family: 'Cinzel', serif;
+  font-size: 15vw;
+  font-weight: 600;
+  letter-spacing: 2vw;
+  color: rgba(198, 169, 98, 0.05); /* Bem sutil como na foto */
   pointer-events: none;
   white-space: nowrap;
-  z-index: 0; /* MUITO IMPORTANTE */
+  z-index: -1;
+}
+
+/* Base Inferior */
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid rgba(198, 169, 98, 0.15);
+  padding-top: 25px;
+  font-family: 'Cinzel', serif;
+  font-size: 11px;
+  letter-spacing: 1px;
+}
+
+.links-base a { margin-right: 20px; text-decoration: none; color: var(--text-light); opacity: 0.6; }
+
+/* =========================================
+   RESPONSIVIDADE (MOBILE)
+========================================= */
+
+@media (max-width: 1024px) {
+  .footer-grid { grid-template-columns: repeat(3, 1fr); }
+  .footer-brand { grid-column: span 3; text-align: center; border-left: none; border-top: 1px solid rgba(198, 169, 98, 0.1); padding-top: 40px; padding-left: 0; }
+}
+
+@media (max-width: 768px) {
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px 20px; }
+  
+  .footer-hero { padding: 60px 20px; }
+  
+  .footer-big-logo { font-size: 18vw; bottom: 120px; opacity: 0.03; }
+  
+  .footer-bottom {
+    flex-direction: column;
+    gap: 20px;
+    text-align: center;
+  }
+  
+  .links-base a { margin: 0 10px; }
 }
