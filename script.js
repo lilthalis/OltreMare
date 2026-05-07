@@ -1,58 +1,56 @@
-const menuToggle = document.querySelector("[data-menu-toggle]");
-const mobileMenu = document.getElementById("mobile-menu");
-const footerYear = document.getElementById("current-year");
+// script.js
 
-if (footerYear) {
-  footerYear.textContent = new Date().getFullYear();
-}
+const reveals = document.querySelectorAll('.reveal');
 
-if (menuToggle && mobileMenu) {
-  const setMenuState = (open) => {
-    menuToggle.setAttribute("aria-expanded", String(open));
-    menuToggle.textContent = open ? "Chiudi" : "Menu";
-    mobileMenu.hidden = !open;
-  };
+function revealOnScroll(){
 
-  setMenuState(false);
+  reveals.forEach(element => {
 
-  menuToggle.addEventListener("click", () => {
-    const isOpen = menuToggle.getAttribute("aria-expanded") === "true";
-    setMenuState(!isOpen);
-  });
+    const windowHeight = window.innerHeight;
+    const revealTop = element.getBoundingClientRect().top;
 
-  mobileMenu.querySelectorAll("a").forEach((link) => {
-    link.addEventListener("click", () => setMenuState(false));
-  });
-
-  document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape") {
-      setMenuState(false);
+    if(revealTop < windowHeight - 100){
+      element.classList.add('active');
     }
+
   });
 
-  window.addEventListener("resize", () => {
-    if (window.innerWidth >= 768) {
-      setMenuState(false);
-    }
+}
+
+window.addEventListener('scroll', revealOnScroll);
+
+revealOnScroll();
+
+
+// cinematic smooth scroll feeling
+
+document.querySelectorAll('button').forEach(button => {
+
+  button.addEventListener('mouseenter', () => {
+
+    button.style.transform = 'translateY(-2px)';
+
   });
-}
 
-const async (params) => {
-  menuToggle
-} = document.querySelector("[data-menu-toggle]");
-const mobileMenu = document.getElementById("mobile-menu");
-const footerYear = document.getElementById("current-year");
-const newsletterForm = document.getElementById("newsletter-form");
-const newsletterStatus = document.getElementById("newsletter-status");
+  button.addEventListener('mouseleave', () => {
 
-if (footerYear) {
-  footerYear.textContent = new Date().getFullYear();
-}
+    button.style.transform = 'translateY(0px)';
 
-if (newsletterForm && newsletterStatus) {
-  newsletterForm.addEventListener("submit", (event) => {
-    event.preventDefault();
-    newsletterStatus.textContent = "Grazie! Ti contatteremo presto con gli aggiornamenti OltreMare.";
-    newsletterForm.reset();
   });
-}
+
+});
+
+
+// subtle parallax on hero image
+
+const houseImage = document.querySelector('.house-image');
+
+window.addEventListener('mousemove', (e) => {
+
+  const x = (window.innerWidth / 2 - e.pageX) / 90;
+  const y = (window.innerHeight / 2 - e.pageY) / 90;
+
+  houseImage.style.transform =
+    `translate(${x}px, ${y}px) scale(1.01)`;
+
+});
