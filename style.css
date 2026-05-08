@@ -125,18 +125,22 @@ body{
 }
 
 .house-image{
+  width:min(1100px,88vw);
 
-  width:min(950px,92vw);
-
-  filter:
-  contrast(1.04)
-  saturate(.82)
-  brightness(.98);
-
-  transition:2s ease;
+  border:1px solid rgba(60,40,20,.12);
 
   box-shadow:
-  0 40px 100px rgba(0,0,0,.08);
+  0 40px 80px rgba(0,0,0,.12),
+  0 10px 20px rgba(0,0,0,.08);
+
+  transform:rotate(-0.3deg);
+
+  transition:1.6s ease;
+
+  filter:
+  contrast(1.03)
+  saturate(.88)
+  sepia(.08);
 }
 
 .house-image:hover{
