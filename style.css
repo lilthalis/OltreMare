@@ -1,12 +1,26 @@
-/* style.css */
+/* ========================================= */
+/* MAISON MARINI — STYLE.CSS */
+/* Archivio Italiano / Quiet Luxury Edition */
+/* ========================================= */
 
 :root{
+
   --paper:#f5efe6;
   --paper-dark:#e8dccd;
+
   --ink:#2b2622;
+  --ink-soft:#4d433b;
+
   --gold:#b59663;
   --terracotta:#9c6b4f;
+
+  --border:rgba(0,0,0,.08);
+
 }
+
+/* ========================================= */
+/* RESET */
+/* ========================================= */
 
 *{
   margin:0;
@@ -14,269 +28,677 @@
   box-sizing:border-box;
 }
 
-body{
-  background:var(--paper);
-  color:var(--ink);
-  font-family:'EB Garamond', serif;
-  overflow-x:hidden;
+html{
+  scroll-behavior:smooth;
 }
+
+body{
+
+  background:
+  radial-gradient(
+    circle at top,
+    rgba(181,150,99,.05),
+    transparent 35%
+  ),
+  var(--paper);
+
+  color:var(--ink);
+
+  font-family:'EB Garamond', serif;
+
+  overflow-x:hidden;
+
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+
+/* ========================================= */
+/* PAPER TEXTURE */
+/* ========================================= */
 
 .paper-overlay{
+
   position:fixed;
   inset:0;
+
   pointer-events:none;
-  opacity:.07;
+
+  opacity:.11;
+
   background-image:url('paperTexture.jpg');
+
   background-size:cover;
+  background-repeat:no-repeat;
+  background-position:center;
+
   mix-blend-mode:multiply;
+
+  z-index:999;
 }
+
+/* ========================================= */
+/* HERO SECTION */
+/* ========================================= */
 
 .hero{
+
   min-height:100vh;
-  padding:120px 40px;
+
+  padding:140px 40px;
+
   display:flex;
   flex-direction:column;
+
   align-items:center;
   justify-content:center;
+
   text-align:center;
+
   position:relative;
+
+  overflow:hidden;
 }
 
+/* archive note */
+
 .archive-note{
+
   text-transform:uppercase;
-  letter-spacing:.4em;
+
+  letter-spacing:.42em;
+
   font-size:12px;
+
   color:var(--terracotta);
-  margin-bottom:40px;
+
+  margin-bottom:50px;
+
+  opacity:.9;
 }
+
+/* ========================================= */
+/* HOUSE IMAGE */
+/* ========================================= */
 
 .house-wrapper{
   position:relative;
 }
 
 .house-image{
-  width:min(900px,90vw);
-  filter:contrast(1.05) saturate(.8);
+
+  width:min(950px,92vw);
+
+  filter:
+  contrast(1.04)
+  saturate(.82)
+  brightness(.98);
+
   transition:2s ease;
+
+  box-shadow:
+  0 40px 100px rgba(0,0,0,.08);
 }
 
 .house-image:hover{
-  transform:scale(1.01);
+  transform:scale(1.015);
 }
 
 .house-note{
+
   position:absolute;
-  bottom:-20px;
+
+  bottom:-22px;
   left:0;
+
   font-style:italic;
+
   opacity:.5;
+
+  font-size:14px;
 }
 
+/* ========================================= */
+/* HERO CONTENT */
+/* ========================================= */
+
 .hero-content{
-  margin-top:80px;
+  margin-top:90px;
 }
 
 .hero-content h1,
 .hero-content h2{
+
   font-family:'Cormorant Garamond', serif;
-  font-size:clamp(70px,12vw,180px);
-  line-height:.9;
+
+  font-size:clamp(80px,12vw,190px);
+
+  line-height:.88;
+
   font-weight:300;
-  letter-spacing:.18em;
+
+  letter-spacing:.14em;
+
   text-transform:uppercase;
+
+  color:#211d1a;
 }
 
 .hero-content h2{
-  margin-top:-10px;
+  margin-top:-12px;
 }
 
 .hero-content p{
-  max-width:700px;
+
+  max-width:760px;
+
   margin:40px auto 0;
-  font-size:20px;
-  line-height:1.8;
-  opacity:.75;
+
+  font-size:21px;
+
+  line-height:2;
+
+  opacity:.74;
+
+  color:var(--ink-soft);
 }
 
+/* ========================================= */
+/* BUTTON */
+/* ========================================= */
+
 .enter-btn{
-  margin-top:50px;
-  padding:18px 42px;
-  background:transparent;
-  border:1px solid rgba(0,0,0,.15);
+
+  margin-top:60px;
+
+  padding:18px 46px;
+
+  background:
+  rgba(255,255,255,.35);
+
+  border:
+  1px solid rgba(0,0,0,.12);
+
+  backdrop-filter:blur(6px);
+
   cursor:pointer;
-  letter-spacing:.25em;
+
+  letter-spacing:.28em;
+
   text-transform:uppercase;
+
   transition:.6s ease;
+
+  color:var(--ink);
+
+  position:relative;
+
+  overflow:hidden;
+
+  font-family:'EB Garamond', serif;
+}
+
+.enter-btn::before{
+
+  content:"";
+
+  position:absolute;
+
+  inset:0;
+
+  background:
+  linear-gradient(
+    120deg,
+    transparent,
+    rgba(255,255,255,.35),
+    transparent
+  );
+
+  transform:translateX(-120%);
+
+  transition:1s ease;
+}
+
+.enter-btn:hover::before{
+  transform:translateX(120%);
 }
 
 .enter-btn:hover{
-  background:var(--ink);
+
+  background:#211d1a;
+
   color:var(--paper);
+
+  transform:translateY(-2px);
 }
 
+/* ========================================= */
+/* SCROLL NOTE */
+/* ========================================= */
+
 .scroll-note{
+
   position:absolute;
+
   bottom:40px;
+
   font-size:10px;
+
   text-transform:uppercase;
+
   letter-spacing:.35em;
+
   opacity:.4;
 }
 
+/* ========================================= */
+/* MANIFESTO + HERO PIECE */
+/* ========================================= */
+
 .manifesto,
 .hero-piece{
-  padding:140px 10vw;
+
+  padding:160px 10vw;
+
   display:grid;
+
   grid-template-columns:1fr 1fr;
-  gap:80px;
-  border-top:1px solid rgba(0,0,0,.08);
+
+  gap:90px;
+
+  border-top:
+  1px solid var(--border);
 }
 
+/* small title */
+
 .small-title{
+
   text-transform:uppercase;
+
   letter-spacing:.35em;
+
   font-size:12px;
+
   color:var(--terracotta);
 }
+
+/* titles */
 
 .manifesto h3,
 .collections h3,
 .hero-text h3{
+
   font-family:'Cormorant Garamond', serif;
+
   font-size:clamp(50px,6vw,90px);
+
   font-weight:300;
-  line-height:1.1;
+
+  line-height:1.05;
+
   margin-top:20px;
+
+  color:#1f1b18;
 }
+
+/* paragraphs */
 
 .manifesto-right p,
 .hero-text p{
+
   font-size:20px;
-  line-height:1.9;
-  opacity:.75;
-  margin-bottom:30px;
+
+  line-height:2;
+
+  opacity:.76;
+
+  margin-bottom:32px;
+
+  color:var(--ink-soft);
 }
 
 .quote{
+
   font-style:italic;
+
   opacity:.5;
 }
 
+/* ========================================= */
+/* COLLECTIONS */
+/* ========================================= */
+
 .collections{
-  padding:140px 10vw;
-  border-top:1px solid rgba(0,0,0,.08);
+
+  padding:160px 10vw;
+
+  border-top:
+  1px solid var(--border);
+
+  position:relative;
 }
 
 .section-header{
-  margin-bottom:80px;
+
+  margin-bottom:90px;
+
+  max-width:700px;
 }
 
+.section-description{
+
+  margin-top:30px;
+
+  max-width:550px;
+
+  font-size:20px;
+
+  line-height:1.9;
+
+  opacity:.7;
+}
+
+/* ========================================= */
+/* GRID */
+/* ========================================= */
+
 .rooms-grid{
+
   display:grid;
-  grid-template-columns:repeat(2,1fr);
+
+  grid-template-columns:
+  repeat(2,1fr);
+
   gap:40px;
 }
 
+/* ========================================= */
+/* ROOM CARD */
+/* ========================================= */
+
 .room{
-  background:var(--paper-dark);
+
+  background:
+  rgba(255,255,255,.35);
+
+  backdrop-filter:blur(3px);
+
   padding:60px;
+
   min-height:420px;
-  border:1px solid rgba(0,0,0,.08);
+
+  border:
+  1px solid rgba(0,0,0,.07);
+
   display:flex;
+
   flex-direction:column;
+
   justify-content:space-between;
+
   transition:1s ease;
+
+  position:relative;
+
+  overflow:hidden;
 }
+
+/* paper effect */
+
+.room::before{
+
+  content:"";
+
+  position:absolute;
+
+  inset:0;
+
+  background:
+  radial-gradient(
+    rgba(0,0,0,.03) 1px,
+    transparent 1px
+  );
+
+  background-size:8px 8px;
+
+  opacity:.24;
+
+  pointer-events:none;
+}
+
+/* hover */
 
 .room:hover{
-  transform:translateY(-5px);
+
+  transform:
+  translateY(-8px);
+
+  border-color:
+  rgba(181,150,99,.35);
+
+  box-shadow:
+  0 30px 70px rgba(0,0,0,.08);
 }
+
+/* room number */
 
 .room-number{
-  font-size:10px;
+
+  font-size:11px;
+
   text-transform:uppercase;
+
   letter-spacing:.35em;
-  opacity:.4;
-}
 
-.room h4{
-  font-family:'Cormorant Garamond', serif;
-  font-size:52px;
-  font-weight:300;
-  line-height:1.1;
-}
+  color:var(--terracotta);
 
-.room p{
-  line-height:1.9;
   opacity:.75;
 }
 
-.room button{
-  width:fit-content;
-  background:none;
-  border:none;
-  border-bottom:1px solid rgba(0,0,0,.3);
-  padding-bottom:8px;
-  text-transform:uppercase;
-  letter-spacing:.25em;
-  cursor:pointer;
+/* room title */
+
+.room h4{
+
+  font-family:'Cormorant Garamond', serif;
+
+  font-size:58px;
+
+  font-weight:300;
+
+  line-height:1;
+
+  color:#1f1b18;
+
+  margin:25px 0;
 }
+
+/* room text */
+
+.room p{
+
+  line-height:2;
+
+  opacity:.76;
+
+  color:var(--ink-soft);
+
+  font-size:18px;
+
+  max-width:90%;
+}
+
+/* room button */
+
+.room button{
+
+  width:fit-content;
+
+  background:none;
+
+  border:none;
+
+  padding-bottom:10px;
+
+  text-transform:uppercase;
+
+  letter-spacing:.25em;
+
+  cursor:pointer;
+
+  position:relative;
+
+  color:#1f1b18;
+
+  margin-top:35px;
+
+  font-family:'EB Garamond', serif;
+}
+
+/* animated line */
+
+.room button::after{
+
+  content:"";
+
+  position:absolute;
+
+  left:0;
+  bottom:0;
+
+  width:100%;
+  height:1px;
+
+  background:#1f1b18;
+
+  transform:scaleX(0);
+
+  transform-origin:left;
+
+  transition:.5s ease;
+}
+
+.room:hover button::after{
+  transform:scaleX(1);
+}
+
+/* ========================================= */
+/* HERO PIECE IMAGE */
+/* ========================================= */
 
 .hero-image{
   position:relative;
 }
 
 .hero-image img{
+
   width:100%;
-  filter:grayscale(.2) sepia(.1);
+
+  filter:
+  grayscale(.15)
+  sepia(.08);
+
+  box-shadow:
+  0 30px 80px rgba(0,0,0,.08);
 }
+
+/* tag */
 
 .hero-tag{
+
   position:absolute;
+
   top:20px;
   left:20px;
-  background:rgba(255,255,255,.7);
+
+  background:
+  rgba(255,255,255,.7);
+
   padding:10px 20px;
+
   text-transform:uppercase;
+
   font-size:11px;
+
   letter-spacing:.25em;
+
+  backdrop-filter:blur(4px);
 }
 
+/* ========================================= */
+/* FOOTER */
+/* ========================================= */
+
 .footer{
+
   min-height:100vh;
+
   display:flex;
+
   align-items:center;
   justify-content:center;
-  background:var(--paper-dark);
+
+  background:
+  linear-gradient(
+    to bottom,
+    #e7dccd,
+    #ddd0be
+  );
+
   position:relative;
+
   overflow:hidden;
+
+  border-top:
+  1px solid rgba(0,0,0,.06);
 }
 
 .footer-content{
+
   position:relative;
+
   text-align:center;
 }
 
 .footer h2{
+
   font-family:'Cormorant Garamond', serif;
-  font-size:clamp(100px,15vw,260px);
+
+  font-size:clamp(120px,17vw,300px);
+
   font-weight:300;
-  line-height:.9;
-  letter-spacing:.2em;
+
+  line-height:.82;
+
+  letter-spacing:.18em;
+
   text-transform:uppercase;
+
+  color:rgba(30,25,20,.92);
 }
 
 .footer p{
-  margin-top:40px;
+
+  margin-top:45px;
+
   text-transform:uppercase;
+
   letter-spacing:.35em;
+
   font-size:11px;
+
   opacity:.5;
 }
 
+/* ========================================= */
+/* ANIMATIONS */
+/* ========================================= */
+
 .fade-up{
+
   opacity:0;
+
   transform:translateY(50px);
+
   animation:fadeUp 1.6s forwards;
 }
 
@@ -289,28 +711,47 @@ body{
 }
 
 .reveal{
+
   opacity:0;
+
   transform:translateY(60px);
+
   transition:1.4s ease;
 }
 
 .reveal.active{
+
   opacity:1;
+
   transform:translateY(0);
 }
 
 @keyframes fadeUp{
+
   to{
     opacity:1;
     transform:translateY(0);
   }
 }
 
+/* ========================================= */
+/* RESPONSIVE */
+/* ========================================= */
+
 @media(max-width:900px){
 
   .manifesto,
   .hero-piece{
+
     grid-template-columns:1fr;
+
+    gap:60px;
+
+    padding:120px 8vw;
+  }
+
+  .collections{
+    padding:120px 8vw;
   }
 
   .rooms-grid{
@@ -318,7 +759,35 @@ body{
   }
 
   .room{
+
     min-height:320px;
+
+    padding:45px;
+  }
+
+  .room h4{
+    font-size:42px;
+  }
+
+  .hero-content h1,
+  .hero-content h2{
+
+    font-size:clamp(
+      60px,
+      14vw,
+      120px
+    );
+  }
+
+  .hero-content p{
+
+    font-size:18px;
+
+    line-height:1.8;
+  }
+
+  .section-header{
+    margin-bottom:60px;
   }
 
 }
