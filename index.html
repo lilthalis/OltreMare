@@ -1,270 +1,222 @@
-<!-- index.html -->
+
 <!DOCTYPE html>
 <html lang="it">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Maison Marini</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=EB+Garamond:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
 </head>
-
 <body>
 
-  <!-- PAPER TEXTURE -->
-  <div class="paper-overlay"></div>
+  <!-- LOADING SCREEN -->
 
-  <!-- HERO -->
-  <section class="hero">
+  <div class="loading-screen">
+    <div class="loading-logo">MAISON MARINI</div>
+  </div>
 
-    <div class="archive-note fade-up">
-      Archivio Italiano · Dal XX Secolo
-    </div>
 
-    <div class="house-wrapper fade-up delay-1">
+  <!-- REGION GATE -->
 
-      <img
-        src="OltreMareimg/CasaMarini.webp"
-        alt="Casa Marini"
-        class="house-image"
-      >
+  <section class="region-gate" id="regionGate">
 
-      <div class="house-note">
-        “Casa Marini, studiata a mano.”
+    <div class="region-container">
+
+      <span class="small-label">ITALIAN LUXURY HOUSE</span>
+
+      <h1 class="main-logo">Maison Marini</h1>
+
+      <p class="subtitle">
+        Una maison italiana oltre il tempo.
+      </p>
+
+      <div class="selector-group">
+
+        <select id="regionSelect">
+          <option>Italia</option>
+          <option>Brasile</option>
+          <option>International</option>
+        </select>
+
+        <button id="enterButton">
+          ENTER
+        </button>
+
       </div>
 
     </div>
 
-    <div class="hero-content fade-up delay-2">
-
-      <h1>Maison</h1>
-      <h2>Marini</h2>
-
-      <p>
-        Uma maison italiana redescoberta através de desenhos,
-        memórias e objetos feitos para atravessar o tempo.
-      </p>
-
-      <button class="enter-btn">
-        Entrare nella Maison
-      </button>
-
-    </div>
-
-    <div class="scroll-note">
-      Scroll to enter
-    </div>
-
   </section>
 
-  <!-- MANIFESTO -->
-  <section class="manifesto">
 
-    <div class="manifesto-left reveal">
-      <span class="small-title">
-        Il Manifesto
-      </span>
+  <!-- MAIN WEBSITE -->
 
-      <h3>
-        Non vogliamo sembrare un marchio del 2026.
-      </h3>
-    </div>
+  <main class="website hidden" id="websiteContent">
 
-    <div class="manifesto-right reveal">
+    <!-- NAVBAR -->
 
-      <p>
-        Maison Marini existe como um arquivo emocional italiano.
-        Cada coleção nasce como se tivesse sido desenhada à mão
-        dentro de um caderno preservado por gerações.
-      </p>
+    <header class="navbar">
 
-      <p>
-        Papel envelhecido, lápis, aquarela e silêncio fazem parte
-        da experiência.
-      </p>
-
-      <p class="quote">
-        “Luxury should feel discovered, not manufactured.”
-      </p>
-
-    </div>
-
-  </section>
-
- <!-- COLLECTIONS -->
-<section class="collections">
-
-  <div class="section-header reveal">
-
-    <span class="small-title">
-      LE STANZE
-    </span>
-
-    <h2>
-      Entra nelle Collezioni
-    </h2>
-
-    <p class="section-description">
-      Ambienti ispirati alla memoria italiana,
-      ai viaggi marittimi e agli archivi dimenticati.
-    </p>
-
-  </div>
-
-  <div class="collections-grid">
-
-    <!-- CARD 1 -->
-    <article class="collection-card reveal">
-
-      <span class="collection-number">
-        Stanza 01
-      </span>
-
-      <h3>
-        Linea Mare
-      </h3>
-
-      <p>
-        Mapas náuticos, couro envelhecido,
-        silêncio marítimo e herança italiana.
-      </p>
-
-      <a href="#">
-        Esplora la Stanza
-      </a>
-
-    </article>
-
-    <!-- CARD 2 -->
-    <article class="collection-card reveal">
-
-      <span class="collection-number">
-        Stanza 02
-      </span>
-
-      <h3>
-        Linea Stella
-      </h3>
-
-      <p>
-        Navegação celeste, estrelas douradas
-        e noites silenciosas italianas.
-      </p>
-
-      <a href="#">
-        Esplora la Stanza
-      </a>
-
-    </article>
-
-    <!-- CARD 3 -->
-    <article class="collection-card reveal">
-
-      <span class="collection-number">
-        Stanza 03
-      </span>
-
-      <h3>
-        Flores do Rinascimento
-      </h3>
-
-      <p>
-        Tulipas aquareladas e arte inspirada
-        em antigos cadernos italianos.
-      </p>
-
-      <a href="#">
-        Esplora la Stanza
-      </a>
-
-    </article>
-
-    <!-- CARD 4 -->
-    <article class="collection-card reveal">
-
-      <span class="collection-number">
-        Stanza 04
-      </span>
-
-      <h3>
-        L’Ancora Sommersa
-      </h3>
-
-      <p>
-        Máscaras venezianas,
-        silêncio e presença dramática.
-      </p>
-
-      <a href="#">
-        Esplora la Stanza
-      </a>
-
-    </article>
-
-  </div>
-
-</section>
-
-  <!-- HERO PRODUCT -->
-  <section class="hero-piece">
-
-    <div class="hero-image reveal">
-
-      <img
-        src=""
-        alt="La Forte"
-      >
-
-      <div class="hero-tag">
-        Hero Piece
+      <div class="nav-logo">
+        Maison Marini
       </div>
 
-    </div>
+      <nav>
+        <a href="#collections">Collections</a>
+        <a href="#philosophy">Maison</a>
+        <a href="#featured">Featured</a>
+      </nav>
 
-    <div class="hero-text reveal">
+    </header>
 
-      <span class="small-title">
-        La Forte
-      </span>
 
-      <h3>
-        Designed like an heirloom.
-      </h3>
+    <!-- HERO -->
+
+    <section class="hero-section">
+
+      <div class="hero-content reveal">
+
+        <span class="hero-small">
+          Italian Quiet Luxury
+        </span>
+
+        <h2>
+          Designed
+          Beyond Time.
+        </h2>
+
+        <p>
+          A cinematic vision of modern Italian luxury.
+          Minimalism, architecture and timeless identity.
+        </p>
+
+        <button>
+          Explore Collections
+        </button>
+
+      </div>
+
+      <div class="hero-image reveal">
+        <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=1400&auto=format&fit=crop" alt="Maison Marini">
+      </div>
+
+    </section>
+
+
+    <!-- COLLECTIONS -->
+
+    <section class="collections" id="collections">
+
+      <div class="section-header reveal">
+        <span>Collections</span>
+        <h3>Future Italian Editorial</h3>
+      </div>
+
+      <div class="collections-grid">
+
+        <article class="collection-card reveal">
+          <img src="https://images.unsplash.com/photo-1496747611176-843222e1e57c?q=80&w=1200&auto=format&fit=crop" alt="Collection">
+
+          <div class="collection-info">
+            <h4>OltreMare</h4>
+            <p>Architectural silhouettes and modern tailoring.</p>
+          </div>
+        </article>
+
+        <article class="collection-card reveal">
+          <img src="https://images.unsplash.com/photo-1529139574466-a303027c1d8b?q=80&w=1200&auto=format&fit=crop" alt="Collection">
+
+          <div class="collection-info">
+            <h4>Milano Nero</h4>
+            <p>Minimalist darkness inspired by Italian nights.</p>
+          </div>
+        </article>
+
+      </div>
+
+    </section>
+
+    <!-- PHILOSOPHY -->
+
+    <section class="philosophy" id="philosophy">
+
+      <div class="philosophy-content reveal">
+
+        <span>
+          Maison Philosophy
+        </span>
+
+        <h3>
+          Silence.
+          Precision.
+          Emotion.
+        </h3>
+
+        <p>
+          Maison Marini exists between fashion, architecture and emotional design.
+          Every collection is built with cinematic direction and refined minimalism.
+        </p>
+
+      </div>
+
+    </section>
+
+
+    <!-- FEATURED -->
+
+    <section class="featured" id="featured">
+
+      <div class="featured-image reveal">
+        <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?q=80&w=1200&auto=format&fit=crop" alt="Featured Product">
+      </div>
+
+      <div class="featured-content reveal">
+
+        <span>Featured Piece</span>
+
+        <h3>
+          Gilet Intoccabile
+        </h3>
+
+        <p>
+          Sculpted luxury inspired by tactical silhouettes and Italian craftsmanship.
+        </p>
+
+        <button>
+          Discover Piece
+        </button>
+
+      </div>
+
+    </section>
+
+
+    <!-- FOOTER -->
+
+    <footer>
+
+      <div class="footer-logo">
+        Maison Marini
+      </div>
+
+      <div class="footer-links">
+        <a href="#">Instagram</a>
+        <a href="#">Collections</a>
+        <a href="#">Contact</a>
+      </div>
 
       <p>
-        A peça principal da Maison Marini nasce da ideia
-        de permanência. Não como tendência,
-        mas como objeto destinado a atravessar gerações.
+        © Maison Marini — All rights reserved.
       </p>
 
-    </div>
-
-  </section>
-
-  <!-- FOOTER -->
-  <footer class="footer">
-
-    <div class="footer-overlay"></div>
-
-    <div class="footer-content">
-
-      <h2>Maison</h2>
-      <h2>Marini</h2>
-
-      <p>
-        Dal XX Secolo · Tra Italia e Brasile
-      </p>
-
-    </div>
-
-  </footer>
-
+    </footer>
+  </main>
   <script src="script.js"></script>
-
 </body>
 </html>
