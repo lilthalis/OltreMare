@@ -1,74 +1,89 @@
-// script.js
-
-const reveals = document.querySelectorAll('.reveal');
-
-function revealOnScroll(){
-
-  reveals.forEach(element => {
-
-    const windowHeight = window.innerHeight;
-    const revealTop = element.getBoundingClientRect().top;
-
-    if(revealTop < windowHeight - 100){
-      element.classList.add('active');
-    }
-
-  });
-
-}
-
-window.addEventListener('scroll', revealOnScroll);
-
-revealOnScroll();
-
-
-// cinematic smooth scroll feeling
-
-document.querySelectorAll('button').forEach(button => {
-
-  button.addEventListener('mouseenter', () => {
-
-    button.style.transform = 'translateY(-2px)';
-
-  });
-
-  button.addEventListener('mouseleave', () => {
-
-    button.style.transform = 'translateY(0px)';
-
-  });
-
-});
-
-
-// subtle parallax on hero image
-
-const houseImage = document.querySelector('.house-image');
-
-window.addEventListener('mousemove', (e) => {
-
-  const x = (window.innerWidth / 2 - e.pageX) / 90;
-  const y = (window.innerHeight / 2 - e.pageY) / 90;
-
-  houseImage.style.transform =
-    `translate(${x}px, ${y}px) scale(1.01)`;
-
-});
+// REGION SELECT
 
 function selectRegion(region){
+
+    // FADE OUT SUAVE
+
+    document.body.style.transition = "opacity 0.6s ease";
 
     document.body.style.opacity = "0";
 
     setTimeout(() => {
 
+        // REDIRECT
+
         if(region === "br"){
+
             window.location.href = "br.html";
+
         }
 
         else{
+
             window.location.href = "global.html";
+
         }
 
-    }, 500);
+    }, 600);
 
 }
+
+/* ============================
+   CINEMATIC PARALLAX
+============================ */
+
+const heroImage = document.querySelector('.hero-image img');
+
+if(heroImage){
+
+    window.addEventListener('mousemove', (e) => {
+
+        const x =
+        (window.innerWidth / 2 - e.clientX) / 80;
+
+        const y =
+        (window.innerHeight / 2 - e.clientY) / 80;
+
+        heroImage.style.transform =
+        `translate(${x}px, ${y}px) scale(1.02)`;
+
+    });
+
+}
+
+/* ============================
+   NAVBAR TRANSPARENCY
+============================ */
+
+const navbar = document.querySelector('.navbar');
+
+window.addEventListener('scroll', () => {
+
+    if(window.scrollY > 50){
+
+        navbar.style.background =
+        "rgba(245,245,242,.92)";
+
+        navbar.style.backdropFilter =
+        "blur(24px)";
+
+    }
+
+    else{
+
+        navbar.style.background =
+        "rgba(245,245,242,.75)";
+
+    }
+
+});
+
+/* ============================
+   PAGE FADE IN
+============================ */
+
+window.addEventListener('load', () => {
+
+    document.body.style.opacity = "1";
+
+});
