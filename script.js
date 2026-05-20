@@ -54,3 +54,21 @@ window.addEventListener('mousemove', (e) => {
     `translate(${x}px, ${y}px) scale(1.01)`;
 
 });
+
+function selectRegion(region){
+
+    document.body.style.opacity = "0";
+
+    setTimeout(() => {
+
+        if(region === "br"){
+            window.location.href = "br.html";
+        }
+
+        else{
+            window.location.href = "global.html";
+        }
+
+    }, 500);
+
+}
