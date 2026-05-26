@@ -1,302 +1,315 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Maison Marini</title>
 
-    <meta charset="UTF-8">
+  <link rel="stylesheet" href="style.css">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    <title>Maison Marini</title>
-
-    <!-- FONTS -->
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-
-    <!-- CSS -->
-
-    <link rel="stylesheet" href="style.css">
-
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 </head>
 
 <body>
 
-    <!-- REGION SCREEN -->
+  <!-- NAVBAR -->
 
-    <section class="region-screen">
+  <header class="navbar">
 
-        <div class="background-image"></div>
+    <div class="logo">
+      Maison Marini
+    </div>
 
-        <div class="overlay"></div>
+    <nav>
+      <a href="#">Collections</a>
+      <a href="#">Manifesto</a>
+      <a href="#">Archive</a>
+      <a href="#">Contact</a>
+    </nav>
 
-        <div class="region-content">
+  </header>
 
-            <span class="small-label">
-                ITALIAN LUXURY HOUSE
-            </span>
 
-            <h1 class="main-logo">
-                Maison Marini
-            </h1>
 
-            <p class="subtitle">
-                Beyond fashion. Beyond time.
-            </p>
+  <!-- HERO -->
 
-            <div class="region-buttons">
+  <section class="hero">
 
-                <button onclick="selectRegion('br')">
-                    Brasil
-                </button>
+    <div class="overlay"></div>
 
-                <button onclick="selectRegion('global')">
-                    International
-                </button>
+    <video autoplay muted loop playsinline class="hero-video">
+      <source src="https://cdn.coverr.co/videos/coverr-clouds-moving-above-the-mountains-1560080874844?download=1080p" type="video/mp4">
+    </video>
 
-            </div>
+    <div class="hero-content">
 
-        </div>
+      <p class="hero-subtitle">
+        Italian Emotional Luxury
+      </p>
 
-    </section>
+      <h1>
+        Silence.<br>
+        Precision.<br>
+        Emotion.
+      </h1>
 
-    <!-- WEBSITE -->
+      <p class="hero-description">
+        Maison Marini blends cinematic atmosphere,
+        emotional storytelling and architectural silhouettes
+        into a new luxury language.
+      </p>
 
-    <main id="websiteContent">
+      <div class="hero-buttons">
+        <button class="primary-btn">
+          Explore Collection
+        </button>
 
-        <!-- NAVBAR -->
+        <button class="secondary-btn">
+          View Manifesto
+        </button>
+      </div>
 
-        <header class="navbar">
+    </div>
 
-            <div class="nav-logo">
-                Maison Marini
-            </div>
+  </section>
 
-            <nav>
 
-                <a href="#collections">
-                    Collections
-                </a>
 
-                <a href="#philosophy">
-                    Maison
-                </a>
+  <!-- STATEMENT -->
 
-                <a href="#featured">
-                    Featured
-                </a>
+  <section class="statement">
 
-            </nav>
+    <p class="section-label">
+      Maison Philosophy
+    </p>
 
-        </header>
+    <h2>
+      Designed for silence.<br>
+      Built for emotion.
+    </h2>
 
-        <!-- HERO -->
+    <p class="statement-text">
+      Inspired by Italian tailoring,
+      cinematic urban culture and tactical architecture,
+      Maison Marini transforms emotion into visual identity.
+    </p>
 
-        <section class="hero-section">
+  </section>
 
-            <div class="hero-content">
 
-                <span class="hero-small">
-                    Italian Quiet Luxury
-                </span>
 
-                <h2>
-                    Designed
-                    Beyond Time.
-                </h2>
+  <!-- COLLECTION GRID -->
 
-                <p>
-                    A cinematic vision of modern Italian luxury.
-                    Minimalism, architecture and timeless identity.
-                </p>
+  <section class="collections">
 
-                <button>
-                    Explore Collections
-                </button>
+    <div class="collection-card large">
 
-            </div>
+      <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=1800" alt="">
 
-            <div class="hero-image">
+      <div class="card-overlay"></div>
 
-                <img
-                    loading="lazy"
-                    src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=1400&auto=format&fit=crop"
-                    alt="Maison Marini">
+      <div class="card-content">
+        <p>Collection 01</p>
+        <h3>OltreMare</h3>
+        <span>Architectural silhouettes and emotional tailoring.</span>
+      </div>
 
-            </div>
+    </div>
 
-        </section>
 
-        <!-- COLLECTIONS -->
 
-        <section class="collections" id="collections">
+    <div class="collection-card">
 
-            <div class="section-header">
+      <img src="https://images.unsplash.com/photo-1529139574466-a303027c1d8b?q=80&w=1800" alt="">
 
-                <span>
-                    Collections
-                </span>
+      <div class="card-overlay"></div>
 
-                <h3>
-                    Future Italian Editorial
-                </h3>
+      <div class="card-content">
+        <p>Feature Piece</p>
+        <h3>Gilet Intoccabile</h3>
+        <span>Tactical elegance reimagined into quiet luxury.</span>
+      </div>
 
-            </div>
+    </div>
 
-            <div class="collections-grid">
 
-                <!-- CARD -->
 
-                <article class="collection-card">
+    <div class="collection-card">
 
-                    <img
-                        loading="lazy"
-                        src="https://images.unsplash.com/photo-1496747611176-843222e1e57c?q=80&w=1200&auto=format&fit=crop"
-                        alt="Collection">
+      <img src="https://images.unsplash.com/photo-1496747611176-843222e1e57c?q=80&w=1800" alt="">
 
-                    <div class="collection-info">
+      <div class="card-overlay"></div>
 
-                        <h4>
-                            OltreMare
-                        </h4>
+      <div class="card-content">
+        <p>Editorial</p>
+        <h3>Milano Nero</h3>
+        <span>Minimalist darkness inspired by Italian nights.</span>
+      </div>
 
-                        <p>
-                            Architectural silhouettes and modern tailoring.
-                        </p>
+    </div>
 
-                    </div>
+  </section>
 
-                </article>
 
-                <!-- CARD -->
 
-                <article class="collection-card">
+  <!-- FULL WIDTH IMAGE -->
 
-                    <img
-                        loading="lazy"
-                        src="https://images.unsplash.com/photo-1529139574466-a303027c1d8b?q=80&w=1200&auto=format&fit=crop"
-                        alt="Collection">
+  <section class="cinematic-image">
 
-                    <div class="collection-info">
+    <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1800" alt="">
 
-                        <h4>
-                            Milano Nero
-                        </h4>
+    <div class="cinematic-content">
 
-                        <p>
-                            Minimalist darkness inspired by Italian nights.
-                        </p>
+      <p>
+        Luxury should feel like memory,
+        architecture and protection.
+      </p>
 
-                    </div>
+    </div>
 
-                </article>
+  </section>
 
-            </div>
 
-        </section>
 
-        <!-- PHILOSOPHY -->
+  <!-- MANIFESTO -->
 
-        <section class="philosophy" id="philosophy">
+  <section class="manifesto">
 
-            <div class="philosophy-content">
+    <div class="manifesto-left">
 
-                <span>
-                    Maison Philosophy
-                </span>
+      <p class="section-label">
+        Manifesto
+      </p>
 
-                <h3>
-                    Silence.
-                    Precision.
-                    Emotion.
-                </h3>
+      <h2>
+        A quiet form<br>
+        of power.
+      </h2>
 
-                <p>
-                    Maison Marini exists between fashion,
-                    architecture and emotional design.
-                    Every collection is built with cinematic direction
-                    and refined minimalism.
-                </p>
+    </div>
 
-            </div>
 
-        </section>
 
-        <!-- FEATURED -->
+    <div class="manifesto-right">
 
-        <section class="featured" id="featured">
+      <p>
+        Maison Marini was created from the idea that fashion
+        should communicate atmosphere before status.
+      </p>
 
-            <div class="featured-image">
+      <p>
+        Inspired by emotional storytelling,
+        urban melancholy and precision design,
+        the brand explores silence, identity and protection
+        through modern luxury.
+      </p>
 
-                <img
-                    loading="lazy"
-                    src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?q=80&w=1200&auto=format&fit=crop"
-                    alt="Featured Product">
+      <p>
+        Every collection is designed with cinematic intention,
+        balancing minimalism, emotion and visual depth.
+      </p>
 
-            </div>
+    </div>
 
-            <div class="featured-content">
+  </section>
 
-                <span>
-                    Featured Piece
-                </span>
 
-                <h3>
-                    Gilet Intoccabile
-                </h3>
 
-                <p>
-                    Sculpted luxury inspired by tactical silhouettes
-                    and Italian craftsmanship.
-                </p>
+  <!-- FEATURE PRODUCT -->
 
-                <button>
-                    Discover Piece
-                </button>
+  <section class="featured-product">
 
-            </div>
+    <div class="featured-image">
 
-        </section>
+      <img src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?q=80&w=1800" alt="">
 
-        <!-- FOOTER -->
+    </div>
 
-        <footer>
 
-            <div class="footer-logo">
-                Maison Marini
-            </div>
 
-            <div class="footer-links">
+    <div class="featured-info">
 
-                <a href="#">
-                    Instagram
-                </a>
+      <p class="section-label">
+        Signature Piece
+      </p>
 
-                <a href="#">
-                    Collections
-                </a>
+      <h2>
+        Tactical<br>
+        Minimalism.
+      </h2>
 
-                <a href="#">
-                    Contact
-                </a>
+      <p>
+        Inspired by military silhouettes and refined Italian
+        tailoring, the Maison Marini tactical collection
+        explores protection through elegance and restraint.
+      </p>
 
-            </div>
+      <button class="primary-btn">
+        Discover More
+      </button>
 
-            <p>
-                © Maison Marini — All rights reserved.
-            </p>
+    </div>
 
-        </footer>
+  </section>
 
-    </main>
 
-    <!-- SCRIPT -->
 
-    <script src="script.js"></script>
+  <!-- QUOTE SECTION -->
+
+  <section class="quote-section">
+
+    <h2>
+      “Emotion becomes architecture.”
+    </h2>
+
+  </section>
+
+
+
+  <!-- FOOTER -->
+
+  <footer>
+
+    <div class="footer-top">
+
+      <div class="footer-brand">
+
+        <h3>Maison Marini</h3>
+
+        <p>
+          Emotional luxury inspired by silence,
+          cinematic atmosphere and modern Italian identity.
+        </p>
+
+      </div>
+
+
+
+      <div class="footer-links">
+
+        <a href="#">Instagram</a>
+        <a href="#">Collections</a>
+        <a href="#">Manifesto</a>
+        <a href="#">Archive</a>
+
+      </div>
+
+    </div>
+
+
+
+    <div class="footer-bottom">
+
+      <p>
+        © 2026 Maison Marini — All rights reserved.
+      </p>
+
+    </div>
+
+  </footer>
 
 </body>
-
 </html>
