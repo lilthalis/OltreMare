@@ -1,333 +1,486 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MAISON MARINI | OLTREMARE</title>
+    <style>
+        :root {
+            --obsidian: #0A0A0A;
+            --charcoal: #121212;
+            --silver: #C0C0C0;
+            --ivory: #F5F2ED;
+            --font-serif: 'Didot', 'Bodoni MT', 'Cinzel', serif;
+            --font-sans: '-apple-system', BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            --transition-smooth: all 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+        }
 
-    <title>Maison Marini</title>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-font-smoothing: antialiased;
+        }
 
-    <link rel="stylesheet" href="style.css">
-    <!-- FONTS -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        body {
+            background-color: var(--obsidian);
+            color: var(--ivory);
+            font-family: var(--font-sans);
+            overflow-x: hidden;
+        }
 
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--obsidian);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #333;
+        }
 
+        /* Typography */
+        h1, h2, h3, .brand-title {
+            font-family: var(--font-serif);
+            font-weight: 300;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+        }
+
+        p {
+            font-size: 0.95rem;
+            line-height: 1.8;
+            letter-spacing: 0.05em;
+            color: #A0A0A0;
+        }
+
+        .silver-text {
+            color: var(--silver);
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 30px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            background: linear-gradient(to bottom, rgba(10,10,10,0.8), rgba(10,10,10,0));
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .nav-logo {
+            font-size: 1.2rem;
+            font-weight: 400;
+            text-decoration: none;
+            color: var(--ivory);
+            letter-spacing: 0.3em;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--ivory);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            transition: var(--transition-smooth);
+            opacity: 0.7;
+        }
+
+        .nav-links a:hover {
+            opacity: 1;
+            color: var(--silver);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            width: 100%;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            overflow: hidden;
+            background: radial-gradient(circle, #1a1a1a 0%, #0A0A0A 100%);
+        }
+
+        /* Placeholder for cinematic campaign video/image background */
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.4;
+            mix-blend-mode: luminosity;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            max-width: 800px;
+            padding: 0 20px;
+        }
+
+        .hero-subtitle {
+            font-size: 0.8rem;
+            letter-spacing: 0.5em;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            color: var(--silver);
+        }
+
+        .hero-title {
+            font-size: clamp(3rem, 8vw, 6rem);
+            line-height: 1.1;
+            margin-bottom: 40px;
+        }
+
+        .btn-luxury {
+            display: inline-block;
+            padding: 15px 40px;
+            border: 1px solid rgba(245, 242, 237, 0.3);
+            text-decoration: none;
+            color: var(--ivory);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.3em;
+            transition: var(--transition-smooth);
+            background: transparent;
+        }
+
+        .btn-luxury:hover {
+            background: var(--ivory);
+            color: var(--obsidian);
+            border-color: var(--ivory);
+        }
+
+        /* Main Layout Spacing */
+        section {
+            padding: 180px 10%;
+            position: relative;
+            background-color: var(--obsidian);
+        }
+
+        /* Editorial Narrative Section */
+        .narrative {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 100px;
+            align-items: center;
+        }
+
+        .narrative-image-container {
+            position: relative;
+            aspect-ratio: 3/4;
+            background-color: var(--charcoal);
+            border: 1px solid rgba(192, 192, 192, 0.1);
+        }
+
+        /* Simulated Editorial Photo Graphic placeholder */
+        .editorial-graphic {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #121212 0%, #1f1f1f 100%);
+            color: rgba(192,192,192,0.15);
+            font-family: var(--font-serif);
+            font-style: italic;
+            font-size: 2rem;
+        }
+
+        .section-tag {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.3em;
+            color: var(--silver);
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            margin-bottom: 30px;
+            line-height: 1.2;
+        }
+
+        /* Product Showcase */
+        .showcase {
+            background-color: var(--charcoal);
+        }
+
+        .showcase-header {
+            text-align: center;
+            margin-bottom: 100px;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+
+        .product-card {
+            text-decoration: none;
+            color: inherit;
+            group: inherit;
+        }
+
+        .product-image {
+            aspect-ratio: 2/3;
+            background: #1a1a1a;
+            margin-bottom: 25px;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .product-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .product-name {
+            font-family: var(--font-serif);
+            font-size: 1.1rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .product-price {
+            font-size: 0.85rem;
+            color: var(--silver);
+            letter-spacing: 0.05em;
+        }
+
+        /* Archive Section (Renaissance / Legacy) */
+        .archive-strip {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        /* Footer / Outro */
+        footer {
+            background-color: var(--obsidian);
+            padding: 120px 10% 60px 10%;
+            border-top: 1px solid rgba(192, 192, 192, 0.1);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr repeat(3, 1fr);
+            gap: 60px;
+            margin-bottom: 80px;
+        }
+
+        .footer-logo {
+            font-size: 2rem;
+            letter-spacing: 0.2em;
+            margin-bottom: 20px;
+        }
+
+        .footer-links-column h4 {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            margin-bottom: 25px;
+            color: var(--silver);
+        }
+
+        .footer-links-column ul {
+            list-style: none;
+        }
+
+        .footer-links-column li {
+            margin-bottom: 15px;
+        }
+
+        .footer-links-column a {
+            text-decoration: none;
+            color: #888;
+            font-size: 0.8rem;
+            transition: var(--transition-smooth);
+        }
+
+        .footer-links-column a:hover {
+            color: var(--ivory);
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 40px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            font-size: 0.7rem;
+            letter-spacing: 0.1em;
+            color: #555;
+            text-transform: uppercase;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 968px) {
+            nav { padding: 20px; }
+            .nav-links { display: none; }
+            section { padding: 100px 5%; }
+            .narrative { grid-template-columns: 1fr; gap: 50px; }
+            .product-grid { grid-template-columns: 1fr; gap: 50px; }
+            .archive-strip { grid-template-columns: 1fr; gap: 50px; }
+            .footer-grid { grid-template-columns: 1fr; gap: 40px; }
+        }
+    </style>
 </head>
-
 <body>
-    <!-- NAVBAR -->
 
-    <header class="navbar">
-
-        <div class="logo">
-            Maison Marini
+    <nav>
+        <a href="#" class="nav-logo">MARINI</a>
+        <ul class="nav-links">
+            <li><a href="#collection">OltreMare</a></li>
+            <li><a href="#narrative">The Narrative</a></li>
+            <li><a href="#archive">Maison Archive</a></li>
+            <li><a href="#atelier">Atelier</a></li>
+        </ul>
+        <div>
+            <a href="#" class="btn-luxury" style="padding: 8px 20px; font-size: 0.65rem;">Enter</a>
         </div>
+    </nav>
 
-        <nav>
-
-            <a href="#">Collections</a>
-            <a href="#">Manifesto</a>
-            <a href="#">Archive</a>
-            <a href="#">Contact</a>
-
-        </nav>
-
-    </header>
-    <!-- HERO -->
-
-    <section class="hero">
-
-        <video autoplay muted loop playsinline class="hero-video">
-
-            <source src="https://cdn.coverr.co/videos/coverr-aerial-view-of-ocean-waves-1561485300241?download=1080p" type="video/mp4">
-
-        </video>
-
-        <div class="overlay"></div>
-
+    <header class="hero">
+        <div class="hero-bg">
+            <div class="editorial-graphic" style="font-size: 4rem;">CAMPAIGN I: OLTREMARE</div>
+        </div>
         <div class="hero-content">
-
-            <p class="hero-subtitle">
-                Italian Emotional Luxury
+            <span class="hero-subtitle">Maison Marini</span>
+            <h1 class="hero-title">OltreMare</h1>
+            <p style="margin-bottom: 40px; max-width: 600px; margin-left: auto; margin-right: auto;">
+                An exploration of dark elegance, historical legacy, and modern youth iconography. Crafted in Italy.
             </p>
-
-            <h1>
-                Silence.<br>
-                Precision.<br>
-                Emotion.
-            </h1>
-
-            <p class="hero-description">
-
-                Maison Marini transforms cinematic atmosphere,
-                emotional storytelling and architectural silhouettes
-                into a new language of luxury.
-
-            </p>
-
-            <div class="hero-buttons">
-
-                <button class="primary-btn">
-                    Explore Collection
-                </button>
-
-                <button class="secondary-btn">
-                    View Manifesto
-                </button>
-
-            </div>
-
+            <a href="#collection" class="btn-luxury">Explore the Collection</a>
         </div>
+    </header>
 
+    <section id="narrative" class="narrative">
+        <div class="narrative-image-container">
+            <div class="editorial-graphic">Firenze, MMXXVI</div>
+        </div>
+        <div>
+            <span class="section-tag">Chapter I</span>
+            <h2 class="section-title">Renaissance <br><span class="silver-text">Reimagined</span></h2>
+            <p style="margin-bottom: 30px;">
+                Maison Marini bridges the gap between historical aristocratic reverence and the sharp aesthetics of modern youth culture. Inspired by the depth of Italian art history and the clean discipline of modern architecture.
+            </p>
+            <a href="#" class="btn-luxury">Read the Manifesto</a>
+        </div>
     </section>
-    <!-- STATEMENT -->
 
-    <section class="statement">
-
-        <p class="section-label">
-            Maison Philosophy
-        </p>
-
-        <h2>
-
-            Designed for silence.<br>
-            Built for emotion.
-
-        </h2>
-
-        <p class="statement-text">
-
-            Inspired by Italian minimalism,
-            urban melancholy and cinematic direction,
-            Maison Marini explores protection,
-            atmosphere and identity through fashion.
-
-        </p>
-
+    <section id="collection" class="showcase">
+        <div class="showcase-header">
+            <span class="section-tag">Curated Selection</span>
+            <h2 class="section-title">The Masterpieces</h2>
+        </div>
+        <div class="product-grid">
+            <a href="#" class="product-card">
+                <div class="product-image">
+                    <div class="editorial-graphic" style="font-size: 1.2rem;">L'Oscuro Coat</div>
+                </div>
+                <div class="product-meta">
+                    <span class="product-name">L'Oscuro Oversized Coat</span>
+                    <span class="product-price">€3,400</span>
+                </div>
+            </a>
+            <a href="#" class="product-card">
+                <div class="product-image">
+                    <div class="editorial-graphic" style="font-size: 1.2rem;">Silver Monolith Corset</div>
+                </div>
+                <div class="product-meta">
+                    <span class="product-name">Monolith Silver Corset</span>
+                    <span class="product-price">€1,950</span>
+                </div>
+            </a>
+            <a href="#" class="product-card">
+                <div class="product-image">
+                    <div class="editorial-graphic" style="font-size: 1.2rem;">OltreMare Boot</div>
+                </div>
+                <div class="product-meta">
+                    <span class="product-name">OltreMare Leather Boot</span>
+                    <span class="product-price">€2,100</span>
+                </div>
+            </a>
+        </div>
     </section>
-    <!-- COLLECTIONS -->
 
-    <section class="collections">
-
-        <!-- CARD 1 -->
-
-        <div class="collection-card large">
-
-            <img src="https://images.unsplash.com/photo-1496747611176-843222e1e57c?q=80&w=1800" alt="">
-
-            <div class="card-overlay"></div>
-
-            <div class="card-content">
-
-                <p>Collection 01</p>
-
-                <h3>
-                    OltreMare
-                </h3>
-
-                <span>
-                    Architectural silhouettes inspired by emotional tailoring.
-                </span>
-
-            </div>
-
+    <section id="archive" class="archive-strip">
+        <div>
+            <span class="section-tag">Heritage Archive</span>
+            <h2 class="section-title">The Hidden <br><span class="silver-text">Vaults</span></h2>
+            <p style="margin-bottom: 30px;">
+                Access a curated glimpse into rare pieces, unique prototypes, and historical inspirations that dictate the design language of the House. A permanent legacy preserved in silver and stone.
+            </p>
+            <a href="#" class="btn-luxury">Request Access</a>
         </div>
-        <!-- CARD 2 -->
-
-        <div class="collection-card">
-
-            <img src="https://images.unsplash.com/photo-1529139574466-a303027c1d8b?q=80&w=1800" alt="">
-
-            <div class="card-overlay"></div>
-
-            <div class="card-content">
-
-                <p>Feature Piece</p>
-
-                <h3>
-                    Milano Nero
-                </h3>
-
-                <span>
-                    Minimalist darkness and cinematic Italian atmosphere.
-                </span>
-
-            </div>
-
+        <div class="narrative-image-container" style="aspect-ratio: 1/1;">
+            <div class="editorial-graphic">Archive File MM-092</div>
         </div>
-        <!-- CARD 3 -->
-
-        <div class="collection-card">
-
-            <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=1800" alt="">
-
-            <div class="card-overlay"></div>
-
-            <div class="card-content">
-
-                <p>Editorial</p>
-
-                <h3>
-                    Intoccabile
-                </h3>
-
-                <span>
-                    Tactical luxury inspired by protection and restraint.
-                </span>
-
-            </div>
-
-        </div>
-
     </section>
-    <!-- CINEMATIC SECTION -->
 
-    <section class="cinematic-image">
-
-        <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1800" alt="">
-
-        <div class="cinematic-content">
-
-            <p>
-
-                Fashion should feel
-                like memory,
-                architecture
-                and protection.
-
-            </p>
-
-        </div>
-
-    </section>
-    <!-- MANIFESTO -->
-
-    <section class="manifesto">
-
-        <div class="manifesto-left">
-
-            <p class="section-label">
-                Manifesto
-            </p>
-
-            <h2>
-
-                A quiet form<br>
-                of power.
-
-            </h2>
-
-        </div>
-        <div class="manifesto-right">
-
-            <p>
-
-                Maison Marini was created from the idea that
-                luxury should communicate atmosphere before status.
-
-            </p>
-
-            <p>
-
-                Inspired by cinematic storytelling,
-                emotional urban culture and Italian architecture,
-                the brand explores silence,
-                identity and visual depth.
-
-            </p>
-
-            <p>
-
-                Every collection is designed
-                with precision, restraint and emotional presence.
-
-            </p>
-
-        </div>
-
-    </section>
-    <!-- FEATURED PRODUCT -->
-
-    <section class="featured-product">
-
-        <div class="featured-image">
-
-            <img src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?q=80&w=1800" alt="">
-
-        </div>
-        <div class="featured-info">
-
-            <p class="section-label">
-                Signature Piece
-            </p>
-
-            <h2>
-
-                Tactical<br>
-                Minimalism.
-
-            </h2>
-
-            <p>
-
-                Inspired by military silhouettes and refined tailoring,
-                Maison Marini explores elegance through restraint,
-                structure and cinematic atmosphere.
-
-            </p>
-
-            <button class="primary-btn">
-                Discover More
-            </button>
-
-        </div>
-
-    </section>
-    <!-- QUOTE -->
-
-    <section class="quote-section">
-
-        <h2>
-            “Emotion becomes architecture.”
-        </h2>
-
-    </section>
-    <!-- FOOTER -->
     <footer>
-        <div class="footer-top">
-            <div class="footer-brand">
-
-                <h3>
-                    Maison Marini
-                </h3>
-
-                <p>
-
-                    Emotional luxury inspired by silence,
-                    cinematic storytelling and modern Italian identity.
-
-                </p>
+        <div class="footer-grid">
+            <div>
+                <h3 class="footer-logo">MARINI</h3>
+                <p style="font-size: 0.8rem; max-width: 280px;">Ambition, legacy, and art intertwined. A contemporary voice for rare Italian craftsmanship.</p>
             </div>
-            <div class="footer-links">
-
-                <a href="#">Instagram</a>
-                <a href="#">Collections</a>
-                <a href="#">Manifesto</a>
-                <a href="#">Archive</a>
-
+            <div class="footer-links-column">
+                <h4>Collections</h4>
+                <ul>
+                    <li><a href="#">OltreMare (2026)</a></li>
+                    <li><a href="#">Maison Archive</a></li>
+                    <li><a href="#">High Sartorial</a></li>
+                    <li><a href="#">Objects of Art</a></li>
+                </ul>
             </div>
-
+            <div class="footer-links-column">
+                <h4>The House</h4>
+                <ul>
+                    <li><a href="#">Our Manifesto</a></li>
+                    <li><a href="#">Atelier History</a></li>
+                    <li><a href="#">Sustainability Responsibility</a></li>
+                    <li><a href="#">Careers</a></li>
+                </ul>
+            </div>
+            <div class="footer-links-column">
+                <h4>Concierge</h4>
+                <ul>
+                    <li><a href="#">Private Appointments</a></li>
+                    <li><a href="#">Shipping & Returns</a></li>
+                    <li><a href="#">Garment Care</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                </ul>
+            </div>
         </div>
         <div class="footer-bottom">
-
-            <p>
-                © 2026 Maison Marini — All rights reserved.
-            </p>
-
+            <span>&copy; 2026 Maison Marini. All Rights Reserved.</span>
+            <span>Milano / Firenze</span>
         </div>
-
     </footer>
+
 </body>
 </html>
