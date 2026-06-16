@@ -4,15 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MAISON MARINI | OLTREMARE</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    
     <style>
         :root {
             --obsidian: #0A0A0A;
             --charcoal: #121212;
             --silver: #C0C0C0;
+            --silver-muted: rgba(192, 192, 192, 0.4);
             --ivory: #F5F2ED;
             --font-serif: 'Didot', 'Bodoni MT', 'Cinzel', serif;
             --font-sans: '-apple-system', BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            --transition-smooth: all 0.8s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
         * {
@@ -27,301 +30,436 @@
             color: var(--ivory);
             font-family: var(--font-sans);
             overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* Smooth Scroll Container */
+        #smooth-wrapper {
+            overflow: hidden;
+            position: fixed;
+            height: 100%;
+            width: 100%;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
+
+        #smooth-content {
+            overflow: visible;
+            width: 100%;
         }
 
         /* Custom Scrollbar */
         ::-webkit-scrollbar {
-            width: 6px;
+            width: 4px;
         }
         ::-webkit-scrollbar-track {
             background: var(--obsidian);
         }
         ::-webkit-scrollbar-thumb {
-            background: #333;
+            background: var(--silver-muted);
         }
 
-        /* Typography */
-        h1, h2, h3, .brand-title {
+        /* Typography & Utility */
+        h1, h2, h3, h4, .serif-display {
             font-family: var(--font-serif);
             font-weight: 300;
-            letter-spacing: 0.15em;
+            letter-spacing: 0.2em;
             text-transform: uppercase;
         }
 
         p {
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             line-height: 1.8;
-            letter-spacing: 0.05em;
-            color: #A0A0A0;
+            letter-spacing: 0.08em;
+            color: #8A8A8A;
         }
 
         .silver-text {
             color: var(--silver);
+            background: linear-gradient(90deg, #FFFFFF 0%, #888888 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
-        /* Navigation */
+        /* Premium Interface Elements */
         nav {
             position: fixed;
             top: 0;
             width: 100%;
-            padding: 30px 50px;
+            padding: 40px 60px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            z-index: 100;
-            background: linear-gradient(to bottom, rgba(10,10,10,0.8), rgba(10,10,10,0));
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            z-index: 90;
+            pointer-events: none;
         }
 
         .nav-logo {
-            font-size: 1.2rem;
-            font-weight: 400;
+            font-size: 1.4rem;
+            letter-spacing: 0.4em;
             text-decoration: none;
             color: var(--ivory);
-            letter-spacing: 0.3em;
+            pointer-events: auto;
         }
 
-        .nav-links {
+        .nav-actions {
             display: flex;
             gap: 40px;
-            list-style: none;
+            pointer-events: auto;
         }
 
-        .nav-links a {
-            text-decoration: none;
+        .nav-btn {
+            background: none;
+            border: none;
             color: var(--ivory);
             font-size: 0.75rem;
             text-transform: uppercase;
             letter-spacing: 0.2em;
-            transition: var(--transition-smooth);
-            opacity: 0.7;
-        }
-
-        .nav-links a:hover {
-            opacity: 1;
-            color: var(--silver);
-        }
-
-        /* Hero Section */
-        .hero {
-            height: 100vh;
-            width: 100%;
+            cursor: pointer;
             position: relative;
+            padding-bottom: 4px;
+        }
+
+        .nav-btn::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0%;
+            height: 1px;
+            background: var(--silver);
+            transition: width 0.4s ease;
+        }
+
+        .nav-btn:hover::after {
+            width: 100%;
+        }
+
+        /* Cinematic Wing Preloader / Opening Gate */
+        .wing-gate {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 100;
             display: flex;
-            flex-direction: column;
+            pointer-events: none;
+        }
+
+        .wing-panel {
+            width: 50%;
+            height: 100%;
+            background: var(--charcoal);
+            border: 1px solid rgba(192, 192, 192, 0.05);
+            display: flex;
             justify-content: center;
             align-items: center;
-            text-align: center;
-            overflow: hidden;
-            background: radial-gradient(circle, #1a1a1a 0%, #0A0A0A 100%);
+            transition: transform 1.6s cubic-bezier(0.85, 0, 0.15, 1);
         }
 
-        /* Placeholder for cinematic campaign video/image background */
-        .hero-bg {
+        .wing-left { transform: translateX(0); border-right: 1px solid var(--silver-muted); }
+        .wing-right { transform: translateX(0); border-left: 1px solid var(--silver-muted); }
+
+        .gate-loaded .wing-left { transform: translateX(-100%); }
+        .gate-loaded .wing-right { transform: translateX(100%); }
+
+        .gate-emblem {
+            font-family: var(--font-serif);
+            font-size: 2rem;
+            letter-spacing: 0.5em;
+            color: var(--silver);
+            opacity: 1;
+            transition: opacity 0.8s ease;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 101;
+            white-space: nowrap;
+        }
+
+        /* Cinematic Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            perspective: 1000px;
+        }
+
+        .hero-viewport {
+            width: 85%;
+            height: 80%;
+            position: relative;
+            overflow: hidden;
+            background: #111;
+            box-shadow: 0 30px 100px rgba(0,0,0,0.8);
+        }
+
+        .hero-canvas {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(180deg, #161616 0%, #020202 100%);
+            transform: scale(1.1);
+        }
+
+        .hero-canvas-art {
+            font-family: var(--font-serif);
+            font-size: 15vw;
+            color: rgba(255, 255, 255, 0.02);
+            user-select: none;
+            font-style: italic;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            bottom: 80px;
+            left: 80px;
+            z-index: 10;
+            max-width: 600px;
+        }
+
+        .hero-title {
+            font-size: clamp(3rem, 6vw, 5.5rem);
+            line-height: 1.05;
+            margin-bottom: 30px;
+        }
+
+        /* Luxury Curtain Reveal Section */
+        .curtain-section {
+            padding: 250px 10%;
+            background: var(--obsidian);
+            position: relative;
+        }
+
+        .curtain-reveal-wrap {
+            position: relative;
+            width: 100%;
+            height: 700px;
+            overflow: hidden;
+        }
+
+        .curtain-panel {
+            position: absolute;
+            top: 0;
+            width: 50%;
+            height: 100%;
+            background: var(--charcoal);
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 0 50px rgba(0,0,0,0.5);
+        }
+
+        .curtain-left { left: 0; justify-content: flex-end; padding-right: 50px; border-right: 1px solid rgba(255,255,255,0.05); }
+        .curtain-right { right: 0; justify-content: flex-start; padding-left: 50px; border-left: 1px solid rgba(255,255,255,0.05); }
+
+        .curtain-content-under {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            object-fit: cover;
-            opacity: 0.4;
-            mix-blend-mode: luminosity;
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 10;
-            max-width: 800px;
-            padding: 0 20px;
-        }
-
-        .hero-subtitle {
-            font-size: 0.8rem;
-            letter-spacing: 0.5em;
-            text-transform: uppercase;
-            margin-bottom: 20px;
-            color: var(--silver);
-        }
-
-        .hero-title {
-            font-size: clamp(3rem, 8vw, 6rem);
-            line-height: 1.1;
-            margin-bottom: 40px;
-        }
-
-        .btn-luxury {
-            display: inline-block;
-            padding: 15px 40px;
-            border: 1px solid rgba(245, 242, 237, 0.3);
-            text-decoration: none;
-            color: var(--ivory);
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 0.3em;
-            transition: var(--transition-smooth);
-            background: transparent;
-        }
-
-        .btn-luxury:hover {
-            background: var(--ivory);
-            color: var(--obsidian);
-            border-color: var(--ivory);
-        }
-
-        /* Main Layout Spacing */
-        section {
-            padding: 180px 10%;
-            position: relative;
-            background-color: var(--obsidian);
-        }
-
-        /* Editorial Narrative Section */
-        .narrative {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 100px;
-            align-items: center;
-        }
-
-        .narrative-image-container {
-            position: relative;
-            aspect-ratio: 3/4;
-            background-color: var(--charcoal);
-            border: 1px solid rgba(192, 192, 192, 0.1);
-        }
-
-        /* Simulated Editorial Photo Graphic placeholder */
-        .editorial-graphic {
-            width: 100%;
-            height: 100%;
+            background: linear-gradient(45deg, #1a1a1a, #0a0a0a);
             display: flex;
             justify-content: center;
             align-items: center;
-            background: linear-gradient(135deg, #121212 0%, #1f1f1f 100%);
-            color: rgba(192,192,192,0.15);
-            font-family: var(--font-serif);
-            font-style: italic;
-            font-size: 2rem;
+            z-index: 1;
         }
 
-        .section-tag {
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 0.3em;
-            color: var(--silver);
-            margin-bottom: 20px;
-            display: block;
+        /* Editorial Magazine Panels */
+        .editorial-panel-section {
+            padding: 150px 0;
+            background: #060606;
         }
 
-        .section-title {
-            font-size: clamp(2rem, 4vw, 3.5rem);
-            margin-bottom: 30px;
-            line-height: 1.2;
+        .magazine-grid {
+            display: flex;
+            width: 100%;
+            height: 90vh;
+            gap: 10px;
+            padding: 0 50px;
         }
 
-        /* Product Showcase */
-        .showcase {
-            background-color: var(--charcoal);
-        }
-
-        .showcase-header {
-            text-align: center;
-            margin-bottom: 100px;
-        }
-
-        .product-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 40px;
-        }
-
-        .product-card {
-            text-decoration: none;
-            color: inherit;
-            group: inherit;
-        }
-
-        .product-image {
-            aspect-ratio: 2/3;
-            background: #1a1a1a;
-            margin-bottom: 25px;
+        .magazine-column {
+            flex: 1;
+            height: 100%;
+            background: var(--charcoal);
             position: relative;
             overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.05);
+            transition: flex 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+            border: 1px solid rgba(245, 242, 237, 0.03);
         }
 
-        .product-meta {
+        .magazine-column:hover {
+            flex: 1.8;
+        }
+
+        .panel-bg-text {
+            position: absolute;
+            top: 40px;
+            left: 40px;
+            font-size: 0.75rem;
+            letter-spacing: 0.4em;
+            text-transform: uppercase;
+            color: var(--silver-muted);
+        }
+
+        .panel-footer-text {
+            position: absolute;
+            bottom: 40px;
+            left: 40px;
+            right: 40px;
+        }
+
+        /* Secret Archive (Confidential Layered Layout) */
+        .archive-section {
+            padding: 200px 10%;
+            background: var(--obsidian);
+        }
+
+        .archive-header {
+            margin-bottom: 120px;
+            text-align: center;
+        }
+
+        .archive-row {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            padding: 60px 0;
+            border-bottom: 1px solid rgba(192, 192, 192, 0.1);
+            cursor: pointer;
+            position: relative;
+        }
+
+        .archive-row::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0%;
+            height: 1px;
+            background: var(--silver);
+            transition: width 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .archive-row:hover::before {
+            width: 100%;
+        }
+
+        .archive-id {
+            font-size: 0.8rem;
+            font-family: monospace;
+            color: var(--silver-muted);
+            display: flex;
+            align-items: center;
+        }
+
+        .archive-details {
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
-        .product-name {
-            font-family: var(--font-serif);
-            font-size: 1.1rem;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-        }
-
-        .product-price {
-            font-size: 0.85rem;
-            color: var(--silver);
-            letter-spacing: 0.05em;
-        }
-
-        /* Archive Section (Renaissance / Legacy) */
-        .archive-strip {
-            display: grid;
-            grid-template-columns: 1.5fr 1fr;
-            gap: 80px;
+        .archive-preview {
+            width: 80px;
+            height: 100px;
+            background: #1a1a1a;
+            opacity: 0;
+            transform: scale(0.8) rotate(-5deg);
+            transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+            position: absolute;
+            right: 25%;
+            top: 20px;
+            pointer-events: none;
+            display: flex;
+            justify-content: center;
             align-items: center;
+            font-family: var(--font-serif);
+            font-size: 0.6rem;
+            border: 1px solid rgba(255,255,255,0.1);
         }
 
-        /* Footer / Outro */
+        .archive-row:hover .archive-preview {
+            opacity: 1;
+            transform: scale(1) rotate(0deg);
+        }
+
+        /* Sophisticated Luxury Button */
+        .btn-action {
+            display: inline-flex;
+            align-items: center;
+            gap: 20px;
+            padding: 18px 45px;
+            background: transparent;
+            border: 1px solid rgba(245, 242, 237, 0.2);
+            color: var(--ivory);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.3em;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            text-decoration: none;
+            margin-top: 20px;
+        }
+
+        .btn-action:hover {
+            border-color: var(--ivory);
+            background: var(--ivory);
+            color: var(--obsidian);
+        }
+
+        /* Footer Outro */
         footer {
-            background-color: var(--obsidian);
-            padding: 120px 10% 60px 10%;
-            border-top: 1px solid rgba(192, 192, 192, 0.1);
+            padding: 150px 10% 80px 10%;
+            background: #040404;
+            border-top: 1px solid rgba(192, 192, 192, 0.05);
         }
 
         .footer-grid {
             display: grid;
-            grid-template-columns: 2fr repeat(3, 1fr);
-            gap: 60px;
-            margin-bottom: 80px;
+            grid-template-columns: 2fr repeat(2, 1fr);
+            gap: 80px;
+            margin-bottom: 100px;
         }
 
-        .footer-logo {
-            font-size: 2rem;
-            letter-spacing: 0.2em;
-            margin-bottom: 20px;
+        .footer-brand h3 {
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+            letter-spacing: 0.3em;
         }
 
-        .footer-links-column h4 {
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 0.2em;
-            margin-bottom: 25px;
+        .footer-col h4 {
+            font-size: 0.8rem;
+            margin-bottom: 30px;
             color: var(--silver);
         }
 
-        .footer-links-column ul {
+        .footer-col ul {
             list-style: none;
         }
 
-        .footer-links-column li {
-            margin-bottom: 15px;
+        .footer-col li {
+            margin-bottom: 18px;
         }
 
-        .footer-links-column a {
+        .footer-col a {
+            color: #666;
             text-decoration: none;
-            color: #888;
-            font-size: 0.8rem;
-            transition: var(--transition-smooth);
+            font-size: 0.85rem;
+            transition: color 0.3s ease;
+            letter-spacing: 0.05em;
         }
 
-        .footer-links-column a:hover {
+        .footer-col a:hover {
             color: var(--ivory);
         }
 
@@ -329,158 +467,242 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            border-top: 1px solid rgba(255,255,255,0.03);
             padding-top: 40px;
-            border-top: 1px solid rgba(255,255,255,0.05);
             font-size: 0.7rem;
-            letter-spacing: 0.1em;
-            color: #555;
+            letter-spacing: 0.2em;
+            color: #444;
             text-transform: uppercase;
         }
 
-        /* Responsive adjustments */
-        @media (max-width: 968px) {
-            nav { padding: 20px; }
-            .nav-links { display: none; }
-            section { padding: 100px 5%; }
-            .narrative { grid-template-columns: 1fr; gap: 50px; }
-            .product-grid { grid-template-columns: 1fr; gap: 50px; }
-            .archive-strip { grid-template-columns: 1fr; gap: 50px; }
-            .footer-grid { grid-template-columns: 1fr; gap: 40px; }
+        @media(max-width: 968px) {
+            nav { padding: 30px; }
+            .nav-actions { display: none; }
+            .magazine-grid { flex-direction: column; height: auto; gap: 30px; padding: 0 20px; }
+            .magazine-column { height: 400px; }
+            .curtain-panel h3 { font-size: 0.8rem; }
+            .archive-row { grid-template-columns: 1fr; gap: 20px; }
+            .footer-grid { grid-template-columns: 1fr; gap: 50px; }
         }
     </style>
 </head>
 <body>
 
+    <div class="gate-emblem" id="gateEmblem">MAISON MARINI</div>
+    <div class="wing-gate" id="wingGate">
+        <div class="wing-panel wing-left"></div>
+        <div class="wing-panel wing-right"></div>
+    </div>
+
     <nav>
         <a href="#" class="nav-logo">MARINI</a>
-        <ul class="nav-links">
-            <li><a href="#collection">OltreMare</a></li>
-            <li><a href="#narrative">The Narrative</a></li>
-            <li><a href="#archive">Maison Archive</a></li>
-            <li><a href="#atelier">Atelier</a></li>
-        </ul>
-        <div>
-            <a href="#" class="btn-luxury" style="padding: 8px 20px; font-size: 0.65rem;">Enter</a>
+        <div class="nav-actions">
+            <button class="nav-btn">OltreMare</button>
+            <button class="nav-btn">Archive</button>
+            <button class="nav-btn">Atelier</button>
         </div>
     </nav>
 
-    <header class="hero">
-        <div class="hero-bg">
-            <div class="editorial-graphic" style="font-size: 4rem;">CAMPAIGN I: OLTREMARE</div>
-        </div>
-        <div class="hero-content">
-            <span class="hero-subtitle">Maison Marini</span>
-            <h1 class="hero-title">OltreMare</h1>
-            <p style="margin-bottom: 40px; max-width: 600px; margin-left: auto; margin-right: auto;">
-                An exploration of dark elegance, historical legacy, and modern youth iconography. Crafted in Italy.
-            </p>
-            <a href="#collection" class="btn-luxury">Explore the Collection</a>
-        </div>
-    </header>
+    <div id="smooth-wrapper">
+        <div id="smooth-content">
 
-    <section id="narrative" class="narrative">
-        <div class="narrative-image-container">
-            <div class="editorial-graphic">Firenze, MMXXVI</div>
-        </div>
-        <div>
-            <span class="section-tag">Chapter I</span>
-            <h2 class="section-title">Renaissance <br><span class="silver-text">Reimagined</span></h2>
-            <p style="margin-bottom: 30px;">
-                Maison Marini bridges the gap between historical aristocratic reverence and the sharp aesthetics of modern youth culture. Inspired by the depth of Italian art history and the clean discipline of modern architecture.
-            </p>
-            <a href="#" class="btn-luxury">Read the Manifesto</a>
-        </div>
-    </section>
+            <section class="hero">
+                <div class="hero-viewport" id="heroViewport">
+                    <div class="hero-canvas" id="heroCanvas">
+                        <div class="hero-canvas-art">OLTREMARE</div>
+                    </div>
+                </div>
+                <div class="hero-overlay">
+                    <h1 class="hero-title">An Italian <br><span class="silver-text">Legacy Awakened</span></h1>
+                    <p style="max-width: 420px; margin-bottom: 20px;">
+                        Where pure Renaissance structural design encounters the modern shadow world of luxury culture.
+                    </p>
+                </div>
+            </section>
 
-    <section id="collection" class="showcase">
-        <div class="showcase-header">
-            <span class="section-tag">Curated Selection</span>
-            <h2 class="section-title">The Masterpieces</h2>
-        </div>
-        <div class="product-grid">
-            <a href="#" class="product-card">
-                <div class="product-image">
-                    <div class="editorial-graphic" style="font-size: 1.2rem;">L'Oscuro Coat</div>
+            <section class="curtain-section">
+                <div class="curtain-reveal-wrap" id="curtainTrigger">
+                    <div class="curtain-panel curtain-left" id="curtainL">
+                        <h3>L'ARISTOCRAZIA</h3>
+                    </div>
+                    <div class="curtain-panel curtain-right" id="curtainR">
+                        <h3>MODERNA</h3>
+                    </div>
+                    <div class="curtain-content-under">
+                        <div style="text-align: center; max-width: 600px; padding: 40px;">
+                            <h2 style="font-size: 2.5rem; margin-bottom: 25px;">The OltreMare Silhouette</h2>
+                            <p style="margin-bottom: 30px;">A study in complete architectural symmetry, constructed inside historical tailoring houses across Milan and Florence.</p>
+                            <a href="#" class="btn-action">Enter Exhibition</a>
+                        </div>
+                    </div>
                 </div>
-                <div class="product-meta">
-                    <span class="product-name">L'Oscuro Oversized Coat</span>
-                    <span class="product-price">€3,400</span>
-                </div>
-            </a>
-            <a href="#" class="product-card">
-                <div class="product-image">
-                    <div class="editorial-graphic" style="font-size: 1.2rem;">Silver Monolith Corset</div>
-                </div>
-                <div class="product-meta">
-                    <span class="product-name">Monolith Silver Corset</span>
-                    <span class="product-price">€1,950</span>
-                </div>
-            </a>
-            <a href="#" class="product-card">
-                <div class="product-image">
-                    <div class="editorial-graphic" style="font-size: 1.2rem;">OltreMare Boot</div>
-                </div>
-                <div class="product-meta">
-                    <span class="product-name">OltreMare Leather Boot</span>
-                    <span class="product-price">€2,100</span>
-                </div>
-            </a>
-        </div>
-    </section>
+            </section>
 
-    <section id="archive" class="archive-strip">
-        <div>
-            <span class="section-tag">Heritage Archive</span>
-            <h2 class="section-title">The Hidden <br><span class="silver-text">Vaults</span></h2>
-            <p style="margin-bottom: 30px;">
-                Access a curated glimpse into rare pieces, unique prototypes, and historical inspirations that dictate the design language of the House. A permanent legacy preserved in silver and stone.
-            </p>
-            <a href="#" class="btn-luxury">Request Access</a>
-        </div>
-        <div class="narrative-image-container" style="aspect-ratio: 1/1;">
-            <div class="editorial-graphic">Archive File MM-092</div>
-        </div>
-    </section>
+            <section class="editorial-panel-section">
+                <div class="magazine-grid">
+                    <div class="magazine-column">
+                        <div class="panel-bg-text">Act I / Shadow Design</div>
+                        <div class="panel-footer-text">
+                            <h3 style="font-size: 1.2rem; margin-bottom: 10px;">The Obsidian Coat</h3>
+                            <p>Hand-woven tailoring designed to drape smoothly like heavy stone.</p>
+                        </div>
+                    </div>
+                    <div class="magazine-column">
+                        <div class="panel-bg-text">Act II / Structural Art</div>
+                        <div class="panel-footer-text">
+                            <h3 style="font-size: 1.2rem; margin-bottom: 10px;">Silver Armor Corsetry</h3>
+                            <p>Infusing metallic hardware components directly into classic luxury fabrics.</p>
+                        </div>
+                    </div>
+                    <div class="magazine-column">
+                        <div class="panel-bg-text">Act III / Eternal Youth</div>
+                        <div class="panel-footer-text">
+                            <h3 style="font-size: 1.2rem; margin-bottom: 10px;">The Florentine Veil</h3>
+                            <p>An intricate visual tribute celebrating raw young identity and timeless heritage.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
-    <footer>
-        <div class="footer-grid">
-            <div>
-                <h3 class="footer-logo">MARINI</h3>
-                <p style="font-size: 0.8rem; max-width: 280px;">Ambition, legacy, and art intertwined. A contemporary voice for rare Italian craftsmanship.</p>
-            </div>
-            <div class="footer-links-column">
-                <h4>Collections</h4>
-                <ul>
-                    <li><a href="#">OltreMare (2026)</a></li>
-                    <li><a href="#">Maison Archive</a></li>
-                    <li><a href="#">High Sartorial</a></li>
-                    <li><a href="#">Objects of Art</a></li>
-                </ul>
-            </div>
-            <div class="footer-links-column">
-                <h4>The House</h4>
-                <ul>
-                    <li><a href="#">Our Manifesto</a></li>
-                    <li><a href="#">Atelier History</a></li>
-                    <li><a href="#">Sustainability Responsibility</a></li>
-                    <li><a href="#">Careers</a></li>
-                </ul>
-            </div>
-            <div class="footer-links-column">
-                <h4>Concierge</h4>
-                <ul>
-                    <li><a href="#">Private Appointments</a></li>
-                    <li><a href="#">Shipping & Returns</a></li>
-                    <li><a href="#">Garment Care</a></li>
-                    <li><a href="#">Contact Us</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <span>&copy; 2026 Maison Marini. All Rights Reserved.</span>
-            <span>Milano / Firenze</span>
-        </div>
-    </footer>
+            <section class="archive-section">
+                <div class="archive-header">
+                    <h2 style="font-size: 2.5rem; margin-bottom: 20px;">The Confidential Archive</h2>
+                    <p>Protected prototypes, historic references, and unreleased artistic blueprints.</p>
+                </div>
 
+                <div class="archive-table">
+                    <div class="archive-row">
+                        <div class="archive-id">RECORD_092 // FIRENZE</div>
+                        <div class="archive-details">
+                            <h3 style="font-size: 1.1rem;">Raw Silk Structure Cape</h3>
+                            <div class="archive-preview">VIEW FILE</div>
+                            <span class="silver-text">2026/01</span>
+                        </div>
+                    </div>
+                    <div class="archive-row">
+                        <div class="archive-id">RECORD_104 // MILANO</div>
+                        <div class="archive-details">
+                            <h3 style="font-size: 1.1rem;">Brushed Silver Signet Ring</h3>
+                            <div class="archive-preview">VIEW FILE</div>
+                            <span class="silver-text">2026/03</span>
+                        </div>
+                    </div>
+                    <div class="archive-row">
+                        <div class="archive-id">RECORD_441 // VENEZIA</div>
+                        <div class="archive-details">
+                            <h3 style="font-size: 1.1rem;">Heavy Wool Asymmetric Tuxedo</h3>
+                            <div class="archive-preview">VIEW FILE</div>
+                            <span class="silver-text">2026/05</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <footer>
+                <div class="footer-grid">
+                    <div class="footer-brand">
+                        <h3>MARINI</h3>
+                        <p style="max-width: 320px;">An absolute pinnacle of deep, quiet Italian luxury. Merging centuries of design mastery with the future of global youth style.</p>
+                    </div>
+                    <div class="footer-col">
+                        <h4>The Collections</h4>
+                        <ul>
+                            <li><a href="#">OltreMare Campaign</a></li>
+                            <li><a href="#">Maison Archive</a></li>
+                            <li><a href="#">Sartorial Studio</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-col">
+                        <h4>The House</h4>
+                        <ul>
+                            <li><a href="#">The Manifesto</a></li>
+                            <li><a href="#">Atelier Locations</a></li>
+                            <li><a href="#">Private Concierge</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <span>Maison Marini &copy; 2026</span>
+                    <span>All Creations Crafted Exclusively in Italy</span>
+                </div>
+            </footer>
+
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // Register GSAP ScrollTrigger
+            gsap.registerPlugin(ScrollTrigger);
+
+            // 1. Initial Gate Reveal Event
+            setTimeout(() => {
+                document.getElementById('gateEmblem').style.opacity = '0';
+                document.getElementById('wingGate').classList.add('gate-loaded');
+                
+                // Animate Hero Viewport on entry
+                gsap.to("#heroViewport", {
+                    width: "100%",
+                    height: "100%",
+                    duration: 2,
+                    ease: "power4.inOut",
+                    delay: 0.5
+                });
+                
+                gsap.to("#heroCanvas", {
+                    scale: 1,
+                    duration: 2.5,
+                    ease: "power3.out",
+                    delay: 0.5
+                });
+            }, 1200);
+
+            // 2. Cinematic Parallax Camera Effect on Hero Canvas Text
+            gsap.to("#heroCanvas .hero-canvas-art", {
+                scrollTrigger: {
+                    trigger: ".hero",
+                    start: "top top",
+                    end: "bottom top",
+                    scrub: true
+                },
+                y: 150,
+                scale: 1.1
+            });
+
+            // 3. Luxury Curtain Reveal Animation Logic
+            gsap.timeline({
+                scrollTrigger: {
+                    trigger: "#curtainTrigger",
+                    start: "top center",
+                    end: "bottom center",
+                    scrub: 1
+                }
+            })
+            .to("#curtainL", { xPercent: -100, ease: "power2.inOut" }, 0)
+            .to("#curtainR", { xPercent: 100, ease: "power2.inOut" }, 0);
+
+            // 4. Smooth Inertia Simulated Scroll System Integration
+            let speed = 0.08;
+            let offset = 0;
+            const content = document.getElementById('smooth-content');
+            
+            function smoothScroll() {
+                offset += (window.pageYOffset - offset) * speed;
+                content.style.transform = `translateY(-${offset}px)`;
+                requestAnimationFrame(smoothScroll);
+            }
+            // Dynamic window height sync
+            function setHeight() {
+                document.body.style.height = content.clientHeight + "px";
+            }
+            
+            window.addEventListener('resize', setHeight);
+            // Wait slightly for layouts to stabilize before tracking content height
+            setTimeout(() => {
+                setHeight();
+                smoothScroll();
+            }, 1500);
+        });
+    </script>
 </body>
 </html>
