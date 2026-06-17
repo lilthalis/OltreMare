@@ -1,707 +1,434 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MAISON MARINI | OLTREMARE</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    
+    <title>Maison Marini | OltreMare Archive</title>
+    <meta name="description" content="Maison Marini OltreMare — uma experiência cinematográfica de identidade, legado e luxo italiano.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300&family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     <style>
         :root {
-            --obsidian: #0A0A0A;
-            --charcoal: #121212;
-            --silver: #C0C0C0;
-            --silver-muted: rgba(192, 192, 192, 0.4);
-            --ivory: #F5F2ED;
-            --font-serif: 'Didot', 'Bodoni MT', 'Cinzel', serif;
-            --font-sans: '-apple-system', BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            --black: #0A0A0A;
+            --black-soft: #111010;
+            --ivory: #F5F0E8;
+            --silver: #C9C9C9;
+            --wine: #3B0F19;
+            --paper: rgba(245, 240, 232, 0.78);
+            --line: rgba(245, 240, 232, 0.14);
+            --serif: 'Playfair Display', 'Cormorant Garamond', Georgia, serif;
+            --garamond: 'Cormorant Garamond', Georgia, serif;
+            --sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            --ease: cubic-bezier(0.76, 0, 0.24, 1);
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: auto; background: var(--black); }
+        body {
+            min-height: 100vh;
+            background: var(--black);
+            color: var(--ivory);
+            font-family: var(--sans);
+            cursor: none;
+            overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
         }
 
-        body {
-            background-color: var(--obsidian);
-            color: var(--ivory);
-            font-family: var(--font-sans);
-            overflow-x: hidden;
-            min-height: 100vh;
-        }
-
-        /* Smooth Scroll Container */
-        #smooth-wrapper {
-            overflow: hidden;
-            position: fixed;
-            height: 100%;
-            width: 100%;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-        }
-
-        #smooth-content {
-            overflow: visible;
-            width: 100%;
-        }
-
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 4px;
-        }
-        ::-webkit-scrollbar-track {
-            background: var(--obsidian);
-        }
-        ::-webkit-scrollbar-thumb {
-            background: var(--silver-muted);
-        }
-
-        /* Typography & Utility */
-        h1, h2, h3, h4, .serif-display {
-            font-family: var(--font-serif);
-            font-weight: 300;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-        }
-
-        p {
-            font-size: 0.9rem;
-            line-height: 1.8;
-            letter-spacing: 0.08em;
-            color: #8A8A8A;
-        }
-
-        .silver-text {
-            color: var(--silver);
-            background: linear-gradient(90deg, #FFFFFF 0%, #888888 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        /* Premium Interface Elements */
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            padding: 40px 60px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 90;
-            pointer-events: none;
-        }
-
-        .nav-logo {
-            font-size: 1.4rem;
-            letter-spacing: 0.4em;
-            text-decoration: none;
-            color: var(--ivory);
-            pointer-events: auto;
-        }
-
-        .nav-actions {
-            display: flex;
-            gap: 40px;
-            pointer-events: auto;
-        }
-
-        .nav-btn {
-            background: none;
-            border: none;
-            color: var(--ivory);
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 0.2em;
-            cursor: pointer;
-            position: relative;
-            padding-bottom: 4px;
-        }
-
-        .nav-btn::after {
+        body::before, body::after {
             content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0%;
-            height: 1px;
-            background: var(--silver);
-            transition: width 0.4s ease;
-        }
-
-        .nav-btn:hover::after {
-            width: 100%;
-        }
-
-        /* Cinematic Wing Preloader / Opening Gate */
-        .wing-gate {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            z-index: 100;
-            display: flex;
+            inset: 0;
             pointer-events: none;
+            z-index: 999;
         }
 
-        .wing-panel {
-            width: 50%;
-            height: 100%;
-            background: var(--charcoal);
-            border: 1px solid rgba(192, 192, 192, 0.05);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            transition: transform 1.6s cubic-bezier(0.85, 0, 0.15, 1);
+        body::before {
+            opacity: .13;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 220 220' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");
+            mix-blend-mode: overlay;
         }
 
-        .wing-left { transform: translateX(0); border-right: 1px solid var(--silver-muted); }
-        .wing-right { transform: translateX(0); border-left: 1px solid var(--silver-muted); }
-
-        .gate-loaded .wing-left { transform: translateX(-100%); }
-        .gate-loaded .wing-right { transform: translateX(100%); }
-
-        .gate-emblem {
-            font-family: var(--font-serif);
-            font-size: 2rem;
-            letter-spacing: 0.5em;
-            color: var(--silver);
-            opacity: 1;
-            transition: opacity 0.8s ease;
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 101;
-            white-space: nowrap;
-        }
-
-        /* Cinematic Hero Section */
-        .hero {
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-            overflow: hidden;
-            perspective: 1000px;
-        }
-
-        .hero-viewport {
-            width: 85%;
-            height: 80%;
-            position: relative;
-            overflow: hidden;
-            background: #111;
-            box-shadow: 0 30px 100px rgba(0,0,0,0.8);
-        }
-
-        .hero-canvas {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: linear-gradient(180deg, #161616 0%, #020202 100%);
-            transform: scale(1.1);
-        }
-
-        .hero-canvas-art {
-            font-family: var(--font-serif);
-            font-size: 15vw;
-            color: rgba(255, 255, 255, 0.02);
-            user-select: none;
-            font-style: italic;
-        }
-
-        .hero-overlay {
-            position: absolute;
-            bottom: 80px;
-            left: 80px;
-            z-index: 10;
-            max-width: 600px;
-        }
-
-        .hero-title {
-            font-size: clamp(3rem, 6vw, 5.5rem);
-            line-height: 1.05;
-            margin-bottom: 30px;
-        }
-
-        /* Luxury Curtain Reveal Section */
-        .curtain-section {
-            padding: 250px 10%;
-            background: var(--obsidian);
-            position: relative;
-        }
-
-        .curtain-reveal-wrap {
-            position: relative;
-            width: 100%;
-            height: 700px;
-            overflow: hidden;
-        }
-
-        .curtain-panel {
-            position: absolute;
-            top: 0;
-            width: 50%;
-            height: 100%;
-            background: var(--charcoal);
+        body::after {
+            background: radial-gradient(circle at 50% 20%, transparent 0 34%, rgba(0,0,0,.48) 100%);
             z-index: 2;
-            display: flex;
-            align-items: center;
-            box-shadow: 0 0 50px rgba(0,0,0,0.5);
         }
 
-        .curtain-left { left: 0; justify-content: flex-end; padding-right: 50px; border-right: 1px solid rgba(255,255,255,0.05); }
-        .curtain-right { right: 0; justify-content: flex-start; padding-left: 50px; border-left: 1px solid rgba(255,255,255,0.05); }
+        a, button { cursor: none; }
+        ::selection { background: var(--ivory); color: var(--black); }
 
-        .curtain-content-under {
-            position: absolute;
+        .cursor, .cursor-aura {
+            position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, #1a1a1a, #0a0a0a);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 10000;
+            transform: translate(-50%, -50%);
+            transition: width .45s var(--ease), height .45s var(--ease), border-color .45s var(--ease), background .45s var(--ease);
         }
 
-        /* Editorial Magazine Panels */
-        .editorial-panel-section {
-            padding: 150px 0;
-            background: #060606;
-        }
+        .cursor { width: 9px; height: 9px; background: var(--ivory); mix-blend-mode: difference; }
+        .cursor-aura { width: 38px; height: 38px; border: 1px solid rgba(245,240,232,.42); }
+        .cursor-aura.is-expanded { width: 92px; height: 92px; border-color: rgba(201,201,201,.82); background: rgba(245,240,232,.04); }
 
-        .magazine-grid {
-            display: flex;
-            width: 100%;
-            height: 90vh;
-            gap: 10px;
-            padding: 0 50px;
-        }
-
-        .magazine-column {
-            flex: 1;
-            height: 100%;
-            background: var(--charcoal);
-            position: relative;
-            overflow: hidden;
-            transition: flex 0.8s cubic-bezier(0.25, 1, 0.5, 1);
-            border: 1px solid rgba(245, 242, 237, 0.03);
-        }
-
-        .magazine-column:hover {
-            flex: 1.8;
-        }
-
-        .panel-bg-text {
-            position: absolute;
-            top: 40px;
-            left: 40px;
-            font-size: 0.75rem;
-            letter-spacing: 0.4em;
-            text-transform: uppercase;
-            color: var(--silver-muted);
-        }
-
-        .panel-footer-text {
-            position: absolute;
-            bottom: 40px;
-            left: 40px;
-            right: 40px;
-        }
-
-        /* Secret Archive (Confidential Layered Layout) */
-        .archive-section {
-            padding: 200px 10%;
-            background: var(--obsidian);
-        }
-
-        .archive-header {
-            margin-bottom: 120px;
-            text-align: center;
-        }
-
-        .archive-row {
+        .gate {
+            position: fixed;
+            inset: 0;
+            z-index: 9000;
             display: grid;
-            grid-template-columns: 1fr 2fr;
-            padding: 60px 0;
-            border-bottom: 1px solid rgba(192, 192, 192, 0.1);
-            cursor: pointer;
-            position: relative;
+            grid-template-columns: repeat(2, 1fr);
+            pointer-events: none;
         }
 
-        .archive-row::before {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0%;
-            height: 1px;
-            background: var(--silver);
-            transition: width 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+        .gate__panel {
+            background: linear-gradient(90deg, #090909, #161313 48%, #090909);
+            border-right: 1px solid rgba(201,201,201,.18);
+            transform-origin: center;
+            transition: transform 1.9s var(--ease), filter 1.9s var(--ease);
         }
+        .gate__panel:last-child { border-left: 1px solid rgba(201,201,201,.18); border-right: 0; }
+        .gate.is-open .gate__panel:first-child { transform: translateX(-104%) rotateY(-18deg); filter: blur(8px); }
+        .gate.is-open .gate__panel:last-child { transform: translateX(104%) rotateY(18deg); filter: blur(8px); }
 
-        .archive-row:hover::before {
-            width: 100%;
+        .gate__mark {
+            position: fixed;
+            inset: 0;
+            z-index: 9001;
+            display: grid;
+            place-items: center;
+            font-family: var(--serif);
+            letter-spacing: .72em;
+            font-size: clamp(1rem, 2vw, 1.7rem);
+            color: var(--silver);
+            pointer-events: none;
+            transition: opacity 1s ease, letter-spacing 1.3s var(--ease), filter 1s ease;
         }
+        .gate.is-open + .gate__mark { opacity: 0; letter-spacing: 1.2em; filter: blur(8px); }
 
-        .archive-id {
-            font-size: 0.8rem;
-            font-family: monospace;
-            color: var(--silver-muted);
-            display: flex;
-            align-items: center;
-        }
-
-        .archive-details {
+        .nav {
+            position: fixed;
+            inset: 0 0 auto 0;
+            z-index: 50;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            padding: 34px clamp(22px, 5vw, 72px);
+            mix-blend-mode: difference;
         }
 
-        .archive-preview {
-            width: 80px;
-            height: 100px;
-            background: #1a1a1a;
-            opacity: 0;
-            transform: scale(0.8) rotate(-5deg);
-            transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+        .brand, .nav a {
+            color: var(--ivory);
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: .34em;
+            font-size: .72rem;
+        }
+        .brand { font-family: var(--serif); font-size: .95rem; }
+        .nav__links { display: flex; gap: clamp(18px, 3vw, 42px); }
+
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: grid;
+            place-items: center;
+            overflow: hidden;
+            isolation: isolate;
+        }
+
+        .hero__image {
             position: absolute;
-            right: 25%;
-            top: 20px;
-            pointer-events: none;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-family: var(--font-serif);
-            font-size: 0.6rem;
-            border: 1px solid rgba(255,255,255,0.1);
+            inset: 0;
+            background:
+                linear-gradient(180deg, rgba(10,10,10,.20), rgba(10,10,10,.86)),
+                radial-gradient(circle at 70% 38%, rgba(59,15,25,.38), transparent 30%),
+                url('OltreMareimg/Oltremarecoleçao.jpg') center/cover;
+            transform: scale(1.14);
+            filter: saturate(.75) contrast(1.1) brightness(.78);
+            z-index: -2;
+        }
+        .hero__image::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg, rgba(10,10,10,.92), transparent 30%, transparent 70%, rgba(10,10,10,.88));
         }
 
-        .archive-row:hover .archive-preview {
-            opacity: 1;
-            transform: scale(1) rotate(0deg);
+        .hero__content { text-align: center; padding: 0 20px; max-width: 1180px; }
+        .eyebrow {
+            display: block;
+            margin-bottom: 26px;
+            color: var(--silver);
+            text-transform: uppercase;
+            letter-spacing: .48em;
+            font-size: .72rem;
         }
-
-        /* Sophisticated Luxury Button */
-        .btn-action {
+        h1, h2, h3 { font-family: var(--serif); font-weight: 400; text-transform: uppercase; }
+        .hero h1 {
+            font-size: clamp(4rem, 12vw, 12.5rem);
+            line-height: .82;
+            letter-spacing: .06em;
+            text-shadow: 0 32px 80px rgba(0,0,0,.72);
+        }
+        .hero__tagline {
+            margin: 28px auto 38px;
+            font-family: var(--garamond);
+            font-size: clamp(1.4rem, 3vw, 3.25rem);
+            font-style: italic;
+            color: var(--paper);
+        }
+        .button {
             display: inline-flex;
             align-items: center;
-            gap: 20px;
-            padding: 18px 45px;
-            background: transparent;
-            border: 1px solid rgba(245, 242, 237, 0.2);
+            gap: 18px;
+            border: 1px solid rgba(245,240,232,.34);
             color: var(--ivory);
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 0.3em;
-            cursor: pointer;
-            transition: all 0.4s ease;
+            background: rgba(10,10,10,.2);
+            padding: 17px 30px;
             text-decoration: none;
-            margin-top: 20px;
+            text-transform: uppercase;
+            letter-spacing: .28em;
+            font-size: .72rem;
+            backdrop-filter: blur(16px);
+            transition: background .55s var(--ease), color .55s var(--ease), transform .55s var(--ease);
         }
+        .button:hover { background: var(--ivory); color: var(--black); transform: translateY(-4px); }
 
-        .btn-action:hover {
-            border-color: var(--ivory);
-            background: var(--ivory);
-            color: var(--obsidian);
-        }
+        section { position: relative; z-index: 3; }
+        .section-title { max-width: 980px; margin: 0 auto 90px; text-align: center; padding: 0 24px; }
+        .section-title h2 { font-size: clamp(2.7rem, 7vw, 7rem); line-height: .9; letter-spacing: .08em; }
+        .section-title p, .story p, .collection p, footer p { color: rgba(245,240,232,.62); line-height: 1.85; letter-spacing: .05em; font-size: .92rem; }
 
-        /* Footer Outro */
-        footer {
-            padding: 150px 10% 80px 10%;
-            background: #040404;
-            border-top: 1px solid rgba(192, 192, 192, 0.05);
-        }
-
-        .footer-grid {
+        .fan-stage { min-height: 120vh; padding: 170px 5vw; background: linear-gradient(180deg, #0a0a0a, #120c0e 48%, #080808); overflow: hidden; }
+        .fan {
             display: grid;
-            grid-template-columns: 2fr repeat(2, 1fr);
-            gap: 80px;
-            margin-bottom: 100px;
+            grid-template-columns: repeat(5, 1fr);
+            min-height: 72vh;
+            gap: 12px;
+            perspective: 1200px;
         }
-
-        .footer-brand h3 {
-            font-size: 1.8rem;
-            margin-bottom: 30px;
-            letter-spacing: 0.3em;
+        .fan__panel {
+            position: relative;
+            overflow: hidden;
+            min-height: 560px;
+            border: 1px solid var(--line);
+            transform-origin: bottom center;
+            clip-path: polygon(8% 0, 100% 0, 92% 100%, 0 100%);
+            background: #151515;
         }
+        .fan__panel img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(.16) brightness(.74); transform: scale(1.08); transition: transform 1.4s var(--ease), filter 1.4s var(--ease); }
+        .fan__panel:hover img { transform: scale(1.17); filter: grayscale(0) brightness(.95); }
+        .fan__panel::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 35%, rgba(10,10,10,.86)); }
+        .fan__caption { position: absolute; left: 24px; right: 24px; bottom: 28px; z-index: 2; }
+        .fan__caption h3 { font-size: clamp(1.2rem, 2vw, 2rem); letter-spacing: .12em; }
+        .fan__caption span { color: var(--silver); font-size: .68rem; letter-spacing: .34em; text-transform: uppercase; }
 
-        .footer-col h4 {
-            font-size: 0.8rem;
-            margin-bottom: 30px;
-            color: var(--silver);
-        }
-
-        .footer-col ul {
-            list-style: none;
-        }
-
-        .footer-col li {
-            margin-bottom: 18px;
-        }
-
-        .footer-col a {
-            color: #666;
-            text-decoration: none;
-            font-size: 0.85rem;
-            transition: color 0.3s ease;
-            letter-spacing: 0.05em;
-        }
-
-        .footer-col a:hover {
-            color: var(--ivory);
-        }
-
-        .footer-bottom {
-            display: flex;
-            justify-content: space-between;
+        .archive { padding: 170px 7vw; background: var(--black); }
+        .collection {
+            display: grid;
+            grid-template-columns: .75fr 1.25fr .7fr;
+            gap: clamp(26px, 5vw, 90px);
             align-items: center;
-            border-top: 1px solid rgba(255,255,255,0.03);
-            padding-top: 40px;
-            font-size: 0.7rem;
-            letter-spacing: 0.2em;
-            color: #444;
-            text-transform: uppercase;
+            padding: 66px 0;
+            border-top: 1px solid var(--line);
         }
+        .collection:last-child { border-bottom: 1px solid var(--line); }
+        .collection__number { color: var(--silver); letter-spacing: .38em; font-size: .72rem; }
+        .collection h3 { font-size: clamp(2.1rem, 4vw, 4.8rem); line-height: .93; letter-spacing: .06em; }
+        .collection__image { height: 360px; overflow: hidden; border: 1px solid var(--line); box-shadow: 0 30px 80px rgba(0,0,0,.42); }
+        .collection__image img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.35s var(--ease), filter 1.35s var(--ease); filter: brightness(.74) saturate(.8); }
+        .collection:hover .collection__image img { transform: scale(1.1); filter: brightness(1) saturate(1.05); }
 
-        @media(max-width: 968px) {
-            nav { padding: 30px; }
-            .nav-actions { display: none; }
-            .magazine-grid { flex-direction: column; height: auto; gap: 30px; padding: 0 20px; }
-            .magazine-column { height: 400px; }
-            .curtain-panel h3 { font-size: 0.8rem; }
-            .archive-row { grid-template-columns: 1fr; gap: 20px; }
-            .footer-grid { grid-template-columns: 1fr; gap: 50px; }
+        .story { padding: 170px 7vw; background: linear-gradient(180deg, #0a0a0a, #16090d 54%, #0a0a0a); }
+        .timeline { max-width: 1140px; margin: 0 auto; border-left: 1px solid rgba(201,201,201,.22); }
+        .chapter { display: grid; grid-template-columns: .9fr 1.1fr; gap: 70px; padding: 80px 0 80px 70px; position: relative; }
+        .chapter::before { content: ''; position: absolute; left: -5px; top: 92px; width: 9px; height: 9px; border-radius: 50%; background: var(--ivory); box-shadow: 0 0 35px rgba(245,240,232,.75); }
+        .chapter img { width: 100%; height: 420px; object-fit: cover; border: 1px solid var(--line); filter: sepia(.12) brightness(.82); }
+        .chapter h3 { font-size: clamp(2rem, 4vw, 4.6rem); margin-bottom: 22px; }
+
+        .atelier { min-height: 95vh; display: grid; place-items: center; padding: 160px 24px; overflow: hidden; background: #050505; }
+        .atelier__paper {
+            max-width: 1040px;
+            padding: clamp(40px, 8vw, 110px);
+            text-align: center;
+            border: 1px solid rgba(245,240,232,.18);
+            background:
+                linear-gradient(135deg, rgba(245,240,232,.08), rgba(245,240,232,.015)),
+                url('OltreMareimg/La trama.png') center/cover;
+            box-shadow: inset 0 0 90px rgba(10,10,10,.65), 0 40px 140px rgba(0,0,0,.75);
+        }
+        .atelier h2 { font-size: clamp(2.8rem, 7vw, 8rem); line-height: .9; }
+        .atelier p { max-width: 690px; margin: 34px auto; font-family: var(--garamond); font-style: italic; font-size: clamp(1.2rem, 2vw, 2rem); color: rgba(245,240,232,.74); }
+
+        footer { position: relative; z-index: 3; padding: 90px 7vw; border-top: 1px solid var(--line); display: flex; justify-content: space-between; gap: 36px; color: rgba(245,240,232,.56); text-transform: uppercase; letter-spacing: .22em; font-size: .7rem; }
+
+        .reveal { opacity: 0; transform: translateY(70px); filter: blur(18px); }
+
+        @media (max-width: 900px) {
+            body { cursor: auto; }
+            .cursor, .cursor-aura { display: none; }
+            .nav__links { display: none; }
+            .fan { grid-template-columns: 1fr; }
+            .fan__panel { min-height: 420px; clip-path: none; }
+            .collection, .chapter { grid-template-columns: 1fr; }
+            .chapter { padding-left: 34px; gap: 28px; }
+            footer { flex-direction: column; }
         }
     </style>
 </head>
 <body>
+    <div class="cursor" aria-hidden="true"></div>
+    <div class="cursor-aura" aria-hidden="true"></div>
 
-    <div class="gate-emblem" id="gateEmblem">MAISON MARINI</div>
-    <div class="wing-gate" id="wingGate">
-        <div class="wing-panel wing-left"></div>
-        <div class="wing-panel wing-right"></div>
-    </div>
+    <div class="gate" id="gate" aria-hidden="true"><div class="gate__panel"></div><div class="gate__panel"></div></div>
+    <div class="gate__mark" aria-hidden="true">MAISON MARINI</div>
 
-    <nav>
-        <a href="#" class="nav-logo">MARINI</a>
-        <div class="nav-actions">
-            <button class="nav-btn">OltreMare</button>
-            <button class="nav-btn">Archive</button>
-            <button class="nav-btn">Atelier</button>
+    <nav class="nav" aria-label="Navegação principal">
+        <a class="brand" href="#top">Maison Marini</a>
+        <div class="nav__links">
+            <a href="#archive">Archive</a>
+            <a href="#story">Story</a>
+            <a href="#atelier">Atelier</a>
         </div>
     </nav>
 
-    <div id="smooth-wrapper">
-        <div id="smooth-content">
+    <main id="top">
+        <section class="hero" aria-label="Maison Marini OltreMare">
+            <div class="hero__image" aria-hidden="true"></div>
+            <div class="hero__content">
+                <span class="eyebrow reveal">OltreMare / Private House</span>
+                <h1 class="reveal">Maison<br>Marini</h1>
+                <p class="hero__tagline reveal">Beyond Fashion. Beyond Time.</p>
+                <a class="button reveal" href="#archive" id="enterArchive">Enter the Archive <span>—</span></a>
+            </div>
+        </section>
 
-            <section class="hero">
-                <div class="hero-viewport" id="heroViewport">
-                    <div class="hero-canvas" id="heroCanvas">
-                        <div class="hero-canvas-art">OLTREMARE</div>
-                    </div>
-                </div>
-                <div class="hero-overlay">
-                    <h1 class="hero-title">An Italian <br><span class="silver-text">Legacy Awakened</span></h1>
-                    <p style="max-width: 420px; margin-bottom: 20px;">
-                        Where pure Renaissance structural design encounters the modern shadow world of luxury culture.
-                    </p>
-                </div>
-            </section>
+        <section class="fan-stage" id="opening">
+            <div class="section-title reveal">
+                <span class="eyebrow">Abertura Cinematográfica</span>
+                <h2>O leque se abre. A casa aparece.</h2>
+            </div>
+            <div class="fan" aria-label="Painéis cinematográficos Maison Marini">
+                <article class="fan__panel"><img src="OltreMareimg/CasaMarini.webp" alt="Casa Marini"><div class="fan__caption"><span>Casa</span><h3>Private Gallery</h3></div></article>
+                <article class="fan__panel"><img src="OltreMareimg/Sartoriale Mare.jpg" alt="Sartoriale Mare"><div class="fan__caption"><span>Tailoring</span><h3>Sartoriale Mare</h3></div></article>
+                <article class="fan__panel"><img src="OltreMareimg/AngelsSky.png" alt="Angels Sky"><div class="fan__caption"><span>Myth</span><h3>Angels Sky</h3></div></article>
+                <article class="fan__panel"><img src="OltreMareimg/Duffel Forte.jpg" alt="Duffel Forte"><div class="fan__caption"><span>Armor</span><h3>Duffel Forte</h3></div></article>
+                <article class="fan__panel"><img src="OltreMareimg/L’Ancora.jpg" alt="L'Ancora"><div class="fan__caption"><span>Legacy</span><h3>L'Ancora</h3></div></article>
+            </div>
+        </section>
 
-            <section class="curtain-section">
-                <div class="curtain-reveal-wrap" id="curtainTrigger">
-                    <div class="curtain-panel curtain-left" id="curtainL">
-                        <h3>L'ARISTOCRAZIA</h3>
-                    </div>
-                    <div class="curtain-panel curtain-right" id="curtainR">
-                        <h3>MODERNA</h3>
-                    </div>
-                    <div class="curtain-content-under">
-                        <div style="text-align: center; max-width: 600px; padding: 40px;">
-                            <h2 style="font-size: 2.5rem; margin-bottom: 25px;">The OltreMare Silhouette</h2>
-                            <p style="margin-bottom: 30px;">A study in complete architectural symmetry, constructed inside historical tailoring houses across Milan and Florence.</p>
-                            <a href="#" class="btn-action">Enter Exhibition</a>
-                        </div>
-                    </div>
-                </div>
-            </section>
+        <section class="archive" id="archive">
+            <div class="section-title reveal">
+                <span class="eyebrow">Confidential Archive</span>
+                <h2>Coleções como capítulos de uma história.</h2>
+            </div>
+            <article class="collection reveal">
+                <span class="collection__number">CHAPTER I / 2026</span>
+                <div><h3>OltreMare</h3><p>Identidade costeira transformada em arquitetura: lã escura, metal frio, luz marfim e silhuetas que parecem herança familiar.</p></div>
+                <div class="collection__image"><img src="OltreMareimg/Mare.jpg" alt="Coleção OltreMare"></div>
+            </article>
+            <article class="collection reveal">
+                <span class="collection__number">CHAPTER II / FIRENZE</span>
+                <div><h3>Rinascimento Notturno</h3><p>Referências renascentistas revisitadas como cinema: textura de papel italiano, proporções de galeria e um vinho profundo quase secreto.</p></div>
+                <div class="collection__image"><img src="OltreMareimg/PiccolaAncora.jpg" alt="Piccola Ancora"></div>
+            </article>
+            <article class="collection reveal">
+                <span class="collection__number">CHAPTER III / MILANO</span>
+                <div><h3>Spalla Forte</h3><p>O luxo não grita. Ele permanece. Ombros precisos, presença silenciosa e a sensação de pertencer a uma casa fechada ao público.</p></div>
+                <div class="collection__image"><img src="OltreMareimg/Spalla Forte.jpg" alt="Spalla Forte"></div>
+            </article>
+        </section>
 
-            <section class="editorial-panel-section">
-                <div class="magazine-grid">
-                    <div class="magazine-column">
-                        <div class="panel-bg-text">Act I / Shadow Design</div>
-                        <div class="panel-footer-text">
-                            <h3 style="font-size: 1.2rem; margin-bottom: 10px;">The Obsidian Coat</h3>
-                            <p>Hand-woven tailoring designed to drape smoothly like heavy stone.</p>
-                        </div>
-                    </div>
-                    <div class="magazine-column">
-                        <div class="panel-bg-text">Act II / Structural Art</div>
-                        <div class="panel-footer-text">
-                            <h3 style="font-size: 1.2rem; margin-bottom: 10px;">Silver Armor Corsetry</h3>
-                            <p>Infusing metallic hardware components directly into classic luxury fabrics.</p>
-                        </div>
-                    </div>
-                    <div class="magazine-column">
-                        <div class="panel-bg-text">Act III / Eternal Youth</div>
-                        <div class="panel-footer-text">
-                            <h3 style="font-size: 1.2rem; margin-bottom: 10px;">The Florentine Veil</h3>
-                            <p>An intricate visual tribute celebrating raw young identity and timeless heritage.</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
+        <section class="story" id="story">
+            <div class="section-title reveal">
+                <span class="eyebrow">Story / Origin</span>
+                <h2>Uma linha do tempo editorial.</h2>
+            </div>
+            <div class="timeline">
+                <article class="chapter reveal"><div><span class="eyebrow">Origem</span><h3>A casa nasce do mar.</h3><p>Maison Marini imagina a Itália como memória viva: portos antigos, mármore gasto, arquivos de família e o silêncio de um atelier antes do desfile.</p></div><img src="OltreMareimg/Duffel.jpg" alt="Origem Maison Marini"></article>
+                <article class="chapter reveal"><div><span class="eyebrow">Conceito</span><h3>Identidade antes da roupa.</h3><p>Cada peça é tratada como símbolo de pertencimento. O visitante não compra: ele descobre códigos, capítulos e vestígios de uma linhagem privada.</p></div><img src="OltreMareimg/La trama.png" alt="Textura e trama italiana"></article>
+                <article class="chapter reveal"><div><span class="eyebrow">Legado</span><h3>Renascimento em sombra.</h3><p>O arquivo combina o drama de Vogue Italia, a precisão da Apple e a tensão visual das grandes maisons para criar um ritual digital.</p></div><img src="OltreMareimg/CasaMarini.webp" alt="Legado italiano"></article>
+            </div>
+        </section>
 
-            <section class="archive-section">
-                <div class="archive-header">
-                    <h2 style="font-size: 2.5rem; margin-bottom: 20px;">The Confidential Archive</h2>
-                    <p>Protected prototypes, historic references, and unreleased artistic blueprints.</p>
-                </div>
+        <section class="atelier" id="atelier">
+            <div class="atelier__paper reveal">
+                <span class="eyebrow">Private Atelier</span>
+                <h2>Not commerce. Ceremony.</h2>
+                <p>Maison Marini não vende apenas roupas. Vende identidade, legado, exclusividade, arte e pertencimento — como uma galeria privada aberta por convite.</p>
+                <a class="button" href="mailto:archive@maisonmarini.example">Request Private Access</a>
+            </div>
+        </section>
+    </main>
 
-                <div class="archive-table">
-                    <div class="archive-row">
-                        <div class="archive-id">RECORD_092 // FIRENZE</div>
-                        <div class="archive-details">
-                            <h3 style="font-size: 1.1rem;">Raw Silk Structure Cape</h3>
-                            <div class="archive-preview">VIEW FILE</div>
-                            <span class="silver-text">2026/01</span>
-                        </div>
-                    </div>
-                    <div class="archive-row">
-                        <div class="archive-id">RECORD_104 // MILANO</div>
-                        <div class="archive-details">
-                            <h3 style="font-size: 1.1rem;">Brushed Silver Signet Ring</h3>
-                            <div class="archive-preview">VIEW FILE</div>
-                            <span class="silver-text">2026/03</span>
-                        </div>
-                    </div>
-                    <div class="archive-row">
-                        <div class="archive-id">RECORD_441 // VENEZIA</div>
-                        <div class="archive-details">
-                            <h3 style="font-size: 1.1rem;">Heavy Wool Asymmetric Tuxedo</h3>
-                            <div class="archive-preview">VIEW FILE</div>
-                            <span class="silver-text">2026/05</span>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <footer>
-                <div class="footer-grid">
-                    <div class="footer-brand">
-                        <h3>MARINI</h3>
-                        <p style="max-width: 320px;">An absolute pinnacle of deep, quiet Italian luxury. Merging centuries of design mastery with the future of global youth style.</p>
-                    </div>
-                    <div class="footer-col">
-                        <h4>The Collections</h4>
-                        <ul>
-                            <li><a href="#">OltreMare Campaign</a></li>
-                            <li><a href="#">Maison Archive</a></li>
-                            <li><a href="#">Sartorial Studio</a></li>
-                        </ul>
-                    </div>
-                    <div class="footer-col">
-                        <h4>The House</h4>
-                        <ul>
-                            <li><a href="#">The Manifesto</a></li>
-                            <li><a href="#">Atelier Locations</a></li>
-                            <li><a href="#">Private Concierge</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="footer-bottom">
-                    <span>Maison Marini &copy; 2026</span>
-                    <span>All Creations Crafted Exclusively in Italy</span>
-                </div>
-            </footer>
-
-        </div>
-    </div>
+    <footer>
+        <span>Maison Marini © 2026</span>
+        <span>OltreMare — Made as an Italian cinematic archive</span>
+    </footer>
 
     <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            // Register GSAP ScrollTrigger
-            gsap.registerPlugin(ScrollTrigger);
+        const gate = document.getElementById('gate');
+        const cursor = document.querySelector('.cursor');
+        const aura = document.querySelector('.cursor-aura');
 
-            // 1. Initial Gate Reveal Event
-            setTimeout(() => {
-                document.getElementById('gateEmblem').style.opacity = '0';
-                document.getElementById('wingGate').classList.add('gate-loaded');
-                
-                // Animate Hero Viewport on entry
-                gsap.to("#heroViewport", {
-                    width: "100%",
-                    height: "100%",
-                    duration: 2,
-                    ease: "power4.inOut",
-                    delay: 0.5
-                });
-                
-                gsap.to("#heroCanvas", {
-                    scale: 1,
-                    duration: 2.5,
-                    ease: "power3.out",
-                    delay: 0.5
-                });
-            }, 1200);
+        window.addEventListener('load', () => {
+            setTimeout(() => gate.classList.add('is-open'), 650);
+        });
 
-            // 2. Cinematic Parallax Camera Effect on Hero Canvas Text
-            gsap.to("#heroCanvas .hero-canvas-art", {
-                scrollTrigger: {
-                    trigger: ".hero",
-                    start: "top top",
-                    end: "bottom top",
-                    scrub: true
-                },
-                y: 150,
-                scale: 1.1
+        document.addEventListener('mousemove', (event) => {
+            gsap.to(cursor, { x: event.clientX, y: event.clientY, duration: 0.16, ease: 'power2.out' });
+            gsap.to(aura, { x: event.clientX, y: event.clientY, duration: 0.55, ease: 'power3.out' });
+        });
+
+        document.querySelectorAll('a, button, img, .collection, .fan__panel').forEach((item) => {
+            item.addEventListener('mouseenter', () => aura.classList.add('is-expanded'));
+            item.addEventListener('mouseleave', () => aura.classList.remove('is-expanded'));
+        });
+
+        gsap.registerPlugin(ScrollTrigger);
+
+        gsap.to('.hero__image', {
+            scale: 1,
+            yPercent: 10,
+            ease: 'none',
+            scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true }
+        });
+
+        gsap.utils.toArray('.reveal').forEach((element) => {
+            gsap.to(element, {
+                opacity: 1,
+                y: 0,
+                filter: 'blur(0px)',
+                duration: 1.45,
+                ease: 'power4.out',
+                scrollTrigger: { trigger: element, start: 'top 86%' }
             });
+        });
 
-            // 3. Luxury Curtain Reveal Animation Logic
-            gsap.timeline({
-                scrollTrigger: {
-                    trigger: "#curtainTrigger",
-                    start: "top center",
-                    end: "bottom center",
-                    scrub: 1
-                }
-            })
-            .to("#curtainL", { xPercent: -100, ease: "power2.inOut" }, 0)
-            .to("#curtainR", { xPercent: 100, ease: "power2.inOut" }, 0);
+        gsap.from('.fan__panel', {
+            rotateZ: (index) => [-16, -8, 0, 8, 16][index] || 0,
+            xPercent: (index) => [-70, -38, 0, 38, 70][index] || 0,
+            opacity: 0,
+            filter: 'blur(18px)',
+            stagger: 0.11,
+            duration: 1.75,
+            ease: 'power4.out',
+            scrollTrigger: { trigger: '.fan-stage', start: 'top 55%' }
+        });
 
-            // 4. Smooth Inertia Simulated Scroll System Integration
-            let speed = 0.08;
-            let offset = 0;
-            const content = document.getElementById('smooth-content');
-            
-            function smoothScroll() {
-                offset += (window.pageYOffset - offset) * speed;
-                content.style.transform = `translateY(-${offset}px)`;
-                requestAnimationFrame(smoothScroll);
-            }
-            // Dynamic window height sync
-            function setHeight() {
-                document.body.style.height = content.clientHeight + "px";
-            }
-            
-            window.addEventListener('resize', setHeight);
-            // Wait slightly for layouts to stabilize before tracking content height
-            setTimeout(() => {
-                setHeight();
-                smoothScroll();
-            }, 1500);
+        gsap.utils.toArray('.chapter img, .collection__image img').forEach((image) => {
+            gsap.to(image, {
+                yPercent: -12,
+                ease: 'none',
+                scrollTrigger: { trigger: image, start: 'top bottom', end: 'bottom top', scrub: true }
+            });
+        });
+
+        document.getElementById('enterArchive').addEventListener('click', () => {
+            gate.classList.remove('is-open');
+            setTimeout(() => gate.classList.add('is-open'), 950);
         });
     </script>
 </body>
