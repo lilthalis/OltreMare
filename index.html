@@ -18,6 +18,8 @@
             --silver: #C9C9C9;
             --wine: #3B0F19;
             --paper: rgba(245, 240, 232, 0.78);
+            --paper-dark: rgba(22, 17, 15, 0.72);
+            --gold: #B8A46F;
             --line: rgba(245, 240, 232, 0.14);
             --serif: 'Playfair Display', 'Cormorant Garamond', Georgia, serif;
             --garamond: 'Cormorant Garamond', Georgia, serif;
@@ -196,12 +198,34 @@
         }
         .button:hover { background: var(--ivory); color: var(--black); transform: translateY(-4px); }
 
+        .scroll-cue {
+            position: absolute;
+            left: 50%;
+            bottom: 34px;
+            transform: translateX(-50%);
+            display: grid;
+            gap: 12px;
+            place-items: center;
+            color: rgba(245,240,232,.58);
+            text-transform: uppercase;
+            letter-spacing: .34em;
+            font-size: .62rem;
+        }
+        .scroll-cue::after {
+            content: '';
+            width: 1px;
+            height: 58px;
+            background: linear-gradient(180deg, var(--ivory), transparent);
+            animation: pagePulse 2.4s ease-in-out infinite;
+        }
+
         section { position: relative; z-index: 3; }
         .section-title { max-width: 980px; margin: 0 auto 90px; text-align: center; padding: 0 24px; }
         .section-title h2 { font-size: clamp(2.7rem, 7vw, 7rem); line-height: .9; letter-spacing: .08em; }
         .section-title p, .story p, .collection p, footer p { color: rgba(245,240,232,.62); line-height: 1.85; letter-spacing: .05em; font-size: .92rem; }
 
         .fan-stage { min-height: 120vh; padding: 170px 5vw; background: linear-gradient(180deg, #0a0a0a, #120c0e 48%, #080808); overflow: hidden; }
+        .section-title--mystery { position: sticky; top: 120px; z-index: 4; pointer-events: none; }
         .fan {
             display: grid;
             grid-template-columns: repeat(5, 1fr);
@@ -225,6 +249,38 @@
         .fan__caption h3 { font-size: clamp(1.2rem, 2vw, 2rem); letter-spacing: .12em; }
         .fan__caption span { color: var(--silver); font-size: .68rem; letter-spacing: .34em; text-transform: uppercase; }
 
+        .folio {
+            padding: 170px 7vw 80px;
+            background:
+                radial-gradient(circle at 18% 12%, rgba(184,164,111,.14), transparent 28%),
+                linear-gradient(180deg, #080808, #130d0e 55%, #0a0a0a);
+        }
+        .folio__spread {
+            display: grid;
+            grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr);
+            gap: clamp(28px, 6vw, 96px);
+            min-height: 78vh;
+            align-items: center;
+            border-top: 1px solid var(--line);
+            border-bottom: 1px solid var(--line);
+            padding: clamp(42px, 8vw, 92px) 0;
+        }
+        .folio__question {
+            position: relative;
+            min-height: 520px;
+            display: grid;
+            place-items: center;
+            overflow: hidden;
+            border: 1px solid rgba(245,240,232,.16);
+            background: var(--paper-dark);
+        }
+        .folio__question img { width: 100%; height: 100%; object-fit: cover; filter: brightness(.56) saturate(.7); transform: scale(1.08); }
+        .folio__question::after { content: '?'; position: absolute; font-family: var(--serif); font-size: clamp(8rem, 18vw, 18rem); color: rgba(245,240,232,.12); }
+        .folio__copy { max-width: 620px; }
+        .folio__copy h2 { font-size: clamp(3rem, 7vw, 8rem); line-height: .88; letter-spacing: .07em; margin-bottom: 34px; }
+        .folio__copy p { color: rgba(245,240,232,.66); line-height: 1.9; letter-spacing: .05em; max-width: 520px; }
+        .folio__drop { display: block; float: left; font-family: var(--serif); font-size: 5.6rem; line-height: .74; color: var(--gold); padding: 10px 14px 0 0; }
+
         .archive { padding: 170px 7vw; background: var(--black); }
         .collection {
             display: grid;
@@ -240,6 +296,9 @@
         .collection__image { height: 360px; overflow: hidden; border: 1px solid var(--line); box-shadow: 0 30px 80px rgba(0,0,0,.42); }
         .collection__image img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.35s var(--ease), filter 1.35s var(--ease); filter: brightness(.74) saturate(.8); }
         .collection:hover .collection__image img { transform: scale(1.1); filter: brightness(1) saturate(1.05); }
+        .collection__veil { position: relative; display: block; overflow: hidden; }
+        .collection__veil::after { content: 'Uncover'; position: absolute; inset: 0; display: grid; place-items: center; background: rgba(10,10,10,.78); color: var(--ivory); font-size: .68rem; letter-spacing: .42em; text-transform: uppercase; transition: transform 1s var(--ease), opacity 1s var(--ease); }
+        .collection:hover .collection__veil::after { transform: translateY(-100%); opacity: 0; }
 
         .story { padding: 170px 7vw; background: linear-gradient(180deg, #0a0a0a, #16090d 54%, #0a0a0a); }
         .timeline { max-width: 1140px; margin: 0 auto; border-left: 1px solid rgba(201,201,201,.22); }
@@ -265,6 +324,8 @@
         footer { position: relative; z-index: 3; padding: 90px 7vw; border-top: 1px solid var(--line); display: flex; justify-content: space-between; gap: 36px; color: rgba(245,240,232,.56); text-transform: uppercase; letter-spacing: .22em; font-size: .7rem; }
 
         .reveal { opacity: 0; transform: translateY(70px); filter: blur(18px); }
+        .page-turn { transform-origin: left center; transform-style: preserve-3d; }
+        @keyframes pagePulse { 0%, 100% { transform: scaleY(.45); opacity: .25; } 50% { transform: scaleY(1); opacity: .9; } }
 
         @media (max-width: 900px) {
             body { cursor: auto; }
@@ -272,7 +333,7 @@
             .nav__links { display: none; }
             .fan { grid-template-columns: 1fr; }
             .fan__panel { min-height: 420px; clip-path: none; }
-            .collection, .chapter { grid-template-columns: 1fr; }
+            .collection, .chapter, .folio__spread { grid-template-columns: 1fr; }
             .chapter { padding-left: 34px; gap: 28px; }
             footer { flex-direction: column; }
         }
@@ -301,14 +362,15 @@
                 <span class="eyebrow reveal">OltreMare / Private House</span>
                 <h1 class="reveal">Maison<br>Marini</h1>
                 <p class="hero__tagline reveal">Beyond Fashion. Beyond Time.</p>
-                <a class="button reveal" href="#archive" id="enterArchive">Enter the Archive <span>—</span></a>
+                <a class="button reveal" href="#folio" id="enterArchive">Enter the Archive <span>—</span></a>
             </div>
+            <div class="scroll-cue reveal" aria-hidden="true">Turn the page</div>
         </section>
 
         <section class="fan-stage" id="opening">
-            <div class="section-title reveal">
+            <div class="section-title section-title--mystery reveal">
                 <span class="eyebrow">Abertura Cinematográfica</span>
-                <h2>O leque se abre. A casa aparece.</h2>
+                <h2>Primeiro a sombra. Depois, a casa.</h2>
             </div>
             <div class="fan" aria-label="Painéis cinematográficos Maison Marini">
                 <article class="fan__panel"><img src="OltreMareimg/CasaMarini.webp" alt="Casa Marini"><div class="fan__caption"><span>Casa</span><h3>Private Gallery</h3></div></article>
@@ -319,32 +381,43 @@
             </div>
         </section>
 
+        <section class="folio" id="folio" aria-label="Editorial discovery">
+            <div class="folio__spread page-turn reveal">
+                <div class="folio__question"><img src="OltreMareimg/L’Ancora.jpg" alt="Detalhe de ancora Maison Marini"></div>
+                <div class="folio__copy">
+                    <span class="eyebrow">The Question</span>
+                    <h2>What does a family keep hidden in cloth?</h2>
+                    <p><span class="folio__drop">L</span>egacy is not announced. It is found in the weight of a shoulder, the cold glint of hardware, the page left half-open on an Italian desk. Scroll, and each frame releases only what it must.</p>
+                </div>
+            </div>
+        </section>
+
         <section class="archive" id="archive">
             <div class="section-title reveal">
                 <span class="eyebrow">Confidential Archive</span>
                 <h2>Coleções como capítulos de uma história.</h2>
             </div>
-            <article class="collection reveal">
+            <article class="collection page-turn reveal">
                 <span class="collection__number">CHAPTER I / 2026</span>
                 <div><h3>OltreMare</h3><p>Identidade costeira transformada em arquitetura: lã escura, metal frio, luz marfim e silhuetas que parecem herança familiar.</p></div>
-                <div class="collection__image"><img src="OltreMareimg/Mare.jpg" alt="Coleção OltreMare"></div>
+                <div class="collection__image collection__veil"><img src="OltreMareimg/Mare.jpg" alt="Coleção OltreMare"></div>
             </article>
-            <article class="collection reveal">
+            <article class="collection page-turn reveal">
                 <span class="collection__number">CHAPTER II / FIRENZE</span>
                 <div><h3>Rinascimento Notturno</h3><p>Referências renascentistas revisitadas como cinema: textura de papel italiano, proporções de galeria e um vinho profundo quase secreto.</p></div>
-                <div class="collection__image"><img src="OltreMareimg/PiccolaAncora.jpg" alt="Piccola Ancora"></div>
+                <div class="collection__image collection__veil"><img src="OltreMareimg/PiccolaAncora.jpg" alt="Piccola Ancora"></div>
             </article>
-            <article class="collection reveal">
+            <article class="collection page-turn reveal">
                 <span class="collection__number">CHAPTER III / MILANO</span>
                 <div><h3>Spalla Forte</h3><p>O luxo não grita. Ele permanece. Ombros precisos, presença silenciosa e a sensação de pertencer a uma casa fechada ao público.</p></div>
-                <div class="collection__image"><img src="OltreMareimg/Spalla Forte.jpg" alt="Spalla Forte"></div>
+                <div class="collection__image collection__veil"><img src="OltreMareimg/Spalla Forte.jpg" alt="Spalla Forte"></div>
             </article>
         </section>
 
         <section class="story" id="story">
             <div class="section-title reveal">
                 <span class="eyebrow">Story / Origin</span>
-                <h2>Uma linha do tempo editorial.</h2>
+                <h2>Uma linha do tempo em segredo.</h2>
             </div>
             <div class="timeline">
                 <article class="chapter reveal"><div><span class="eyebrow">Origem</span><h3>A casa nasce do mar.</h3><p>Maison Marini imagina a Itália como memória viva: portos antigos, mármore gasto, arquivos de família e o silêncio de um atelier antes do desfile.</p></div><img src="OltreMareimg/Duffel.jpg" alt="Origem Maison Marini"></article>
@@ -418,7 +491,18 @@
             scrollTrigger: { trigger: '.fan-stage', start: 'top 55%' }
         });
 
-        gsap.utils.toArray('.chapter img, .collection__image img').forEach((image) => {
+        gsap.utils.toArray('.page-turn').forEach((page) => {
+            gsap.from(page, {
+                rotateY: -11,
+                xPercent: -4,
+                opacity: 0,
+                duration: 1.35,
+                ease: 'power3.out',
+                scrollTrigger: { trigger: page, start: 'top 78%' }
+            });
+        });
+
+        gsap.utils.toArray('.chapter img, .collection__image img, .folio__question img').forEach((image) => {
             gsap.to(image, {
                 yPercent: -12,
                 ease: 'none',
