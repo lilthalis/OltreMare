@@ -523,48 +523,80 @@
         </section>
     </main>
 
-    <!-- RODAPÉ MINIMALISTA -->
-    <footer class="footer">
-        <div class="footer-grid">
-            <div>
-                <div class="footer-brand">Maison Marini</div>
-                <p style="color: var(--color-text-sub); font-size: 0.85rem; line-height: 1.6; max-width: 280px;">
-                    Arquivo Digital e Ateliê de Alta-Costura. Florença — Paris.
-                </p>
-            </div>
-            <div>
-                <div class="footer-column-title">Coleção</div>
+    <!-- ==========================================================================
+     RODAPÉ EDITORIAL MINIMALISTA — MAISON OLTREMARE
+     ========================================================================== -->
+<footer class="footer">
+    <div class="footer-grid">
+        
+        <!-- Coluna 1: Identidade da Marca e Descrição -->
+        <div class="footer-col brand-col">
+            <a href="/" class="footer-brand" aria-label="Maison Oltremare - Página Inicial">Maison Oltremare</a>
+            <p class="footer-description">
+                Arquivo Digital e Ateliê de Alta-Costura.<br>
+                Florença — Paris.
+            </p>
+        </div>
+
+        <!-- Coluna 2: Navegação da Coleção -->
+        <div class="footer-col">
+            <h3 class="footer-column-title">Coleção</h3>
+            <nav aria-label="Navegação da Coleção">
                 <ul class="footer-links">
-                    <li><a href="#">OltreMare (2026)</a></li>
-                    <li><a href="#">Peças Únicas</a></li>
-                    <li><a href="#">Sartorial Care</a></li>
+                    <li><a href="/colecao/oltremare" class="footer-link">OltreMare 2026</a></li>
+                    <li><a href="/colecao/perfumes" class="footer-link">Haute Parfumerie</a></li>
+                    <li><a href="/colecao/arquivos" class="footer-link">Arquivos & Peças Únicas</a></li>
                 </ul>
-            </div>
-            <div>
-                <div class="footer-column-title">Ateliê</div>
+            </nav>
+        </div>
+
+        <!-- Coluna 3: Ateliê, Endereço e Contato -->
+        <div class="footer-col">
+            <h3 class="footer-column-title">Ateliê</h3>
+            <address class="footer-address">
                 <ul class="footer-links">
-                    <li><a href="#">Via de' Tornabuoni, 12</a></li>
-                    <li><a href="#">Agendamento Privado</a></li>
-                    <li><a href="#">Imprensa</a></li>
+                    <li><span class="address-location">Via de' Tornabuoni, 12 — Firenze</span></li>
+                    <li><a href="/atelier/agendamento" class="footer-link">Agendamento Privado</a></li>
+                    <li><a href="/atelier/imprensa" class="footer-link">Imprensa & Editorial</a></li>
+                    <li><a href="/contato" class="footer-link">Contato Directo</a></li>
                 </ul>
-            </div>
-            <div>
-                <div class="footer-column-title">Boletim Privado</div>
-                <p style="color: var(--color-text-sub); font-size: 0.8rem; margin-bottom: 1rem;">
-                    Acesso antecipado aos arquivos de temporada.
+            </address>
+        </div>
+
+        <!-- Coluna 4: Formulário Real de Boletim Privado -->
+        <div class="footer-col newsletter-col">
+            <h3 class="footer-column-title">Boletim Privado</h3>
+            <div class="newsletter">
+                <p class="newsletter-description">
+                    Acesso antecipado exclusivo aos arquivos de temporada e convites privados.
                 </p>
-                <div style="border-bottom: 1px solid var(--color-text-main); padding-bottom: 0.5rem; display: flex; justify-content: space-between;">
-                    <span style="font-size: 0.8rem; color: var(--color-text-sub);">Endereço de e-mail</span>
-                    <span style="font-size: 0.8rem; cursor: pointer; font-weight: 500;">→</span>
-                </div>
+                <form class="newsletter-form" action="/api/newsletter" method="POST" novalidate>
+                    <div class="newsletter-input-wrapper">
+                        <input 
+                            type="email" 
+                            name="email"
+                            class="newsletter-input" 
+                            placeholder="Endereço de e-mail" 
+                            required 
+                            aria-label="Endereço de e-mail para o boletim privado"
+                            autocomplete="email"
+                        >
+                        <button type="submit" class="newsletter-button" aria-label="Inscrever-se no boletim">
+                            <span class="arrow-icon" aria-hidden="true">→</span>
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
 
-        <div class="footer-bottom">
-            <span>&copy; 2026 MAISON MARINI. TODOS OS DIREITOS RESERVADOS.</span>
-            <span>DESIGN ENGINE: APPLE ARCHITECTURE / GSAP V3</span>
-        </div>
-    </footer>
+    </div>
+
+    <!-- Barra Inferior de Direitos Autorais e Créditos -->
+    <div class="footer-bottom">
+        <span class="copyright">&copy; 2026 MAISON OLTREMARE. TODOS OS DIREITOS RESERVADOS.</span>
+        <span class="engine-tag">DESIGN ENGINE: APPLE ARCHITECTURE / GSAP V3</span>
+    </div>
+</footer>
 
     <!-- GSAP & SCROLLTRIGGER CDN -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
