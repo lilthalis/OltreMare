@@ -3,316 +3,671 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Maison Marini | OltreMare Archive</title>
-    <meta name="description" content="Maison Marini OltreMare — Uma experiência de luxo editorial e legado.">
+    <title>Maison Marini — OltreMare Archive</title>
     
-    <!-- Tipografia de Alto Luxo -->
+    <!-- Tipografia: Bodoni Moda (Títulos de Alto Luxo) e Inter (Texto Técnico Apple-style) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,600;1,6..96,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-    
-    <!-- GSAP / ScrollTrigger -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
     <style>
         /* ==========================================================================
-           Variáveis de Estilo - Minimalismo Claro (Apple / Gucci)
+           1. DESIGN SYSTEM & VARIÁVEIS (PADRÃO APPLE / MAISON MARINI)
            ========================================================================== */
         :root {
-            --bg: #FBFBFB;
-            --bg-secondary: #F3F3F2;
-            --text: #0A0A0A;
-            --text-muted: #666666;
-            --line: rgba(10, 10, 10, 0.08);
-            --gold: #A38F58;
-            
-            --font-display: 'Bodoni Moda', Georgia, serif;
-            --font-sans: 'Inter', -apple-system, sans-serif;
-            
+            /* Palette de Cores Cirúrgica Diurna */
+            --color-bg-primary: #FBFBFB;    /* Off-white ice */
+            --color-bg-secondary: #F5F5F7;  /* Cinza gelo suave da Apple */
+            --color-text-main: #1D1D1F;     /* Preto profundo Apple */
+            --color-text-sub: #86868B;      /* Cinza Espacial */
+            --color-gold-accent: #A38F58;   /* Ouro envelhecido sutil */
+            --color-border: rgba(29, 29, 31, 0.08);
+
+            /* Tipografia */
+            --font-serif: 'Bodoni Moda', serif;
+            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+
+            /* Espaçamento Dramático (Negative Space) */
+            --section-padding-vertical: 22vh;
+            --container-padding-horizontal: 6vw;
+
+            /* Curva Bezier Cinematográfica (Apple Standard) */
             --ease-cinematic: cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        /* Reset e Base */
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        
-        body {
-            background: var(--bg);
-            color: var(--text);
-            font-family: var(--font-sans);
-            overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
-            cursor: none;
-        }
-
-        a, button { cursor: none; text-decoration: none; color: inherit; }
-        ::selection { background: var(--text); color: var(--bg); }
-
-        /* Cursor Customizado Minimalista */
-        .cursor, .cursor-aura {
-            position: fixed; top: 0; left: 0; border-radius: 50%; pointer-events: none;
-            z-index: 10000; transform: translate(-50%, -50%);
-        }
-        .cursor { width: 6px; height: 6px; background: var(--text); }
-        .cursor-aura { 
-            width: 36px; height: 36px; border: 1px solid rgba(10,10,10,0.25);
-            transition: width 0.4s var(--ease-cinematic), height 0.4s var(--ease-cinematic), border-color 0.4s;
-        }
-        .cursor-aura.is-expanded { width: 80px; height: 80px; border-color: var(--text); background: rgba(10,10,10,0.02); }
-
         /* ==========================================================================
-           Portão de Entrada (Curtain Lift)
+           2. RESET & BÁSICOS
            ========================================================================== */
-        .gate { position: fixed; inset: 0; z-index: 9000; pointer-events: none; }
-        .gate__panel {
-            position: absolute; inset: 0; background: var(--bg-secondary);
-            transition: transform 1.6s var(--ease-cinematic);
-        }
-        .gate.is-open .gate__panel { transform: translateY(-100%); }
-
-        .gate__mark {
-            position: fixed; inset: 0; z-index: 9001; display: grid; place-items: center;
-            font-family: var(--font-display); letter-spacing: 0.4em; font-size: 1.1rem; text-transform: uppercase;
-            pointer-events: none; transition: opacity 0.8s, transform 1.2s var(--ease-cinematic);
-        }
-        .gate.is-open + .gate__mark { opacity: 0; transform: translateY(-30px); }
-
-        /* Navegação Fixo Minimalista */
-        .nav {
-            position: fixed; top: 0; width: 100%; z-index: 100; display: flex; justify-content: space-between;
-            align-items: center; padding: 35px 5vw; background: rgba(251, 251, 251, 0.85);
-            backdrop-filter: blur(10px); border-bottom: 1px solid var(--line);
-            text-transform: uppercase; letter-spacing: 0.25em; font-size: 0.7rem; font-weight: 500;
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
-        /* Estilos Tipográficos */
-        .eyebrow {
-            display: block; margin-bottom: 16px; color: var(--gold); text-transform: uppercase;
-            letter-spacing: 0.35em; font-size: 0.68rem; font-weight: 600;
+        html {
+            background-color: var(--color-bg-primary);
+            color: var(--color-text-main);
+            font-family: var(--font-sans);
+            font-size: 16px;
+            scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
         }
-        h1, h2, h3 { font-family: var(--font-display); font-weight: 400; text-transform: uppercase; line-height: 0.95; }
-        p { color: var(--text-muted); line-height: 1.8; letter-spacing: 0.02em; font-size: 0.95rem; font-weight: 400; }
-        
-        .text-mask { overflow: hidden; display: block; }
-        .text-mask span { display: inline-block; transform: translateY(110%); }
+
+        body {
+            width: 100%;
+            overflow-x: hidden;
+            background-color: var(--color-bg-primary);
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
 
         /* ==========================================================================
-           Cena 1: Hero Editorial Luminoso
+           3. MÁSCARAS DE TEXTO E ELEMENTOS DE REVELAÇÃO (GSAP TARGETS)
+           ========================================================================== */
+        .mask-container {
+            overflow: hidden;
+            display: block;
+        }
+
+        .mask-child {
+            display: block;
+            will-change: transform, opacity;
+        }
+
+        /* Efeito Cortina em Imagens */
+        .curtain-box {
+            position: relative;
+            overflow: hidden;
+            /* Inicia totalmente coberta via clip-path */
+            clip-path: inset(100% 0 0 0);
+            will-change: clip-path;
+            background-color: var(--color-bg-secondary);
+        }
+
+        .curtain-box img {
+            width: 100%;
+            height: 115%; /* Extra para parallax suave */
+            object-fit: cover;
+            transform: scale(1);
+            will-change: transform;
+        }
+
+        /* ==========================================================================
+           4. CABEÇALHO / NAVEGAÇÃO GLASSMORPHISM
+           ========================================================================== */
+        .nav-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 100;
+            padding: 2.5rem var(--container-padding-horizontal);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(251, 251, 251, 0.75);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--color-border);
+            transition: padding 0.4s var(--ease-cinematic);
+        }
+
+        .nav-brand {
+            font-family: var(--font-serif);
+            font-size: 1.35rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            font-weight: 500;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 3rem;
+            list-style: none;
+        }
+
+        .nav-link {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--color-text-sub);
+            transition: color 0.3s ease;
+            font-weight: 500;
+        }
+
+        .nav-link:hover {
+            color: var(--color-text-main);
+        }
+
+        .gold-badge {
+            font-size: 0.65rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--color-gold-accent);
+            font-weight: 600;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        /* ==========================================================================
+           5. HERO SECTION
            ========================================================================== */
         .hero {
-            position: relative; height: 100vh; display: grid; place-items: center; text-align: center;
-            padding-top: 80px; overflow: hidden;
+            padding-top: 30vh;
+            padding-bottom: 15vh;
+            padding-left: var(--container-padding-horizontal);
+            padding-right: var(--container-padding-horizontal);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
-        .hero h1 { font-size: clamp(3.5rem, 11vw, 11rem); letter-spacing: -0.02em; margin-bottom: 25px; }
-        .hero__tagline { font-family: var(--font-display); font-size: clamp(1.2rem, 2.5vw, 2.5rem); font-style: italic; color: var(--text-muted); }
 
-        .hero__image-container {
-            position: absolute; inset: 0; z-index: -1; opacity: 0.12; overflow: hidden;
+        .hero-title-container {
+            margin-bottom: 5vh;
         }
-        .hero__image-container img { width: 100%; height: 100%; object-fit: cover; }
+
+        .hero-title {
+            font-family: var(--font-serif);
+            font-size: clamp(3.5rem, 9vw, 11rem);
+            font-weight: 400;
+            line-height: 0.9;
+            letter-spacing: -0.03em;
+            text-transform: uppercase;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 4fr 8fr;
+            gap: 4rem;
+            align-items: flex-end;
+            margin-top: 8vh;
+        }
+
+        .hero-caption {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: var(--color-text-sub);
+            max-width: 380px;
+        }
+
+        .hero-image-wrapper {
+            width: 100%;
+            height: 75vh;
+        }
 
         /* ==========================================================================
-           Cena 2: Grid Assimétrico Gucci/Vogue
+           6. SEÇÃO: DETALHES DE COSTURA (CRAFTSMANSHIP SHOWCASE)
            ========================================================================== */
-        .editorial { padding: 180px 5vw; }
-        .section-header { text-align: center; margin-bottom: 100px; }
-        .section-header h2 { font-size: clamp(2.2rem, 5vw, 5rem); }
+        .craftsmanship {
+            padding: var(--section-padding-vertical) var(--container-padding-horizontal);
+            background-color: var(--color-bg-primary);
+            border-top: 1px solid var(--color-border);
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 12vh;
+        }
+
+        .section-title-large {
+            font-family: var(--font-serif);
+            font-size: clamp(2.5rem, 5vw, 6rem);
+            font-weight: 400;
+            line-height: 1.05;
+            letter-spacing: -0.02em;
+        }
+
+        .craftsmanship-grid {
+            display: grid;
+            grid-template-columns: 7fr 5fr;
+            gap: 6vw;
+            align-items: center;
+        }
+
+        .craft-main-image {
+            width: 100%;
+            height: 90vh;
+        }
+
+        .craft-content {
+            padding-left: 2vw;
+        }
+
+        .craft-heading {
+            font-family: var(--font-serif);
+            font-size: clamp(1.8rem, 3vw, 3.2rem);
+            font-weight: 400;
+            margin-bottom: 2rem;
+            line-height: 1.15;
+        }
+
+        .craft-description {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: var(--color-text-sub);
+            margin-bottom: 3rem;
+            font-weight: 300;
+        }
+
+        .specs-list {
+            list-style: none;
+            border-top: 1px solid var(--color-border);
+        }
+
+        .spec-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 1.5rem 0;
+            border-bottom: 1px solid var(--color-border);
+            font-size: 0.85rem;
+            letter-spacing: 0.05em;
+        }
+
+        .spec-label {
+            color: var(--color-text-sub);
+            text-transform: uppercase;
+        }
+
+        .spec-value {
+            color: var(--color-text-main);
+            font-weight: 500;
+        }
+
+        /* ==========================================================================
+           7. SEÇÃO: GALERIA EDITORIAL ASSIMÉTRICA
+           ========================================================================== */
+        .editorial {
+            padding: 10vh var(--container-padding-horizontal) var(--section-padding-vertical);
+        }
 
         .editorial-grid {
-            display: grid; grid-template-columns: repeat(12, 1fr); gap: 30px; align-items: center;
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 2vw;
+            align-items: center;
         }
-        .ed-item { position: relative; overflow: hidden; background: var(--bg-secondary); }
-        .ed-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--ease-cinematic); }
-        .ed-item:hover img { transform: scale(1.05); }
-        
-        .ed-item-1 { grid-column: 1 / 8; height: 85vh; }
-        .ed-item-2 { grid-column: 8 / 13; height: 60vh; transform: translateY(80px); }
-        
-        .ed-caption { padding: 25px 0 0 0; }
-        .ed-caption h3 { font-size: 1.4rem; letter-spacing: 0.05em; }
+
+        .editorial-item-1 {
+            grid-column: 1 / span 7;
+            height: 80vh;
+        }
+
+        .editorial-item-2 {
+            grid-column: 9 / span 4;
+            height: 60vh;
+            margin-top: -10vh;
+        }
 
         /* ==========================================================================
-           Cena 3: Capítulo OltreMare
+           8. MANIFESTO / STATEMENT
            ========================================================================== */
-        .archive { padding: 120px 5vw; background: var(--bg-secondary); }
-        .collection {
-            display: grid; grid-template-columns: 1fr 1.4fr 1fr; gap: 4vw; align-items: center;
-            padding: 90px 0; border-bottom: 1px solid var(--line);
+        .statement {
+            padding: var(--section-padding-vertical) var(--container-padding-horizontal);
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--color-bg-secondary);
         }
-        .collection:first-of-type { border-top: 1px solid var(--line); }
-        
-        .col-text h3 { font-size: clamp(2rem, 3.5vw, 4rem); margin: 15px 0; }
-        
-        .img-wrapper {
-            position: relative; height: 65vh; overflow: hidden;
-            clip-path: inset(100% 0 0 0);
+
+        .statement-quote {
+            font-family: var(--font-serif);
+            font-size: clamp(2rem, 4.5vw, 5.5rem);
+            font-weight: 300;
+            max-width: 1200px;
+            line-height: 1.15;
+            letter-spacing: -0.01em;
+            margin-bottom: 2rem;
         }
-        .img-parallax { height: 120%; width: 100%; position: absolute; top: -10%; }
-        .img-parallax img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.5s var(--ease-cinematic); }
-        .img-wrapper:hover .img-parallax img { transform: scale(1.06); }
 
         /* ==========================================================================
-           Cena 4: Declaração de Marca (Estilo Apple)
+           9. RODAPÉ MINIMALISTA DE ALTO LUXO
            ========================================================================== */
-        .philosophy { padding: 220px 5vw; text-align: center; background: var(--bg); }
-        .philosophy p {
-            font-family: var(--font-display); font-size: clamp(1.8rem, 3.5vw, 3.8rem);
-            color: var(--text); max-width: 1100px; margin: 0 auto; line-height: 1.2;
+        .footer {
+            padding: 15vh var(--container-padding-horizontal) 8vh;
+            background-color: var(--color-bg-primary);
+            border-top: 1px solid var(--color-border);
         }
 
-        /* Rodapé Minimalista */
-        footer {
-            padding: 40px 5vw; border-top: 1px solid var(--line); display: flex; justify-content: space-between;
-            font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.2em; color: var(--text-muted);
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 4fr 2fr 2fr 4fr;
+            gap: 4rem;
+            margin-bottom: 12vh;
         }
 
+        .footer-brand {
+            font-family: var(--font-serif);
+            font-size: 2rem;
+            letter-spacing: 0.1em;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-column-title {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.25em;
+            color: var(--color-gold-accent);
+            margin-bottom: 2rem;
+            font-weight: 600;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 1rem;
+        }
+
+        .footer-links a {
+            font-size: 0.85rem;
+            color: var(--color-text-sub);
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--color-text-main);
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 4vh;
+            border-top: 1px solid var(--color-border);
+            font-size: 0.75rem;
+            color: var(--color-text-sub);
+            letter-spacing: 0.05em;
+        }
+
+        /* Responsive Breakpoints */
         @media (max-width: 900px) {
-            body, a, button { cursor: auto; }
-            .cursor, .cursor-aura { display: none; }
-            .editorial-grid { display: flex; flex-direction: column; }
-            .ed-item { width: 100%; height: 55vh !important; transform: none !important; }
-            .collection { grid-template-columns: 1fr; gap: 30px; padding: 50px 0; text-align: center; }
+            .hero-grid, .craftsmanship-grid, .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+            .editorial-item-1, .editorial-item-2 {
+                grid-column: 1 / -1;
+                height: 60vh;
+                margin-top: 0;
+            }
+            .nav-links {
+                display: none;
+            }
         }
     </style>
 </head>
 <body>
 
-    <!-- UI: Cursor e Entrada -->
-    <div class="cursor"></div>
-    <div class="cursor-aura"></div>
-    <div class="gate" id="gate"><div class="gate__panel"></div></div>
-    <div class="gate__mark">MAISON MARINI</div>
+    <!-- NAVEGAÇÃO -->
+    <header class="nav-header">
+        <div class="nav-brand">Maison Marini</div>
+        <ul class="nav-links">
+            <li><a href="#oltermare" class="nav-link">OltreMare</a></li>
+            <li><a href="#craftsmanship" class="nav-link">Savoir-Faire</a></li>
+            <li><a href="#archives" class="nav-link">Arquivos</a></li>
+        </ul>
+        <span class="gold-badge">Edição Limitada</span>
+    </header>
 
-    <nav class="nav">
-        <a href="#top">Maison Marini</a>
-        <span>Archive 2026</span>
-    </nav>
-
-    <!-- Cena 1 -->
-    <section class="hero" id="top">
-        <div class="hero__image-container">
-            <img src="https://images.unsplash.com/photo-1509631179647-0177331693ae?q=80&w=2000&auto=format&fit=crop" alt="Textura de tecido">
-        </div>
-        <div>
-            <span class="eyebrow">OltreMare / Private House</span>
-            <h1 class="text-mask"><span>Maison</span></h1>
-            <h1 class="text-mask"><span>Marini</span></h1>
-            <div class="hero__tagline text-mask" style="margin-top: 15px;"><span>Beyond Fashion. Beyond Time.</span></div>
-        </div>
-    </section>
-
-    <!-- Cena 2: Editorial Assimétrico em Fundo Claro -->
-    <section class="editorial">
-        <div class="section-header">
-            <span class="eyebrow">Abertura Editorial</span>
-            <h2 class="text-mask"><span>A clareza da forma.</span></h2>
-            <h2 class="text-mask"><span>A presença do legado.</span></h2>
-        </div>
-        <div class="editorial-grid">
-            <div class="ed-item ed-item-1 img-reveal">
-                <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=2000&auto=format&fit=crop" alt="Campanha de Moda">
+    <main>
+        <!-- HERO SECTION -->
+        <section class="hero" id="oltermare">
+            <div class="hero-title-container">
+                <span class="gold-badge mask-container">
+                    <span class="mask-child text-reveal-init">Coleção Automne-Hiver 2026</span>
+                </span>
+                <h1 class="hero-title">
+                    <span class="mask-container"><span class="mask-child text-reveal-init">OltreMare</span></span>
+                </h1>
             </div>
-            <div class="ed-item ed-item-2 img-reveal">
-                <img src="https://images.unsplash.com/photo-1445205170230-053b83016050?q=80&w=2000&auto=format&fit=crop" alt="Detalhes de Alta Sapataria">
-            </div>
-        </div>
-    </section>
 
-    <!-- Cena 3: Capítulo e Arquivo -->
-    <section class="archive">
-        <div class="section-header">
-            <span class="eyebrow">Confidential Archive</span>
-            <h2 class="text-mask"><span>Coleções como capítulos</span></h2>
-        </div>
-
-        <article class="collection">
-            <div class="col-meta"><span class="eyebrow">CHAPTER I / 2026</span></div>
-            <div class="img-wrapper">
-                <div class="img-parallax">
-                    <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=2000&auto=format&fit=crop" alt="Coleção OltreMare">
+            <div class="hero-grid">
+                <div class="hero-caption">
+                    <span class="mask-container">
+                        <span class="mask-child text-reveal-init">
+                            Uma investigação estética sobre o peso da estrutura e a fluidez do drapeado. Esculpido em lã de vicunha pura com acabamentos executados inteiramente à mão.
+                        </span>
+                    </span>
+                </div>
+                <div class="hero-image-wrapper curtain-box">
+                    <img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=1800&q=85" alt="Maison Marini - OltreMare Silhouette">
                 </div>
             </div>
-            <div class="col-text">
-                <h3>OltreMare</h3>
-                <p>Identidade costeira transformada em arquitetura: lãs leves, tons marfim, metais nobres e silhuetas de herança familiar.</p>
-            </div>
-        </article>
+        </section>
 
-        <article class="collection" style="direction: rtl;">
-            <div class="col-meta" style="direction: ltr;"><span class="eyebrow">CHAPTER II / FIRENZE</span></div>
-            <div class="img-wrapper">
-                <div class="img-parallax">
-                    <img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?q=80&w=2000&auto=format&fit=crop" alt="Rinascimento">
+        <!-- SEÇÃO: DETALHES DE COSTURA (CRAFTSMANSHIP) -->
+        <section class="craftsmanship" id="craftsmanship">
+            <div class="section-header">
+                <div>
+                    <span class="gold-badge">01 / precisão sartorial</span>
+                    <h2 class="section-title-large">
+                        <span class="mask-container"><span class="mask-child js-text-reveal">O Desenho da</span></span>
+                        <span class="mask-container"><span class="mask-child js-text-reveal">Costura Invisível.</span></span>
+                    </h2>
                 </div>
             </div>
-            <div class="col-text" style="direction: ltr; text-align: left;">
-                <h3>Rinascimento</h3>
-                <p>Referências clássicas revisitadas com modernidade: texturas naturais, proporções de galeria de arte e presença marcante.</p>
+
+            <div class="craftsmanship-grid">
+                <!-- Imagem com revelação cortina e zoom no scroll -->
+                <div class="craft-main-image curtain-box">
+                    <img src="https://images.unsplash.com/photo-1584273143981-41c073dfe8f8?auto=format&fit=crop&w=1400&q=85" alt="Detalhes da costura de um casaco de lã de luxo">
+                </div>
+
+                <div class="craft-content">
+                    <h3 class="craft-heading">
+                        <span class="mask-container"><span class="mask-child js-text-reveal">Manteau Grand Sfumato</span></span>
+                    </h3>
+                    <p class="craft-description">
+                        Cada jaqueta exige 48 horas de montagem artesanal nos ateliês de Florença. Os pespontos internos utilizam fio de seda encerado, permitindo que a peça se adapte anatomicamente à postura do usuário sem tensionar o tecido estrutural.
+                    </p>
+
+                    <ul class="specs-list">
+                        <li class="spec-item">
+                            <span class="spec-label">Material Principal</span>
+                            <span class="spec-value">100% Lã Vicunha Orgânica</span>
+                        </li>
+                        <li class="spec-item">
+                            <span class="spec-label">Construção Interna</span>
+                            <span class="spec-value">Entretela de Crina Tradicional</span>
+                        </li>
+                        <li class="spec-item">
+                            <span class="spec-label">Acabamento</span>
+                            <span class="spec-value">Ponto Caseado à Mão</span>
+                        </li>
+                        <li class="spec-item">
+                            <span class="spec-label">Edição</span>
+                            <span class="spec-value">Numerada (1 de 25)</span>
+                        </li>
+                    </ul>
+                </div>
             </div>
-        </article>
-    </section>
+        </section>
 
-    <!-- Cena 4: Frase com Estilo Apple/Gucci -->
-    <section class="philosophy">
-        <p class="text-mask"><span>"O verdadeiro luxo não exige escuridão.</span></p>
-        <p class="text-mask"><span>Ele se revela na clareza do detalhe,</span></p>
-        <p class="text-mask"><span>na luz e na permanência."</span></p>
-    </section>
+        <!-- SEÇÃO: GALERIA EDITORIAL ASSIMÉTRICA -->
+        <section class="editorial" id="archives">
+            <div class="editorial-grid">
+                <div class="editorial-item-1 curtain-box">
+                    <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=1600&q=85" alt="Casaco longo estruturado OltreMare">
+                </div>
+                <div class="editorial-item-2 curtain-box">
+                    <img src="https://images.unsplash.com/photo-1558769132-cb1aea458c5e?auto=format&fit=crop&w=1000&q=85" alt="Textura de tecido e costura artesanal">
+                </div>
+            </div>
+        </section>
 
-    <footer>
-        <span>Maison Marini © 2026</span>
-        <span>Made in Italy — Editorial Edition</span>
+        <!-- STATEMENT SECTION -->
+        <section class="statement">
+            <span class="gold-badge">Filosofia Maison</span>
+            <blockquote class="statement-quote">
+                <span class="mask-container"><span class="mask-child js-text-reveal">"O verdadeiro luxo não exige atenção.</span></span>
+                <span class="mask-container"><span class="mask-child js-text-reveal">Ele permanece na precisão</span></span>
+                <span class="mask-container"><span class="mask-child js-text-reveal">daquilo que é imperceptível."</span></span>
+            </blockquote>
+        </section>
+    </main>
+
+    <!-- RODAPÉ MINIMALISTA -->
+    <footer class="footer">
+        <div class="footer-grid">
+            <div>
+                <div class="footer-brand">Maison Marini</div>
+                <p style="color: var(--color-text-sub); font-size: 0.85rem; line-height: 1.6; max-width: 280px;">
+                    Arquivo Digital e Ateliê de Alta-Costura. Florença — Paris.
+                </p>
+            </div>
+            <div>
+                <div class="footer-column-title">Coleção</div>
+                <ul class="footer-links">
+                    <li><a href="#">OltreMare (2026)</a></li>
+                    <li><a href="#">Peças Únicas</a></li>
+                    <li><a href="#">Sartorial Care</a></li>
+                </ul>
+            </div>
+            <div>
+                <div class="footer-column-title">Ateliê</div>
+                <ul class="footer-links">
+                    <li><a href="#">Via de' Tornabuoni, 12</a></li>
+                    <li><a href="#">Agendamento Privado</a></li>
+                    <li><a href="#">Imprensa</a></li>
+                </ul>
+            </div>
+            <div>
+                <div class="footer-column-title">Boletim Privado</div>
+                <p style="color: var(--color-text-sub); font-size: 0.8rem; margin-bottom: 1rem;">
+                    Acesso antecipado aos arquivos de temporada.
+                </p>
+                <div style="border-bottom: 1px solid var(--color-text-main); padding-bottom: 0.5rem; display: flex; justify-content: space-between;">
+                    <span style="font-size: 0.8rem; color: var(--color-text-sub);">Endereço de e-mail</span>
+                    <span style="font-size: 0.8rem; cursor: pointer; font-weight: 500;">→</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <span>&copy; 2026 MAISON MARINI. TODOS OS DIREITOS RESERVADOS.</span>
+            <span>DESIGN ENGINE: APPLE ARCHITECTURE / GSAP V3</span>
+        </div>
     </footer>
 
+    <!-- GSAP & SCROLLTRIGGER CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
     <script>
+        /* ==========================================================================
+           ENGENHARIA DE MOVIMENTO GSAP & SCROLLTRIGGER
+           ========================================================================== */
+        
+        // Registro do Plugin ScrollTrigger
         gsap.registerPlugin(ScrollTrigger);
 
-        // 1. Abertura Minimalista
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                document.getElementById('gate').classList.add('is-open');
-                
-                gsap.to('.hero .text-mask span', {
-                    y: 0, duration: 1.2, stagger: 0.12, ease: 'power4.out', delay: 0.6
+        document.addEventListener("DOMContentLoaded", () => {
+            
+            // Custom Easing que simula rigorosamente o estilo Apple / Gucci
+            const appleEase = "power4.out"; // Equivale a cubic-bezier(0.16, 1, 0.3, 1)
+
+            /* ----------------------------------------------------------------------
+               1. ANIMAÇÕES DE ENTRADA HERO (LOAD INITIAL)
+               ---------------------------------------------------------------------- */
+            const heroTl = gsap.timeline({ defaults: { ease: appleEase, duration: 1.8 } });
+
+            heroTl.fromTo(".text-reveal-init", 
+                { y: "115%", opacity: 0 },
+                { y: "0%", opacity: 1, stagger: 0.12, delay: 0.2 }
+            );
+
+            /* ----------------------------------------------------------------------
+               2. TEXT REVEAL BOUND TO SCROLL (MÁSCARAS DE TEXTO)
+               ---------------------------------------------------------------------- */
+            const textReveals = gsap.utils.toArray(".js-text-reveal");
+            
+            textReveals.forEach((text) => {
+                gsap.fromTo(text, 
+                    { 
+                        y: "110%", 
+                        opacity: 0 
+                    },
+                    { 
+                        y: "0%", 
+                        opacity: 1, 
+                        duration: 1.6, 
+                        ease: appleEase,
+                        scrollTrigger: {
+                            trigger: text.parentElement,
+                            start: "top 88%",
+                            toggleActions: "play none none reverse"
+                        }
+                    }
+                );
+            });
+
+            /* ----------------------------------------------------------------------
+               3. EFEITO CORTINA EM IMAGENS & SCALE ON SCROLL (APPLE PRODUCT EFFECT)
+               ---------------------------------------------------------------------- */
+            const curtainBoxes = gsap.utils.toArray(".curtain-box");
+
+            curtainBoxes.forEach((box) => {
+                const img = box.querySelector("img");
+
+                // A. Efeito Cortina (Image Reveal por Clip-Path)
+                gsap.to(box, {
+                    clipPath: "inset(0% 0% 0% 0%)",
+                    duration: 1.8,
+                    ease: "power4.inOut",
+                    scrollTrigger: {
+                        trigger: box,
+                        start: "top 82%",
+                        toggleActions: "play none none reverse"
+                    }
                 });
-            }, 600);
-        });
 
-        // 2. Cursor
-        const cursor = document.querySelector('.cursor');
-        const aura = document.querySelector('.cursor-aura');
-        
-        document.addEventListener('mousemove', (e) => {
-            gsap.to(cursor, { x: e.clientX, y: e.clientY, duration: 0.08 });
-            gsap.to(aura, { x: e.clientX, y: e.clientY, duration: 0.35, ease: 'power2.out' });
-        });
-
-        document.querySelectorAll('a, .img-wrapper, .ed-item').forEach(el => {
-            el.addEventListener('mouseenter', () => aura.classList.add('is-expanded'));
-            el.addEventListener('mouseleave', () => aura.classList.remove('is-expanded'));
-        });
-
-        // 3. Revelação de Textos
-        gsap.utils.toArray('h2.text-mask span, p.text-mask span').forEach(text => {
-            gsap.to(text, {
-                y: 0, duration: 1.2, ease: 'power4.out',
-                scrollTrigger: { trigger: text.closest('.text-mask'), start: 'top 88%' }
+                // B. Scale on Scroll + Parallax Interno Sutil (scrub: true)
+                gsap.fromTo(img, 
+                    { 
+                        scale: 1.0,
+                        yPercent: -6 
+                    },
+                    { 
+                        scale: 1.06, 
+                        yPercent: 6,
+                        ease: "none",
+                        scrollTrigger: {
+                            trigger: box,
+                            start: "top bottom",
+                            end: "bottom top",
+                            scrub: 1.2
+                        }
+                    }
+                );
             });
-        });
 
-        // 4. Revelação de Imagens (Efeito Cortina)
-        gsap.utils.toArray('.img-reveal, .img-wrapper').forEach(imgContainer => {
-            gsap.to(imgContainer, {
-                clipPath: 'inset(0% 0 0 0)', duration: 1.4, ease: 'power3.inOut',
-                scrollTrigger: { trigger: imgContainer, start: 'top 82%' }
-            });
-        });
-
-        // 5. Parallax do Container Interno
-        gsap.utils.toArray('.img-parallax').forEach(parallaxInner => {
-            gsap.to(parallaxInner, {
-                yPercent: 12, ease: 'none',
-                scrollTrigger: { trigger: parallaxInner.parentElement, start: 'top bottom', end: 'bottom top', scrub: true }
+            /* ----------------------------------------------------------------------
+               4. SUAVIZAÇÃO DA BARRA DE NAVEGAÇÃO AO ROLAR
+               ---------------------------------------------------------------------- */
+            ScrollTrigger.create({
+                start: "top -50",
+                end: 99999,
+                toggleClass: {
+                    className: "nav-scrolled",
+                    targets: ".nav-header"
+                }
             });
         });
     </script>
