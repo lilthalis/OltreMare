@@ -1,707 +1,933 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" class="dark scroll-smooth">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Maison Marini — OltreMare Archive</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MAISON OLTREMARE — Digital Archive & Museum</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@200;300;400;500&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            'oltremare-black': '#0A0A0A',
+            'oltremare-dark': '#121212',
+            'oltremare-graphite': '#1C1C1C',
+            'oltremare-paper': '#F4F1EA',
+            'oltremare-ivory': '#EAE5D9',
+            'oltremare-bronze': '#C5A059',
+            'oltremare-bronze-dark': '#8C734B',
+            'oltremare-olive': '#2E332A',
+            'oltremare-wood': '#16110E',
+          },
+          fontFamily: {
+            serif: ['"Cormorant Garamond"', 'Georgia', 'serif'],
+            sans: ['"Inter"', 'Helvetica Neue', 'sans-serif'],
+          },
+          letterSpacing: {
+            'widest-xl': '0.25em',
+            'widest-2xl': '0.4em',
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- GSAP & ScrollTrigger -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  
+  <!-- Custom Styles for Museum Aesthetic -->
+  <style>
+    ::selection {
+      background: #C5A059;
+      color: #0A0A0A;
+    }
     
-    <!-- Tipografia: Bodoni Moda (Títulos de Alto Luxo) e Inter (Texto Técnico Apple-style) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    /* Smooth Scrollbar */
+    ::-webkit-scrollbar {
+      width: 5px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0A0A0A;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #2A2A2A;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #C5A059;
+    }
 
-    <style>
-        /* ==========================================================================
-           1. DESIGN SYSTEM & VARIÁVEIS (PADRÃO APPLE / MAISON MARINI)
-           ========================================================================== */
-        :root {
-            /* Palette de Cores Cirúrgica Diurna */
-            --color-bg-primary: #FBFBFB;    /* Off-white ice */
-            --color-bg-secondary: #F5F5F7;  /* Cinza gelo suave da Apple */
-            --color-text-main: #1D1D1F;     /* Preto profundo Apple */
-            --color-text-sub: #86868B;      /* Cinza Espacial */
-            --color-gold-accent: #A38F58;   /* Ouro envelhecido sutil */
-            --color-border: rgba(29, 29, 31, 0.08);
+    .noise-bg {
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
+    }
 
-            /* Tipografia */
-            --font-serif: 'Bodoni Moda', serif;
-            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    .editorial-border {
+      border-color: rgba(197, 160, 89, 0.15);
+    }
 
-            /* Espaçamento Dramático (Negative Space) */
-            --section-padding-vertical: 22vh;
-            --container-padding-horizontal: 6vw;
-
-            /* Curva Bezier Cinematográfica (Apple Standard) */
-            --ease-cinematic: cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        /* ==========================================================================
-           2. RESET & BÁSICOS
-           ========================================================================== */
-        *, *::before, *::after {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        html {
-            background-color: var(--color-bg-primary);
-            color: var(--color-text-main);
-            font-family: var(--font-sans);
-            font-size: 16px;
-            scroll-behavior: smooth;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-            overflow-x: hidden;
-        }
-
-        body {
-            width: 100%;
-            overflow-x: hidden;
-            background-color: var(--color-bg-primary);
-        }
-
-        a {
-            color: inherit;
-            text-decoration: none;
-        }
-
-        img {
-            max-width: 100%;
-            height: auto;
-            display: block;
-        }
-
-        /* ==========================================================================
-           3. MÁSCARAS DE TEXTO E ELEMENTOS DE REVELAÇÃO (GSAP TARGETS)
-           ========================================================================== */
-        .mask-container {
-            overflow: hidden;
-            display: block;
-        }
-
-        .mask-child {
-            display: block;
-            will-change: transform, opacity;
-        }
-
-        /* Efeito Cortina em Imagens */
-        .curtain-box {
-            position: relative;
-            overflow: hidden;
-            /* Inicia totalmente coberta via clip-path */
-            clip-path: inset(100% 0 0 0);
-            will-change: clip-path;
-            background-color: var(--color-bg-secondary);
-        }
-
-        .curtain-box img {
-            width: 100%;
-            height: 115%; /* Extra para parallax suave */
-            object-fit: cover;
-            transform: scale(1);
-            will-change: transform;
-        }
-
-        /* ==========================================================================
-           4. CABEÇALHO / NAVEGAÇÃO GLASSMORPHISM
-           ========================================================================== */
-        .nav-header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            z-index: 100;
-            padding: 2.5rem var(--container-padding-horizontal);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: rgba(251, 251, 251, 0.75);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--color-border);
-            transition: padding 0.4s var(--ease-cinematic);
-        }
-
-        .nav-brand {
-            font-family: var(--font-serif);
-            font-size: 1.35rem;
-            letter-spacing: 0.18em;
-            text-transform: uppercase;
-            font-weight: 500;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 3rem;
-            list-style: none;
-        }
-
-        .nav-link {
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 0.2em;
-            color: var(--color-text-sub);
-            transition: color 0.3s ease;
-            font-weight: 500;
-        }
-
-        .nav-link:hover {
-            color: var(--color-text-main);
-        }
-
-        .gold-badge {
-            font-size: 0.65rem;
-            letter-spacing: 0.25em;
-            text-transform: uppercase;
-            color: var(--color-gold-accent);
-            font-weight: 600;
-            margin-bottom: 1rem;
-            display: block;
-        }
-
-        /* ==========================================================================
-           5. HERO SECTION
-           ========================================================================== */
-        .hero {
-            padding-top: 30vh;
-            padding-bottom: 15vh;
-            padding-left: var(--container-padding-horizontal);
-            padding-right: var(--container-padding-horizontal);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .hero-title-container {
-            margin-bottom: 5vh;
-        }
-
-        .hero-title {
-            font-family: var(--font-serif);
-            font-size: clamp(3.5rem, 9vw, 11rem);
-            font-weight: 400;
-            line-height: 0.9;
-            letter-spacing: -0.03em;
-            text-transform: uppercase;
-        }
-
-        .hero-grid {
-            display: grid;
-            grid-template-columns: 4fr 8fr;
-            gap: 4rem;
-            align-items: flex-end;
-            margin-top: 8vh;
-        }
-
-        .hero-caption {
-            font-size: 0.95rem;
-            line-height: 1.6;
-            color: var(--color-text-sub);
-            max-width: 380px;
-        }
-
-        .hero-image-wrapper {
-            width: 100%;
-            height: 75vh;
-        }
-
-        /* ==========================================================================
-           6. SEÇÃO: DETALHES DE COSTURA (CRAFTSMANSHIP SHOWCASE)
-           ========================================================================== */
-        .craftsmanship {
-            padding: var(--section-padding-vertical) var(--container-padding-horizontal);
-            background-color: var(--color-bg-primary);
-            border-top: 1px solid var(--color-border);
-        }
-
-        .section-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-            margin-bottom: 12vh;
-        }
-
-        .section-title-large {
-            font-family: var(--font-serif);
-            font-size: clamp(2.5rem, 5vw, 6rem);
-            font-weight: 400;
-            line-height: 1.05;
-            letter-spacing: -0.02em;
-        }
-
-        .craftsmanship-grid {
-            display: grid;
-            grid-template-columns: 7fr 5fr;
-            gap: 6vw;
-            align-items: center;
-        }
-
-        .craft-main-image {
-            width: 100%;
-            height: 90vh;
-        }
-
-        .craft-content {
-            padding-left: 2vw;
-        }
-
-        .craft-heading {
-            font-family: var(--font-serif);
-            font-size: clamp(1.8rem, 3vw, 3.2rem);
-            font-weight: 400;
-            margin-bottom: 2rem;
-            line-height: 1.15;
-        }
-
-        .craft-description {
-            font-size: 1rem;
-            line-height: 1.8;
-            color: var(--color-text-sub);
-            margin-bottom: 3rem;
-            font-weight: 300;
-        }
-
-        .specs-list {
-            list-style: none;
-            border-top: 1px solid var(--color-border);
-        }
-
-        .spec-item {
-            display: flex;
-            justify-content: space-between;
-            padding: 1.5rem 0;
-            border-bottom: 1px solid var(--color-border);
-            font-size: 0.85rem;
-            letter-spacing: 0.05em;
-        }
-
-        .spec-label {
-            color: var(--color-text-sub);
-            text-transform: uppercase;
-        }
-
-        .spec-value {
-            color: var(--color-text-main);
-            font-weight: 500;
-        }
-
-        /* ==========================================================================
-           7. SEÇÃO: GALERIA EDITORIAL ASSIMÉTRICA
-           ========================================================================== */
-        .editorial {
-            padding: 10vh var(--container-padding-horizontal) var(--section-padding-vertical);
-        }
-
-        .editorial-grid {
-            display: grid;
-            grid-template-columns: repeat(12, 1fr);
-            gap: 2vw;
-            align-items: center;
-        }
-
-        .editorial-item-1 {
-            grid-column: 1 / span 7;
-            height: 80vh;
-        }
-
-        .editorial-item-2 {
-            grid-column: 9 / span 4;
-            height: 60vh;
-            margin-top: -10vh;
-        }
-
-        /* ==========================================================================
-           8. MANIFESTO / STATEMENT
-           ========================================================================== */
-        .statement {
-            padding: var(--section-padding-vertical) var(--container-padding-horizontal);
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            background-color: var(--color-bg-secondary);
-        }
-
-        .statement-quote {
-            font-family: var(--font-serif);
-            font-size: clamp(2rem, 4.5vw, 5.5rem);
-            font-weight: 300;
-            max-width: 1200px;
-            line-height: 1.15;
-            letter-spacing: -0.01em;
-            margin-bottom: 2rem;
-        }
-
-        /* ==========================================================================
-           9. RODAPÉ MINIMALISTA DE ALTO LUXO
-           ========================================================================== */
-        .footer {
-            padding: 15vh var(--container-padding-horizontal) 8vh;
-            background-color: var(--color-bg-primary);
-            border-top: 1px solid var(--color-border);
-        }
-
-        .footer-grid {
-            display: grid;
-            grid-template-columns: 4fr 2fr 2fr 4fr;
-            gap: 4rem;
-            margin-bottom: 12vh;
-        }
-
-        .footer-brand {
-            font-family: var(--font-serif);
-            font-size: 2rem;
-            letter-spacing: 0.1em;
-            margin-bottom: 1.5rem;
-        }
-
-        .footer-column-title {
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 0.25em;
-            color: var(--color-gold-accent);
-            margin-bottom: 2rem;
-            font-weight: 600;
-        }
-
-        .footer-links {
-            list-style: none;
-        }
-
-        .footer-links li {
-            margin-bottom: 1rem;
-        }
-
-        .footer-links a {
-            font-size: 0.85rem;
-            color: var(--color-text-sub);
-            transition: color 0.3s ease;
-        }
-
-        .footer-links a:hover {
-            color: var(--color-text-main);
-        }
-
-        .footer-bottom {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding-top: 4vh;
-            border-top: 1px solid var(--color-border);
-            font-size: 0.75rem;
-            color: var(--color-text-sub);
-            letter-spacing: 0.05em;
-        }
-
-        /* Responsive Breakpoints */
-        @media (max-width: 900px) {
-            .hero-grid, .craftsmanship-grid, .footer-grid {
-                grid-template-columns: 1fr;
-                gap: 3rem;
-            }
-            .editorial-item-1, .editorial-item-2 {
-                grid-column: 1 / -1;
-                height: 60vh;
-                margin-top: 0;
-            }
-            .nav-links {
-                display: none;
-            }
-        }
-    </style>
+    .text-vertical {
+      writing-mode: vertical-rl;
+    }
+  </style>
 </head>
-<body>
+<body class="bg-oltremare-black text-oltremare-paper font-sans antialiased selection:bg-oltremare-bronze selection:text-black overflow-x-hidden noise-bg">
 
-    <!-- NAVEGAÇÃO -->
-    <header class="nav-header">
-        <div class="nav-brand">Maison Marini</div>
-        <ul class="nav-links">
-            <li><a href="#oltermare" class="nav-link">OltreMare</a></li>
-            <li><a href="#craftsmanship" class="nav-link">Savoir-Faire</a></li>
-            <li><a href="#archives" class="nav-link">Arquivos</a></li>
-        </ul>
-        <span class="gold-badge">Edição Limitada</span>
-    </header>
+  <!-- Ambient Sound Control & Navigation Bar -->
+  <header class="fixed top-0 left-0 w-full z-50 mix-blend-difference px-6 lg:px-16 py-8 flex justify-between items-center transition-all duration-700" id="main-header">
+    <a href="#" class="font-serif text-2xl lg:text-3xl tracking-widest uppercase hover:text-oltremare-bronze transition-colors duration-500">
+      Maison Oltremare
+    </a>
 
-    <main>
-        <!-- HERO SECTION -->
-        <section class="hero" id="oltermare">
-            <div class="hero-title-container">
-                <span class="gold-badge mask-container">
-                    <span class="mask-child text-reveal-init">Coleção Automne-Hiver 2026</span>
-                </span>
-                <h1 class="hero-title">
-                    <span class="mask-container"><span class="mask-child text-reveal-init">OltreMare</span></span>
-                </h1>
-            </div>
+    <nav class="hidden md:flex items-center space-x-10 text-xs tracking-widest-xl uppercase font-light text-oltremare-paper/80">
+      <a href="#manifesto" class="hover:text-oltremare-bronze transition-colors">Manifesto</a>
+      <a href="#archive" class="hover:text-oltremare-bronze transition-colors">Archive</a>
+      <a href="#collections" class="hover:text-oltremare-bronze transition-colors">Coleções</a>
+      <a href="#perfumes" class="hover:text-oltremare-bronze transition-colors">Galeria Olfativa</a>
+      <a href="#travelwear" class="hover:text-oltremare-bronze transition-colors">Objetos & Vestuário</a>
+      <a href="#journal" class="hover:text-oltremare-bronze transition-colors">Journal</a>
+      <a href="#contact" class="hover:text-oltremare-bronze transition-colors">Agendamento</a>
+    </nav>
 
-            <div class="hero-grid">
-                <div class="hero-caption">
-                    <span class="mask-container">
-                        <span class="mask-child text-reveal-init">
-                            Uma investigação estética sobre o peso da estrutura e a fluidez do drapeado. Esculpido em lã de vicunha pura com acabamentos executados inteiramente à mão.
-                        </span>
-                    </span>
-                </div>
-                <div class="hero-image-wrapper curtain-box">
-                    <img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=1800&q=85" alt="Maison Marini - OltreMare Silhouette">
-                </div>
-            </div>
-        </section>
+    <div class="flex items-center space-x-6">
+      <span class="text-[10px] tracking-widest uppercase text-oltremare-bronze hidden sm:inline-block border border-oltremare-bronze/30 px-3 py-1 rounded-full">
+        Archival Access: MMXXVI
+      </span>
+      <button id="menu-btn" class="md:hidden text-xs tracking-widest uppercase focus:outline-none text-oltremare-paper">
+        [ Menu ]
+      </button>
+    </div>
+  </header>
 
-        <!-- SEÇÃO: DETALHES DE COSTURA (CRAFTSMANSHIP) -->
-        <section class="craftsmanship" id="craftsmanship">
-            <div class="section-header">
-                <div>
-                    <span class="gold-badge">01 / precisão sartorial</span>
-                    <h2 class="section-title-large">
-                        <span class="mask-container"><span class="mask-child js-text-reveal">O Desenho da</span></span>
-                        <span class="mask-container"><span class="mask-child js-text-reveal">Costura Invisível.</span></span>
-                    </h2>
-                </div>
-            </div>
+  <!-- Mobile Drawer Menu -->
+  <div id="mobile-menu" class="fixed inset-0 bg-oltremare-black z-40 flex flex-col justify-center px-10 space-y-6 hidden md:hidden border-l border-oltremare-bronze/20">
+    <a href="#manifesto" class="mobile-link text-2xl font-serif tracking-widest">01. Manifesto</a>
+    <a href="#archive" class="mobile-link text-2xl font-serif tracking-widest">02. Archive</a>
+    <a href="#collections" class="mobile-link text-2xl font-serif tracking-widest">03. Coleções</a>
+    <a href="#perfumes" class="mobile-link text-2xl font-serif tracking-widest">04. Fragrâncias</a>
+    <a href="#travelwear" class="mobile-link text-2xl font-serif tracking-widest">05. Objetos</a>
+    <a href="#journal" class="mobile-link text-2xl font-serif tracking-widest">06. Journal</a>
+    <a href="#contact" class="mobile-link text-2xl font-serif tracking-widest">07. Agendamento Privado</a>
+  </div>
 
-            <div class="craftsmanship-grid">
-                <!-- Imagem com revelação cortina e zoom no scroll -->
-                <div class="craft-main-image curtain-box">
-                    <img src="https://images.unsplash.com/photo-1584273143981-41c073dfe8f8?auto=format&fit=crop&w=1400&q=85" alt="Detalhes da costura de um casaco de lã de luxo">
-                </div>
+  <!-- HERO SECTION -->
+  <section class="relative h-screen w-full flex items-center justify-center overflow-hidden">
+    <!-- Visual Atmosphere Background -->
+    <div class="absolute inset-0 z-0">
+      <img 
+        src="https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=2000&q=80" 
+        alt="Maison Oltremare Atmosphere" 
+        class="w-full h-full object-cover opacity-35 scale-105 transition-transform duration-10000 ease-out transform hover:scale-100 filter brightness-75 contrast-125"
+      />
+      <div class="absolute inset-0 bg-gradient-to-t from-oltremare-black via-oltremare-black/50 to-oltremare-black/80"></div>
+    </div>
 
-                <div class="craft-content">
-                    <h3 class="craft-heading">
-                        <span class="mask-container"><span class="mask-child js-text-reveal">Manteau Grand Sfumato</span></span>
-                    </h3>
-                    <p class="craft-description">
-                        Cada jaqueta exige 48 horas de montagem artesanal nos ateliês de Florença. Os pespontos internos utilizam fio de seda encerado, permitindo que a peça se adapte anatomicamente à postura do usuário sem tensionar o tecido estrutural.
-                    </p>
+    <!-- Hero Content -->
+    <div class="relative z-10 text-center px-6 max-w-4xl mx-auto flex flex-col items-center">
+      <p class="text-xs uppercase tracking-widest-2xl text-oltremare-bronze mb-6 font-light opacity-90">
+        Archivio Storico d'Italia — Vol. I
+      </p>
+      
+      <h1 class="font-serif text-5xl md:text-8xl lg:text-9xl tracking-wider uppercase font-extralight text-oltremare-paper mb-8 leading-none">
+        MAISON OLTREMARE
+      </h1>
 
-                    <ul class="specs-list">
-                        <li class="spec-item">
-                            <span class="spec-label">Material Principal</span>
-                            <span class="spec-value">100% Lã Vicunha Orgânica</span>
-                        </li>
-                        <li class="spec-item">
-                            <span class="spec-label">Construção Interna</span>
-                            <span class="spec-value">Entretela de Crina Tradicional</span>
-                        </li>
-                        <li class="spec-item">
-                            <span class="spec-label">Acabamento</span>
-                            <span class="spec-value">Ponto Caseado à Mão</span>
-                        </li>
-                        <li class="spec-item">
-                            <span class="spec-label">Edição</span>
-                            <span class="spec-value">Numerada (1 de 25)</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </section>
+      <p class="font-serif italic text-lg md:text-2xl text-oltremare-paper/70 font-light mb-12 max-w-2xl">
+        "Preservamos lugares. Cada fragrância representa uma memória."
+      </p>
 
-        <!-- SEÇÃO: GALERIA EDITORIAL ASSIMÉTRICA -->
-        <section class="editorial" id="archives">
-            <div class="editorial-grid">
-                <div class="editorial-item-1 curtain-box">
-                    <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=1600&q=85" alt="Casaco longo estruturado OltreMare">
-                </div>
-                <div class="editorial-item-2 curtain-box">
-                    <img src="https://images.unsplash.com/photo-1558769132-cb1aea458c5e?auto=format&fit=crop&w=1000&q=85" alt="Textura de tecido e costura artesanal">
-                </div>
-            </div>
-        </section>
+      <div class="flex flex-col sm:flex-row items-center gap-6">
+        <a href="#archive" class="group relative inline-flex items-center gap-3 px-8 py-4 border border-oltremare-bronze/40 hover:border-oltremare-bronze transition-all duration-500 bg-oltremare-dark/40 backdrop-blur-md">
+          <span class="text-xs tracking-widest uppercase text-oltremare-paper group-hover:text-oltremare-bronze transition-colors">Enter the Archive</span>
+          <span class="text-xs text-oltremare-bronze group-hover:translate-x-1 transition-transform">→</span>
+        </a>
+        <a href="#perfumes" class="text-xs tracking-widest uppercase text-oltremare-paper/60 hover:text-oltremare-paper transition-colors py-4">
+          Explorar Exposição Olfativa
+        </a>
+      </div>
+    </div>
 
-        <!-- STATEMENT SECTION -->
-        <section class="statement">
-            <span class="gold-badge">Filosofia Maison</span>
-            <blockquote class="statement-quote">
-                <span class="mask-container"><span class="mask-child js-text-reveal">"O verdadeiro luxo não exige atenção.</span></span>
-                <span class="mask-container"><span class="mask-child js-text-reveal">Ele permanece na precisão</span></span>
-                <span class="mask-container"><span class="mask-child js-text-reveal">daquilo que é imperceptível."</span></span>
-            </blockquote>
-        </section>
-    </main>
+    <!-- Scroll Indicator -->
+    <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 flex flex-col items-center gap-2 opacity-60">
+      <span class="text-[9px] tracking-widest uppercase text-oltremare-paper/50">Scroll para Arquivo</span>
+      <div class="w-[1px] h-12 bg-gradient-to-b from-oltremare-bronze to-transparent animate-pulse"></div>
+    </div>
+  </section>
 
-    <!-- ==========================================================================
-     RODAPÉ EDITORIAL MINIMALISTA — MAISON OLTREMARE
-     ========================================================================== -->
-<footer class="footer">
-    <div class="footer-grid">
-        
-        <!-- Coluna 1: Identidade da Marca e Descrição -->
-        <div class="footer-col brand-col">
-            <a href="/" class="footer-brand" aria-label="Maison Oltremare - Página Inicial">Maison Oltremare</a>
-            <p class="footer-description">
-                Arquivo Digital e Ateliê de Alta-Costura.<br>
-                Florença — Paris.
-            </p>
+  <!-- MANIFESTO SECTION -->
+  <section id="manifesto" class="py-32 px-6 lg:px-24 bg-oltremare-black relative border-t border-b border-oltremare-graphite">
+    <div class="max-w-5xl mx-auto text-center space-y-12">
+      <span class="text-xs tracking-widest-2xl text-oltremare-bronze uppercase block font-light">
+        [ Filosophia e Proposito ]
+      </span>
+      
+      <h2 class="font-serif text-3xl md:text-6xl text-oltremare-paper font-light leading-snug tracking-wide">
+        Não vendemos perfumes.<br />
+        <span class="italic text-oltremare-bronze">Preservamos lugares.</span>
+      </h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-12 pt-12 text-left border-t border-oltremare-graphite/50">
+        <div class="space-y-3">
+          <span class="font-serif italic text-2xl text-oltremare-bronze block">01 / Memória</span>
+          <p class="text-xs text-oltremare-paper/70 leading-relaxed font-light">
+            Cada fragrância representa uma memória capturada no mediterrâneo. Não criamos aromas comerciais; selamos fragmentos de tempo e espaço em recipientes de vidro artesanal.
+          </p>
         </div>
-
-        <!-- Coluna 2: Navegação da Coleção -->
-        <div class="footer-col">
-            <h3 class="footer-column-title">Coleção</h3>
-            <nav aria-label="Navegação da Coleção">
-                <ul class="footer-links">
-                    <li><a href="/colecao/oltremare" class="footer-link">OltreMare 2026</a></li>
-                    <li><a href="/colecao/perfumes" class="footer-link">Haute Parfumerie</a></li>
-                    <li><a href="/colecao/arquivos" class="footer-link">Arquivos & Peças Únicas</a></li>
-                </ul>
-            </nav>
+        <div class="space-y-3">
+          <span class="font-serif italic text-2xl text-oltremare-bronze block">02 / Capítulo</span>
+          <p class="text-xs text-oltremare-paper/70 leading-relaxed font-light">
+            Cada coleção representa um capítulo irrepetível da história da Maison. Lançamentos não seguem estações, mas ciclos de inspiração e achados de arquivo.
+          </p>
         </div>
-
-        <!-- Coluna 3: Ateliê, Endereço e Contato -->
-        <div class="footer-col">
-            <h3 class="footer-column-title">Ateliê</h3>
-            <address class="footer-address">
-                <ul class="footer-links">
-                    <li><span class="address-location">Via de' Tornabuoni, 12 — Firenze</span></li>
-                    <li><a href="/atelier/agendamento" class="footer-link">Agendamento Privado</a></li>
-                    <li><a href="/atelier/imprensa" class="footer-link">Imprensa & Editorial</a></li>
-                    <li><a href="/contato" class="footer-link">Contato Directo</a></li>
-                </ul>
-            </address>
+        <div class="space-y-3">
+          <span class="font-serif italic text-2xl text-oltremare-bronze block">03 / Archive</span>
+          <p class="text-xs text-oltremare-paper/70 leading-relaxed font-light">
+            Cada capítulo pertence definitivamente ao Archive. Objetos, fragrâncias e vestuário são catalogados como patrimônio e itens de acervo perpétuo.
+          </p>
         </div>
+      </div>
+    </div>
+  </section>
 
-        <!-- Coluna 4: Formulário Real de Boletim Privado -->
-        <div class="footer-col newsletter-col">
-            <h3 class="footer-column-title">Boletim Privado</h3>
-            <div class="newsletter">
-                <p class="newsletter-description">
-                    Acesso antecipado exclusivo aos arquivos de temporada e convites privados.
+  <!-- ARCHIVE INDEX SECTION -->
+  <section id="archive" class="py-32 px-6 lg:px-16 bg-oltremare-dark">
+    <div class="max-w-7xl mx-auto">
+      <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 pb-6 border-b border-oltremare-bronze/20">
+        <div>
+          <span class="text-xs tracking-widest-2xl text-oltremare-bronze uppercase block mb-2">
+            Registro Histórico
+          </span>
+          <h2 class="font-serif text-4xl md:text-6xl tracking-wide uppercase font-light">
+            The Historical Archive
+          </h2>
+        </div>
+        <p class="text-xs text-oltremare-paper/60 max-w-md mt-4 md:mt-0 font-light leading-relaxed">
+          Documentos históricos da Maison Oltremare organizados por cronologia. Selecione um ano para abrir os registros correspondentes.
+        </p>
+      </div>
+
+      <!-- Historical Archive Table Document Style -->
+      <div class="space-y-4">
+        <!-- Archive 2026 -->
+        <div class="archive-item group border border-oltremare-graphite hover:border-oltremare-bronze/50 p-8 transition-all duration-500 bg-oltremare-black/60 cursor-pointer" onclick="openArchiveDetail('2026')">
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
+            <div class="flex items-baseline space-x-8">
+              <span class="font-serif text-3xl md:text-5xl text-oltremare-bronze font-light">2026</span>
+              <div>
+                <h3 class="font-serif text-2xl text-oltremare-paper group-hover:text-oltremare-bronze transition-colors">
+                  Capítulo I: L'Isola Nascosta
+                </h3>
+                <p class="text-xs text-oltremare-paper/50 tracking-wider uppercase mt-1">
+                  Direção Criativa: Aurelio Vance • 4 Fragrâncias Olfativas
                 </p>
-                <form class="newsletter-form" action="/api/newsletter" method="POST" novalidate>
-                    <div class="newsletter-input-wrapper">
-                        <input 
-                            type="email" 
-                            name="email"
-                            class="newsletter-input" 
-                            placeholder="Endereço de e-mail" 
-                            required 
-                            aria-label="Endereço de e-mail para o boletim privado"
-                            autocomplete="email"
-                        >
-                        <button type="submit" class="newsletter-button" aria-label="Inscrever-se no boletim">
-                            <span class="arrow-icon" aria-hidden="true">→</span>
-                        </button>
-                    </div>
-                </form>
+              </div>
             </div>
+            <div class="flex items-center space-x-6 text-xs text-oltremare-paper/60">
+              <span class="px-3 py-1 bg-oltremare-olive/30 border border-oltremare-olive text-oltremare-paper/80 rounded-full text-[10px] tracking-widest uppercase">
+                Documento Ativo
+              </span>
+              <span class="group-hover:translate-x-2 transition-transform duration-300 text-oltremare-bronze">
+                Abrir Arquivo →
+              </span>
+            </div>
+          </div>
         </div>
 
+        <!-- Archive 2027 -->
+        <div class="archive-item group border border-oltremare-graphite hover:border-oltremare-bronze/50 p-8 transition-all duration-500 bg-oltremare-black/30 cursor-pointer" onclick="openArchiveDetail('2027')">
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
+            <div class="flex items-baseline space-x-8 opacity-80 group-hover:opacity-100">
+              <span class="font-serif text-3xl md:text-5xl text-oltremare-paper/40 font-light">2027</span>
+              <div>
+                <h3 class="font-serif text-2xl text-oltremare-paper group-hover:text-oltremare-bronze transition-colors">
+                  Capítulo II: Seta Nera e Ventos
+                </h3>
+                <p class="text-xs text-oltremare-paper/50 tracking-wider uppercase mt-1">
+                  Direção Criativa: Elena Vane & Aurelio Vance • Travelwear & Perfumaria
+                </p>
+              </div>
+            </div>
+            <div class="flex items-center space-x-6 text-xs text-oltremare-paper/60">
+              <span class="px-3 py-1 bg-oltremare-graphite border border-oltremare-graphite text-oltremare-paper/50 rounded-full text-[10px] tracking-widest uppercase">
+                Acervo Preservado
+              </span>
+              <span class="group-hover:translate-x-2 transition-transform duration-300 text-oltremare-bronze">
+                Abrir Arquivo →
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Archive 2028 -->
+        <div class="archive-item group border border-oltremare-graphite hover:border-oltremare-bronze/50 p-8 transition-all duration-500 bg-oltremare-black/30 cursor-pointer" onclick="openArchiveDetail('2028')">
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
+            <div class="flex items-baseline space-x-8 opacity-80 group-hover:opacity-100">
+              <span class="font-serif text-3xl md:text-5xl text-oltremare-paper/40 font-light">2028</span>
+              <div>
+                <h3 class="font-serif text-2xl text-oltremare-paper group-hover:text-oltremare-bronze transition-colors">
+                  Capítulo III: Giardino Sotto la Luna
+                </h3>
+                <p class="text-xs text-oltremare-paper/50 tracking-wider uppercase mt-1">
+                  Direção Criativa: Aurelio Vance • Objetos de Bronze e Vidro Fumê
+                </p>
+              </div>
+            </div>
+            <div class="flex items-center space-x-6 text-xs text-oltremare-paper/60">
+              <span class="px-3 py-1 bg-oltremare-graphite border border-oltremare-graphite text-oltremare-paper/50 rounded-full text-[10px] tracking-widest uppercase">
+                Acervo Preservado
+              </span>
+              <span class="group-hover:translate-x-2 transition-transform duration-300 text-oltremare-bronze">
+                Abrir Arquivo →
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+  </section>
 
-    <!-- Barra Inferior de Direitos Autorais e Créditos -->
-    <div class="footer-bottom">
-        <span class="copyright">&copy; 2026 MAISON OLTREMARE. TODOS OS DIREITOS RESERVADOS.</span>
-        <span class="engine-tag">DESIGN ENGINE: APPLE ARCHITECTURE / GSAP V3</span>
+  <!-- COLLECTIONS SECTION -->
+  <section id="collections" class="py-32 px-6 lg:px-16 bg-oltremare-black border-t border-oltremare-graphite">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center max-w-3xl mx-auto mb-20 space-y-4">
+        <span class="text-xs tracking-widest-2xl text-oltremare-bronze uppercase">
+          Curadoria Editorial
+        </span>
+        <h2 class="font-serif text-4xl md:text-6xl uppercase font-light">
+          Coleção Principal 2026
+        </h2>
+        <p class="text-xs text-oltremare-paper/60 font-light tracking-wide leading-relaxed">
+          Estudo sobre a luz mediterrânea e minerais vulcânicos da Costa Amalfitana e ilhas remotas italianas.
+        </p>
+      </div>
+
+      <!-- Collection Editorial Banner & Moodboard Grid -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        <!-- Moodboard Image 1 -->
+        <div class="lg:col-span-7 relative group overflow-hidden border border-oltremare-graphite">
+          <img 
+            src="https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=1400&q=80" 
+            alt="L'Isola Nascosta Editorial" 
+            class="w-full h-[600px] object-cover filter grayscale contrast-125 group-hover:scale-105 transition-transform duration-1000"
+          />
+          <div class="absolute inset-0 bg-gradient-to-t from-oltremare-black via-transparent to-transparent opacity-80"></div>
+          <div class="absolute bottom-8 left-8 right-8 flex justify-between items-end">
+            <div>
+              <span class="text-[10px] tracking-widest uppercase text-oltremare-bronze block mb-1">
+                Fotografia Editorial • Vulcano MMXXVI
+              </span>
+              <h3 class="font-serif text-3xl italic text-oltremare-paper">
+                "A sombra da falésia sob o sol do meio-dia"
+              </h3>
+            </div>
+          </div>
+        </div>
+
+        <!-- Collection Metadata Card -->
+        <div class="lg:col-span-5 bg-oltremare-dark border border-oltremare-graphite p-10 flex flex-col justify-between h-[600px]">
+          <div>
+            <div class="flex justify-between items-center border-b border-oltremare-graphite pb-4 mb-6">
+              <span class="text-xs tracking-widest uppercase text-oltremare-bronze">
+                Ficha Técnica da Coleção
+              </span>
+              <span class="font-serif italic text-sm text-oltremare-paper/60">
+                Ref. 2026-COL-01
+              </span>
+            </div>
+
+            <h3 class="font-serif text-3xl text-oltremare-paper mb-4">
+              L'Isola Nascosta
+            </h3>
+
+            <p class="text-xs text-oltremare-paper/70 font-light leading-relaxed mb-8">
+              Esta coleção explora o silêncio das praias vulcânicas intocadas. Perfumaria formulada em pequenos lotes numerados com extratos de cipreste de Amalfi, terracota aquecida e botânicos raros.
+            </p>
+
+            <div class="space-y-4 text-xs">
+              <div class="flex justify-between py-2 border-b border-oltremare-graphite/40">
+                <span class="text-oltremare-paper/50">Diretor Criativo:</span>
+                <span class="text-oltremare-paper">Aurelio Vance</span>
+              </div>
+              <div class="flex justify-between py-2 border-b border-oltremare-graphite/40">
+                <span class="text-oltremare-paper/50">Fragrâncias em Acervo:</span>
+                <span class="text-oltremare-paper">04 Obras Olfativas</span>
+              </div>
+              <div class="flex justify-between py-2 border-b border-oltremare-graphite/40">
+                <span class="text-oltremare-paper/50">Objetos Catalogados:</span>
+                <span class="text-oltremare-paper">02 Esculturas & Mantos</span>
+              </div>
+              <div class="flex justify-between py-2 border-b border-oltremare-graphite/40">
+                <span class="text-oltremare-paper/50">Origem da Matéria:</span>
+                <span class="text-oltremare-paper">Pantelleria & Ravello</span>
+              </div>
+            </div>
+          </div>
+
+          <a href="#perfumes" class="inline-flex items-center justify-between w-full pt-6 text-xs tracking-widest uppercase text-oltremare-bronze border-t border-oltremare-graphite hover:text-oltremare-paper transition-colors">
+            <span>Ver Obras da Coleção</span>
+            <span>↓</span>
+          </a>
+        </div>
+      </div>
     </div>
-</footer>
+  </section>
 
-    <!-- GSAP & SCROLLTRIGGER CDN -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <!-- PERFUMES / PERFUMARIA ARTÍSTICA SECTION -->
+  <section id="perfumes" class="py-32 px-6 lg:px-16 bg-oltremare-dark border-t border-oltremare-graphite">
+    <div class="max-w-7xl mx-auto">
+      <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-20">
+        <div>
+          <span class="text-xs tracking-widest-2xl text-oltremare-bronze uppercase block mb-2">
+            Catálogo de Exposição
+          </span>
+          <h2 class="font-serif text-4xl md:text-7xl uppercase font-light">
+            Fragrâncias de Acervo
+          </h2>
+        </div>
+        <p class="text-xs text-oltremare-paper/60 max-w-md mt-4 md:mt-0 font-light leading-relaxed">
+          Cada frasco em vidro fumê sopra memórias de terra, mar e pedra envelhecida. Clique em qualquer obra para explorar sua composição completa.
+        </p>
+      </div>
 
-    <script>
-        /* ==========================================================================
-           ENGENHARIA DE MOVIMENTO GSAP & SCROLLTRIGGER
-           ========================================================================== */
+      <!-- Perfume Exhibition Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
         
-        // Registro do Plugin ScrollTrigger
-        gsap.registerPlugin(ScrollTrigger);
+        <!-- Perfume 1 -->
+        <div class="perfume-card group cursor-pointer border border-oltremare-graphite bg-oltremare-black p-8 hover:border-oltremare-bronze/50 transition-all duration-700" onclick="openPerfumeModal(1)">
+          <div class="relative overflow-hidden aspect-[4/5] mb-8 bg-oltremare-wood/40">
+            <img 
+              src="https://images.unsplash.com/photo-1615397349754-cfa2066a298e?auto=format&fit=crop&w=1000&q=80" 
+              alt="Noto al Tramonto" 
+              class="w-full h-full object-cover filter grayscale contrast-125 group-hover:scale-105 transition-transform duration-1000"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-oltremare-black via-transparent to-transparent opacity-60"></div>
+            <span class="absolute top-4 left-4 text-xs font-serif italic text-oltremare-bronze">N° 01 / MMXXVI</span>
+          </div>
 
-        document.addEventListener("DOMContentLoaded", () => {
+          <div class="space-y-3">
+            <span class="text-[10px] tracking-widest uppercase text-oltremare-bronze block">Família Olfativa: Amadeirado Mineral</span>
+            <h3 class="font-serif text-3xl text-oltremare-paper group-hover:text-oltremare-bronze transition-colors">
+              01. Noto al Tramonto
+            </h3>
+            <p class="font-serif italic text-sm text-oltremare-paper/70">
+              "A terracota aquecida pelo último raio de sol siciliano."
+            </p>
+            <div class="pt-4 border-t border-oltremare-graphite flex justify-between items-center text-xs text-oltremare-paper/50">
+              <span>Bergamota, Figo Amargo, Terracota, Incenso</span>
+              <span class="text-oltremare-bronze group-hover:translate-x-1 transition-transform">Expositor →</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Perfume 2 -->
+        <div class="perfume-card group cursor-pointer border border-oltremare-graphite bg-oltremare-black p-8 hover:border-oltremare-bronze/50 transition-all duration-700" onclick="openPerfumeModal(2)">
+          <div class="relative overflow-hidden aspect-[4/5] mb-8 bg-oltremare-wood/40">
+            <img 
+              src="https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?auto=format&fit=crop&w=1000&q=80" 
+              alt="Costiera di Notte" 
+              class="w-full h-full object-cover filter grayscale contrast-125 group-hover:scale-105 transition-transform duration-1000"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-oltremare-black via-transparent to-transparent opacity-60"></div>
+            <span class="absolute top-4 left-4 text-xs font-serif italic text-oltremare-bronze">N° 02 / MMXXVI</span>
+          </div>
+
+          <div class="space-y-3">
+            <span class="text-[10px] tracking-widest uppercase text-oltremare-bronze block">Família Olfativa: Marinho Oceânico Sombrio</span>
+            <h3 class="font-serif text-3xl text-oltremare-paper group-hover:text-oltremare-bronze transition-colors">
+              02. Costiera di Notte
+            </h3>
+            <p class="font-serif italic text-sm text-oltremare-paper/70">
+              "O vento marinho trazendo o mistério dos penhascos da Amalfi noturna."
+            </p>
+            <div class="pt-4 border-t border-oltremare-graphite flex justify-between items-center text-xs text-oltremare-paper/50">
+              <span>Limão de Amalfi, Cipreste Negro, Sal, Âmbar</span>
+              <span class="text-oltremare-bronze group-hover:translate-x-1 transition-transform">Expositor →</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Perfume 3 -->
+        <div class="perfume-card group cursor-pointer border border-oltremare-graphite bg-oltremare-black p-8 hover:border-oltremare-bronze/50 transition-all duration-700" onclick="openPerfumeModal(3)">
+          <div class="relative overflow-hidden aspect-[4/5] mb-8 bg-oltremare-wood/40">
+            <img 
+              src="https://images.unsplash.com/photo-1547887537-6158d64c35b3?auto=format&fit=crop&w=1000&q=80" 
+              alt="Seta & Vulcano" 
+              class="w-full h-full object-cover filter grayscale contrast-125 group-hover:scale-105 transition-transform duration-1000"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-oltremare-black via-transparent to-transparent opacity-60"></div>
+            <span class="absolute top-4 left-4 text-xs font-serif italic text-oltremare-bronze">N° 03 / MMXXVI</span>
+          </div>
+
+          <div class="space-y-3">
+            <span class="text-[10px] tracking-widest uppercase text-oltremare-bronze block">Família Olfativa: Especiado Vulcânico</span>
+            <h3 class="font-serif text-3xl text-oltremare-paper group-hover:text-oltremare-bronze transition-colors">
+              03. Seta & Vulcano
+            </h3>
+            <p class="font-serif italic text-sm text-oltremare-paper/70">
+              "O contraste do toque da seda pura com as cinzas quentes de Pantelleria."
+            </p>
+            <div class="pt-4 border-t border-oltremare-graphite flex justify-between items-center text-xs text-oltremare-paper/50">
+              <span>Azeitona Queimada, Vetiver, Sândalo, Pimenta Rosa</span>
+              <span class="text-oltremare-bronze group-hover:translate-x-1 transition-transform">Expositor →</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Perfume 4 -->
+        <div class="perfume-card group cursor-pointer border border-oltremare-graphite bg-oltremare-black p-8 hover:border-oltremare-bronze/50 transition-all duration-700" onclick="openPerfumeModal(4)">
+          <div class="relative overflow-hidden aspect-[4/5] mb-8 bg-oltremare-wood/40">
+            <img 
+              src="https://images.unsplash.com/photo-1523293182086-7651a899d37f?auto=format&fit=crop&w=1000&q=80" 
+              alt="Giardino Segreto" 
+              class="w-full h-full object-cover filter grayscale contrast-125 group-hover:scale-105 transition-transform duration-1000"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-oltremare-black via-transparent to-transparent opacity-60"></div>
+            <span class="absolute top-4 left-4 text-xs font-serif italic text-oltremare-bronze">N° 04 / MMXXVI</span>
+          </div>
+
+          <div class="space-y-3">
+            <span class="text-[10px] tracking-widest uppercase text-oltremare-bronze block">Família Olfativa: Floral Couro</span>
+            <h3 class="font-serif text-3xl text-oltremare-paper group-hover:text-oltremare-bronze transition-colors">
+              04. Giardino Segreto
+            </h3>
+            <p class="font-serif italic text-sm text-oltremare-paper/70">
+              "Pátios florentinos escondidos sob a névoa matinal."
+            </p>
+            <div class="pt-4 border-t border-oltremare-graphite flex justify-between items-center text-xs text-oltremare-paper/50">
+              <span>Neroli, Iris Pallida, Musgo de Carvalho, Couro</span>
+              <span class="text-oltremare-bronze group-hover:translate-x-1 transition-transform">Expositor →</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- TRAVELWEAR & OBJECTS SECTION -->
+  <section id="travelwear" class="py-32 px-6 lg:px-16 bg-oltremare-black border-t border-oltremare-graphite">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center max-w-3xl mx-auto mb-20 space-y-4">
+        <span class="text-xs tracking-widest-2xl text-oltremare-bronze uppercase">
+          Arquivos de Viagem e Arte
+        </span>
+        <h2 class="font-serif text-4xl md:text-6xl uppercase font-light">
+          Travelwear & Objetos de Coleção
+        </h2>
+        <p class="text-xs text-oltremare-paper/60 font-light leading-relaxed">
+          Peças de vestuário em linho cru pesado e cerâmicas sopradas à mão formuladas para abrigar o viajante contemplativo.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <!-- Object 1 -->
+        <div class="bg-oltremare-dark border border-oltremare-graphite p-8 flex flex-col justify-between">
+          <div>
+            <span class="text-[10px] tracking-widest uppercase text-oltremare-bronze block mb-4">
+              [ OBJ-2026-001 ] • Travelwear
+            </span>
+            <div class="aspect-square bg-oltremare-graphite/40 mb-6 overflow-hidden">
+              <img 
+                src="https://images.unsplash.com/photo-1544441893-675973e31985?auto=format&fit=crop&w=800&q=80" 
+                alt="Mantella in Lino Pesante" 
+                class="w-full h-full object-cover filter grayscale hover:scale-105 transition-transform duration-700"
+              />
+            </div>
+            <h3 class="font-serif text-2xl text-oltremare-paper mb-2">
+              Mantella in Lino Pesante
+            </h3>
+            <p class="text-xs text-oltremare-paper/60 font-light leading-relaxed">
+              Manto drapeado em linho italiano de gramatura pesada tinturado com pigmentos minerais vulcânicos. Produção limitada a 12 exemplares catalogados.
+            </p>
+          </div>
+          <div class="pt-6 border-t border-oltremare-graphite/60 mt-6 flex justify-between text-[11px] text-oltremare-paper/40">
+            <span>Tecido: 100% Lino Sardo</span>
+            <span>Ref: ARCH-LINO-01</span>
+          </div>
+        </div>
+
+        <!-- Object 2 -->
+        <div class="bg-oltremare-dark border border-oltremare-graphite p-8 flex flex-col justify-between">
+          <div>
+            <span class="text-[10px] tracking-widest uppercase text-oltremare-bronze block mb-4">
+              [ OBJ-2026-002 ] • Escultura Olfativa
+            </span>
+            <div class="aspect-square bg-oltremare-graphite/40 mb-6 overflow-hidden">
+              <img 
+                src="https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?auto=format&fit=crop&w=800&q=80" 
+                alt="Anfora Olfattiva in Bronze" 
+                class="w-full h-full object-cover filter grayscale hover:scale-105 transition-transform duration-700"
+              />
+            </div>
+            <h3 class="font-serif text-2xl text-oltremare-paper mb-2">
+              Anfora in Bronze & Ceramica
+            </h3>
+            <p class="text-xs text-oltremare-paper/60 font-light leading-relaxed">
+              Ânfora de difusão passiva moldada em bronze bruto e cerâmica negra por artesãos de Ravello para ressonância contínua das fragrâncias de acervo.
+            </p>
+          </div>
+          <div class="pt-6 border-t border-oltremare-graphite/60 mt-6 flex justify-between text-[11px] text-oltremare-paper/40">
+            <span>Material: Bronze & Argila</span>
+            <span>Ref: ARCH-BRONZE-02</span>
+          </div>
+        </div>
+
+        <!-- Object 3 -->
+        <div class="bg-oltremare-dark border border-oltremare-graphite p-8 flex flex-col justify-between">
+          <div>
+            <span class="text-[10px] tracking-widest uppercase text-oltremare-bronze block mb-4">
+              [ OBJ-2026-003 ] • Travelwear
+            </span>
+            <div class="aspect-square bg-oltremare-graphite/40 mb-6 overflow-hidden">
+              <img 
+                src="https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?auto=format&fit=crop&w=800&q=80" 
+                alt="Giacca da Viaggio Anacapri" 
+                class="w-full h-full object-cover filter grayscale hover:scale-105 transition-transform duration-700"
+              />
+            </div>
+            <h3 class="font-serif text-2xl text-oltremare-paper mb-2">
+              Giacca da Viaggio Anacapri
+            </h3>
+            <p class="text-xs text-oltremare-paper/60 font-light leading-relaxed">
+              Jaqueta estruturada em algodão pesado desestruturado com bolsos internos selados concebidos para guardar cadernos de anotações e frascos de viagem.
+            </p>
+          </div>
+          <div class="pt-6 border-t border-oltremare-graphite/60 mt-6 flex justify-between text-[11px] text-oltremare-paper/40">
+            <span>Acabamento: Couro & Algodão</span>
+            <span>Ref: ARCH-GIACCA-03</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- JOURNAL / EDITORIAL SECTION -->
+  <section id="journal" class="py-32 px-6 lg:px-16 bg-oltremare-dark border-t border-oltremare-graphite">
+    <div class="max-w-7xl mx-auto">
+      <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-16">
+        <div>
+          <span class="text-xs tracking-widest-2xl text-oltremare-bronze uppercase block mb-2">
+            Publicações do Arquivo
+          </span>
+          <h2 class="font-serif text-4xl md:text-6xl uppercase font-light">
+            Journal & Ensaios
+          </h2>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+        <article class="space-y-4 border-b border-oltremare-graphite pb-12">
+          <span class="text-[10px] tracking-widest uppercase text-oltremare-bronze">Ensaio Olfativo • Março 2026</span>
+          <h3 class="font-serif text-3xl text-oltremare-paper hover:text-oltremare-bronze transition-colors cursor-pointer">
+            A Geometria do Silêncio nas Ilhas Eólias
+          </h3>
+          <p class="text-xs text-oltremare-paper/60 font-light leading-relaxed">
+            Uma expedição de três semanas em busca do aroma mineral exalado pelas rochas vulcânicas resfriadas pelas ondas do mar Tirreno ao amanhecer.
+          </p>
+          <a href="#" class="inline-block text-xs text-oltremare-bronze tracking-widest uppercase pt-2">Ler Ensaio Completo →</a>
+        </article>
+
+        <article class="space-y-4 border-b border-oltremare-graphite pb-12">
+          <span class="text-[10px] tracking-widest uppercase text-oltremare-bronze">História da Maison • Fevereiro 2026</span>
+          <h3 class="font-serif text-3xl text-oltremare-paper hover:text-oltremare-bronze transition-colors cursor-pointer">
+            O Manuscrito de 1928 do Conde di Ravello
+          </h3>
+          <p class="text-xs text-oltremare-paper/60 font-light leading-relaxed">
+            Como os primeiros cadernos de fórmulas olfativas e amostras de linho foram descobertos no arquivo da família e restaurados para o Archive 2026.
+          </p>
+          <a href="#" class="inline-block text-xs text-oltremare-bronze tracking-widest uppercase pt-2">Ler Ensaio Completo →</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- APPOINTMENT / CONTACT SECTION (NON-COMMERCIAL) -->
+  <section id="contact" class="py-32 px-6 lg:px-16 bg-oltremare-black border-t border-oltremare-graphite">
+    <div class="max-w-4xl mx-auto text-center space-y-10">
+      <span class="text-xs tracking-widest-2xl text-oltremare-bronze uppercase">
+        Visitação e Consultoria Privada
+      </span>
+
+      <h2 class="font-serif text-4xl md:text-6xl font-light">
+        Solicitar Acesso ao Salão Privado
+      </h2>
+
+      <p class="text-xs text-oltremare-paper/60 font-light leading-relaxed max-w-xl mx-auto">
+        A Maison Oltremare recebe historiadores, colecionadores e entusiastas em seus salões de Florença e Ravello para sessões privadas de apreciação do acervo.
+      </p>
+
+      <form onsubmit="event.preventDefault(); alert('Solicitação registrada no arquivo da Maison Oltremare. Entraremos em contato via correio privado.');" class="space-y-6 pt-8 text-left max-w-lg mx-auto">
+        <div>
+          <label class="block text-[10px] uppercase tracking-widest text-oltremare-bronze mb-2">Nome Completo</label>
+          <input type="text" required placeholder="Ex: Lorde / Dra. Elena Rossi" class="w-full bg-oltremare-dark border border-oltremare-graphite p-4 text-xs text-oltremare-paper focus:outline-none focus:border-oltremare-bronze transition-colors" />
+        </div>
+        <div>
+          <label class="block text-[10px] uppercase tracking-widest text-oltremare-bronze mb-2">Correio Eletrônico</label>
+          <input type="email" required placeholder="exemplo@oltremare-archive.it" class="w-full bg-oltremare-dark border border-oltremare-graphite p-4 text-xs text-oltremare-paper focus:outline-none focus:border-oltremare-bronze transition-colors" />
+        </div>
+        <div>
+          <label class="block text-[10px] uppercase tracking-widest text-oltremare-bronze mb-2">Salão de Preferência</label>
+          <select class="w-full bg-oltremare-dark border border-oltremare-graphite p-4 text-xs text-oltremare-paper focus:outline-none focus:border-oltremare-bronze transition-colors">
+            <option>Salone Firenze — Via de' Tornabuoni</option>
+            <option>Villa Ravello — Costiera Amalfitana</option>
+          </select>
+        </div>
+        <button type="submit" class="w-full py-4 border border-oltremare-bronze text-xs tracking-widest uppercase text-oltremare-black bg-oltremare-bronze hover:bg-oltremare-paper hover:text-oltremare-black transition-colors font-medium">
+          Enviar Solicitação de Agendamento
+        </button>
+      </form>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="bg-oltremare-black border-t border-oltremare-graphite py-16 px-6 lg:px-16 text-xs text-oltremare-paper/50">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
+      <div class="space-y-2 text-center md:text-left">
+        <span class="font-serif text-2xl text-oltremare-paper tracking-wider block">MAISON OLTREMARE</span>
+        <p class="text-[10px] text-oltremare-paper/40 tracking-widest uppercase">Archivio Storico d'Italia • Firenze & Ravello</p>
+      </div>
+
+      <div class="flex flex-wrap justify-center gap-8 tracking-widest uppercase text-[11px]">
+        <a href="#archive" class="hover:text-oltremare-bronze transition-colors">Archive</a>
+        <a href="#collections" class="hover:text-oltremare-bronze transition-colors">Collections</a>
+        <a href="#perfumes" class="hover:text-oltremare-bronze transition-colors">Editorial</a>
+        <a href="#" class="hover:text-oltremare-bronze transition-colors">Instagram</a>
+        <a href="#journal" class="hover:text-oltremare-bronze transition-colors">Journal</a>
+        <a href="#contact" class="hover:text-oltremare-bronze transition-colors">Contact</a>
+      </div>
+
+      <div class="text-[10px] text-oltremare-paper/40 tracking-wider">
+        © 2026 Maison Oltremare. Todos os direitos de acervo reservados.
+      </div>
+    </div>
+  </footer>
+
+  <!-- EXHIBITION / PERFUME MODAL CATALOG -->
+  <div id="perfume-modal" class="fixed inset-0 z-50 bg-oltremare-black/95 backdrop-blur-xl flex justify-center items-center p-4 md:p-12 hidden overflow-y-auto">
+    <div class="relative bg-oltremare-dark border border-oltremare-bronze/30 max-w-5xl w-full max-h-[90vh] overflow-y-auto p-8 md:p-16 text-oltremare-paper shadow-2xl">
+      <!-- Close Button -->
+      <button onclick="closePerfumeModal()" class="absolute top-6 right-6 text-xs uppercase tracking-widest text-oltremare-bronze hover:text-oltremare-paper border border-oltremare-bronze/30 px-4 py-2">
+        ✕ [ Fechar Exposição ]
+      </button>
+
+      <div id="modal-content" class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <!-- Dynamic content injected via JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ARCHIVE DETAIL MODAL -->
+  <div id="archive-modal" class="fixed inset-0 z-50 bg-oltremare-black/95 backdrop-blur-xl flex justify-center items-center p-4 md:p-12 hidden overflow-y-auto">
+    <div class="relative bg-oltremare-dark border border-oltremare-bronze/30 max-w-4xl w-full p-8 md:p-12 text-oltremare-paper">
+      <button onclick="closeArchiveModal()" class="absolute top-6 right-6 text-xs uppercase tracking-widest text-oltremare-bronze border border-oltremare-bronze/30 px-4 py-2">
+        ✕ [ Fechar ]
+      </button>
+      <div id="archive-modal-content" class="space-y-6">
+        <!-- Dynamic archive data -->
+      </div>
+    </div>
+  </div>
+
+  <!-- JAVASCRIPT LOGIC -->
+  <script>
+    // Register GSAP ScrollTrigger
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Initial GSAP Animations
+    document.addEventListener("DOMContentLoaded", () => {
+      gsap.from("#manifesto h2", {
+        scrollTrigger: {
+          trigger: "#manifesto",
+          start: "top 80%"
+        },
+        opacity: 0,
+        y: 40,
+        duration: 1.2,
+        ease: "power3.out"
+      });
+
+      gsap.from(".archive-item", {
+        scrollTrigger: {
+          trigger: "#archive",
+          start: "top 75%"
+        },
+        opacity: 0,
+        y: 30,
+        stagger: 0.2,
+        duration: 1,
+        ease: "power2.out"
+      });
+
+      gsap.from(".perfume-card", {
+        scrollTrigger: {
+          trigger: "#perfumes",
+          start: "top 70%"
+        },
+        opacity: 0,
+        y: 40,
+        stagger: 0.2,
+        duration: 1.2,
+        ease: "power3.out"
+      });
+    });
+
+    // Mobile Menu Toggle
+    const menuBtn = document.getElementById('menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    menuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+    document.querySelectorAll('.mobile-link').forEach(link => {
+      link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+    });
+
+    // Perfume Database
+    const perfumesData = {
+      1: {
+        title: "01. Noto al Tramonto",
+        family: "Amadeirado Mineral & Âmbar Terroso",
+        year: "2026",
+        quote: "A terracota aquecida pelo último raio de sol siciliano.",
+        story: "Inspirado no final de tarde nas ruínas barrocas de Noto. Quando a luz dourada incide sobre as pedras calcárias, libera-se um aroma mineral aquecido combinado com figueiras selvagens e brisas sutis do Mediterrâneo.",
+        notesTop: "Bergamota Silvestre, Figo Amargo, Pimenta Negra",
+        notesHeart: "Terracota Quente, Flor de Laranjeira, Flor de Cacto",
+        notesBase: "Incenso Marinho, Âmbar Dourado, Madeira de Cedro Siciliano",
+        image: "https://images.unsplash.com/photo-1615397349754-cfa2066a298e?auto=format&fit=crop&w=1200&q=80",
+        inspiration: "Vale dos Templos e arquitetura barroca de Noto, Sicília."
+      },
+      2: {
+        title: "02. Costiera di Notte",
+        family: "Marinho Oceânico Sombrio & Botânico",
+        year: "2026",
+        quote: "O vento marinho trazendo o mistério dos penhascos da Amalfi noturna.",
+        story: "Uma jornada noturna pelas estradas sinuosas entre Positano e Ravello. As águas frias do Tirreno colidem contra as rochas marinhas enquanto as árvores de cipreste e limoeiros balançam sob a escuridão.",
+        notesTop: "Limão de Amalfi Prensado a Frio, Sal Marinho Bruto",
+        notesHeart: "Cipreste Negro, Agulhas de Pinheiro, Menta Selvagem",
+        notesBase: "Âmbar Cinzento, Madeira à Deriva, Musgo Marinho",
+        image: "https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?auto=format&fit=crop&w=1200&q=80",
+        inspiration: "Estradas costeiras noturnas da Costa Amalfitana."
+      },
+      3: {
+        title: "03. Seta & Vulcano",
+        family: "Especiado Vulcânico & Couro Nobre",
+        year: "2026",
+        quote: "O contraste do toque da seda pura com as cinzas quentes de Pantelleria.",
+        story: "Formulado para celebrar o encontro entre a delicadeza dos mantos de seda e a força mineral das terras vulcânicas de Pantelleria. Uma fragrância densa, aquecida e magnética.",
+        notesTop: "Azeitona Queimada, Pimenta Rosa, Noz-Moscada",
+        notesHeart: "Vetiver de Java, Resina de Bordo, Couro Envelhecido",
+        notesBase: "Sândalo Cativado, Cinzas Vulcânicas, Fava Tonka",
+        image: "https://images.unsplash.com/photo-1547887537-6158d64c35b3?auto=format&fit=crop&w=1200&q=80",
+        inspiration: "Pedras de obsidiana e vinhedos de Pantelleria."
+      },
+      4: {
+        title: "04. Giardino Segreto",
+        family: "Floral Couro & Névoa Botânica",
+        year: "2026",
+        quote: "Pátios florentinos escondidos sob a névoa matinal.",
+        story: "A sensação de adentrar um jardim privado do século XVIII em Florença, onde estátuas de mármore cobertas de musgo compartilham espaço com íris raras e portões de ferro forjado envelhecido.",
+        notesTop: "Neroli de Florença, Botões de Groselha Negra",
+        notesHeart: "Iris Pallida, Jasmin da Noite, Cera de Abelha",
+        notesBase: "Musgo de Carvalho, Couro Florentino, Labdanum",
+        image: "https://images.unsplash.com/photo-1523293182086-7651a899d37f?auto=format&fit=crop&w=1200&q=80",
+        inspiration: "Jardins históricos da Accademia e Giardino Torrigiani."
+      }
+    };
+
+    function openPerfumeModal(id) {
+      const p = perfumesData[id];
+      if (!p) return;
+
+      const modalContent = document.getElementById('modal-content');
+      modalContent.innerHTML = `
+        <div class="lg:col-span-5 relative aspect-[4/5] overflow-hidden border border-oltremare-graphite">
+          <img src="${p.image}" alt="${p.title}" class="w-full h-full object-cover filter grayscale contrast-125" />
+          <div class="absolute bottom-4 left-4 bg-oltremare-black/80 px-3 py-1 border border-oltremare-bronze/30 text-[10px] uppercase tracking-widest text-oltremare-bronze">
+            Arquivo Reg. ${p.year}
+          </div>
+        </div>
+
+        <div class="lg:col-span-7 space-y-6">
+          <div class="border-b border-oltremare-graphite pb-4">
+            <span class="text-[10px] tracking-widest uppercase text-oltremare-bronze block mb-1">Catálogo de Exposição Olfativa</span>
+            <h2 class="font-serif text-3xl md:text-5xl text-oltremare-paper">${p.title}</h2>
+            <p class="font-serif italic text-lg text-oltremare-bronze mt-2">"${p.quote}"</p>
+          </div>
+
+          <p class="text-xs text-oltremare-paper/80 font-light leading-relaxed">
+            ${p.story}
+          </p>
+
+          <!-- Progressive Reveal Notes Section -->
+          <div class="space-y-4 pt-4 border-t border-oltremare-graphite">
+            <h4 class="text-xs uppercase tracking-widest text-oltremare-bronze">Estrutura Olfativa Revelada</h4>
             
-            // Custom Easing que simula rigorosamente o estilo Apple / Gucci
-            const appleEase = "power4.out"; // Equivale a cubic-bezier(0.16, 1, 0.3, 1)
+            <div class="p-4 bg-oltremare-black border-l-2 border-oltremare-bronze">
+              <span class="text-[10px] uppercase tracking-widest text-oltremare-paper/40 block">Notas de Topo (Abertura)</span>
+              <p class="text-xs text-oltremare-paper font-light mt-1">${p.notesTop}</p>
+            </div>
 
-            /* ----------------------------------------------------------------------
-               1. ANIMAÇÕES DE ENTRADA HERO (LOAD INITIAL)
-               ---------------------------------------------------------------------- */
-            const heroTl = gsap.timeline({ defaults: { ease: appleEase, duration: 1.8 } });
+            <div class="p-4 bg-oltremare-black border-l-2 border-oltremare-paper/40">
+              <span class="text-[10px] uppercase tracking-widest text-oltremare-paper/40 block">Notas de Coração (Corpo)</span>
+              <p class="text-xs text-oltremare-paper font-light mt-1">${p.notesHeart}</p>
+            </div>
 
-            heroTl.fromTo(".text-reveal-init", 
-                { y: "115%", opacity: 0 },
-                { y: "0%", opacity: 1, stagger: 0.12, delay: 0.2 }
-            );
+            <div class="p-4 bg-oltremare-black border-l-2 border-oltremare-bronze-dark">
+              <span class="text-[10px] uppercase tracking-widest text-oltremare-paper/40 block">Notas de Fundo (Fixação Memória)</span>
+              <p class="text-xs text-oltremare-paper font-light mt-1">${p.notesBase}</p>
+            </div>
+          </div>
 
-            /* ----------------------------------------------------------------------
-               2. TEXT REVEAL BOUND TO SCROLL (MÁSCARAS DE TEXTO)
-               ---------------------------------------------------------------------- */
-            const textReveals = gsap.utils.toArray(".js-text-reveal");
-            
-            textReveals.forEach((text) => {
-                gsap.fromTo(text, 
-                    { 
-                        y: "110%", 
-                        opacity: 0 
-                    },
-                    { 
-                        y: "0%", 
-                        opacity: 1, 
-                        duration: 1.6, 
-                        ease: appleEase,
-                        scrollTrigger: {
-                            trigger: text.parentElement,
-                            start: "top 88%",
-                            toggleActions: "play none none reverse"
-                        }
-                    }
-                );
-            });
+          <div class="pt-4 flex justify-between items-center text-[10px] text-oltremare-paper/40 border-t border-oltremare-graphite">
+            <span>Inspiração: ${p.inspiration}</span>
+            <span>Edição de Acervo Não Comercial</span>
+          </div>
+        </div>
+      `;
 
-            /* ----------------------------------------------------------------------
-               3. EFEITO CORTINA EM IMAGENS & SCALE ON SCROLL (APPLE PRODUCT EFFECT)
-               ---------------------------------------------------------------------- */
-            const curtainBoxes = gsap.utils.toArray(".curtain-box");
+      document.getElementById('perfume-modal').classList.remove('hidden');
+    }
 
-            curtainBoxes.forEach((box) => {
-                const img = box.querySelector("img");
+    function closePerfumeModal() {
+      document.getElementById('perfume-modal').classList.add('hidden');
+    }
 
-                // A. Efeito Cortina (Image Reveal por Clip-Path)
-                gsap.to(box, {
-                    clipPath: "inset(0% 0% 0% 0%)",
-                    duration: 1.8,
-                    ease: "power4.inOut",
-                    scrollTrigger: {
-                        trigger: box,
-                        start: "top 82%",
-                        toggleActions: "play none none reverse"
-                    }
-                });
+    // Archive Modal Detail Logic
+    function openArchiveDetail(year) {
+      const archiveModal = document.getElementById('archive-modal');
+      const content = document.getElementById('archive-modal-content');
 
-                // B. Scale on Scroll + Parallax Interno Sutil (scrub: true)
-                gsap.fromTo(img, 
-                    { 
-                        scale: 1.0,
-                        yPercent: -6 
-                    },
-                    { 
-                        scale: 1.06, 
-                        yPercent: 6,
-                        ease: "none",
-                        scrollTrigger: {
-                            trigger: box,
-                            start: "top bottom",
-                            end: "bottom top",
-                            scrub: 1.2
-                        }
-                    }
-                );
-            });
+      content.innerHTML = `
+        <span class="text-xs uppercase tracking-widest text-oltremare-bronze block">Documento de Arquivo — Ano ${year}</span>
+        <h2 class="font-serif text-4xl text-oltremare-paper">Capítulo ${year}: Registros Preservados</h2>
+        <p class="text-xs text-oltremare-paper/70 leading-relaxed font-light">
+          Este capítulo reúne formulários olfativos, croquis de travelwear e moldes de bronze produzidos durante o ano de ${year}. Todas as peças estão guardadas no acervo central de Ravello e disponíveis para apreciação em salões privados.
+        </p>
+        <div class="p-6 bg-oltremare-black border border-oltremare-graphite space-y-2 text-xs">
+          <div class="flex justify-between border-b border-oltremare-graphite/50 pb-2">
+            <span class="text-oltremare-paper/50">Status de Catalogação:</span>
+            <span class="text-oltremare-bronze">Selado & Preservado</span>
+          </div>
+          <div class="flex justify-between border-b border-oltremare-graphite/50 pb-2">
+            <span class="text-oltremare-paper/50">Local de Armazenamento:</span>
+            <span class="text-oltremare-paper">Villa Ravello — Cofre Olfativo N° 04</span>
+          </div>
+        </div>
+      `;
 
-            /* ----------------------------------------------------------------------
-               4. SUAVIZAÇÃO DA BARRA DE NAVEGAÇÃO AO ROLAR
-               ---------------------------------------------------------------------- */
-            ScrollTrigger.create({
-                start: "top -50",
-                end: 99999,
-                toggleClass: {
-                    className: "nav-scrolled",
-                    targets: ".nav-header"
-                }
-            });
-        });
-    </script>
+      archiveModal.classList.remove('hidden');
+    }
+
+    function closeArchiveModal() {
+      document.getElementById('archive-modal').classList.add('hidden');
+    }
+  </script>
 </body>
 </html>
